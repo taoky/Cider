@@ -672,9 +672,12 @@ export class BrowserWindow {
     remote.set("view engine", "ejs");
     getPort({ port: 6942 }).then((port: number) => {
       this.remotePort = port;
-      // Start Remote Discovery
-      this.broadcastRemote();
-      remote.listen(this.remotePort, () => {
+      const webHost = process.env["CIDER_REMOTE_WEB_HOST"] || "localhost";
+      if (webHost !== "localhost") {
+        // Start Remote Discovery
+        this.broadcastRemote();
+      }
+      remote.listen(this.remotePort, webHost, () => {
         console.log(`Cider remote port: ${this.remotePort}`);
         firstRequest = false;
       });

@@ -71,7 +71,9 @@ export class wsapi {
     electron.ipcMain.on("wsapi-change-library", (_event: any, kind: string, id: string, shouldAdd: boolean) => {
       this.returnLibraryChange(kind, id, shouldAdd);
     });
+    // force listen to localhost to enhance security
     this.wss = new WebSocketServer({
+      host: "localhost",
       port: this.port,
       perMessageDeflate: {
         zlibDeflateOptions: {
