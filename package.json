@@ -26,7 +26,8 @@
     "mstest": "npm run build && electron-builder -c msft-test.json",
     "steamdeck": "npm run build && electron-builder --linux -c steam-deck.json",
     "format:check": "npx prettier --check \"src/**/*.{js,json,ts,less}\"",
-    "format:write": "npx prettier --write \"src/**/*.{js,json,ts,less}\""
+    "format:write": "npx prettier --write \"src/**/*.{js,json,ts,less}\"",
+    "flatpak-install": "flatpak-builder --user --install .flatpak flatpak/sh.cider.Cider.yml"
   },
   "dependencies": {
     "@achingbrain/ssdp": "^4.0.4",

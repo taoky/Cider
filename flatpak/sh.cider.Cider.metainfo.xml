@@ -16,7 +16,7 @@
   
   <description>
     <p>
-      Project Cider. A new look into listening and enjoying Apple Music in style and performance with Features such as Discord and Last.fm integration, spatial audio support, equalizers, and remote controllable using companion app
+      Cider. A new look into listening and enjoying Apple Music in style and performance with Features such as Discord and Last.fm integration, spatial audio support, equalizers, and remote control using the companion app.
     </p>
   </description>
   
@@ -24,15 +24,13 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://github.com/ciderapp/cider.sh/blob/main/assets/img/frontpage-scn.png?raw=true</image>
+      <image>https://raw.githubusercontent.com/ciderapp/cider.sh/main/assets/img/frontpage-scn.png</image>
     </screenshot>
   </screenshots>
 
   <releases>
-    <release version="v1.3.0.1555" date="2022-03-24"/>
-    <release version="v1.3.0.1548" date="2022-03-24"/>
-    <release version="v1.3.0.1541" date="2022-03-23"/>
-    <release version="v1.3.0.1540" date="2022-03-23"/>
-    <release version="v1.3.0.1531" date="2022-03-22"/>
+    <release version="v1.6.2" date="2023-07-02"/>
+    <release version="v1.6.1" date="2023-05-15"/>
+    <release version="v1.5.9" date="2022-10-27"/>
   </releases>
 </component>

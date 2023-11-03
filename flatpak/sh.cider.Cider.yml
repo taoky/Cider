@@ -1,29 +1,32 @@
 app-id: sh.cider.Cider
 runtime: org.freedesktop.Platform
-runtime-version: '21.08'
+runtime-version: '22.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '21.08'
+base-version: '22.08'
 command: cider-wrapper
 rename-desktop-file: cider.desktop
 rename-icon: cider
+build-options:
+  strip: false
+  no-debuginfo: true
 finish-args:
   - --device=dri
-  - --filesystem=xdg-music
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
   - --own-name=org.mpris.MediaPlayer2.cider
   - --share=ipc
   - --share=network
   - --socket=pulseaudio
-  # needs electron v11 (chromium v87) or newer with ozone enabled
-  # https://github.com/electron/electron/issues/10915
-  #- --socket=wayland
   - --socket=x11
+  #- --socket=wayland
+  #- --socket=fallback-x11
   - --system-talk-name=org.freedesktop.UPower
   - --talk-name=com.canonical.AppMenu.Registrar
   - --talk-name=com.canonical.dbusmenu
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
+cleanup:
+  - /share/icons/hicolor/1024x1024
 modules:
   - name: cider
     buildsystem: simple
@@ -50,13 +53,13 @@ modules:
     sources:
       - type: file
         dest-filename: cider.deb
-        url: https://github.com/ciderapp/cider-releases/releases/download/v1.3.0.1555/cider_1.3.0-alpha.1555_amd64.deb
-        sha256: 8a582ca2758d556cc2d5fad73e05ed3e2f27076e13bf377d1d83d9494aaef9c2
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/ciderapp/cider-releases/releases/latest
-          version-query: .tag_name
-          url-query: .assets[] | select(.name | match("(amd64.deb)")) | .browser_download_url
+        path: ../dist/cider_1.6.2_amd64.deb
+        # sha256: a637119a14fb085215bdf9775bc26c916c931ad1755d0fdc50f6b1d6fbe48ad6
+        # x-checker-data:
+        #   type: json
+        #   url: https://api.github.com/repos/ciderapp/Cider/releases/latest
+        #   version-query: .tag_name
+        #   url-query: .assets[] | select(.name | match("(amd64.deb)")) | .browser_download_url
       - type: script
         dest-filename: cider
         commands:
