@@ -657,7 +657,8 @@ export class BrowserWindow {
     console.log(`[Connect] Auth URL: ${utils.getStoreValue("cc_authURL")}`);
     //endregion
 
-    app.listen(this.clientPort, () => {
+    // force listen to localhost to enhance security
+    app.listen(this.clientPort, "localhost", () => {
       console.log(`Cider client port: ${this.clientPort}`);
     });
 
