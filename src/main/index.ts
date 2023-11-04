@@ -6,23 +6,27 @@ import { Store } from "./base/store";
 import { AppEvents } from "./base/app";
 import { Plugins } from "./base/plugins";
 import { BrowserWindow } from "./base/browserwindow";
-import { init as Sentry } from "@sentry/electron";
-import { RewriteFrames } from "@sentry/integrations";
+// import { init as Sentry } from "@sentry/electron";
+// import { RewriteFrames } from "@sentry/integrations";
+import { crashReporter } from "electron";
 import { utils } from "./base/utils";
 
 if (!app.isPackaged) {
   app.setPath("userData", join(app.getPath("appData"), "Cider"));
 }
 
+console.log(app.getPath("crashDumps"));
+crashReporter.start({ submitURL: '', uploadToServer: false });
+
 // Analytics for debugging fun yeah.
-Sentry({
-  dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214",
-  integrations: [
-    new RewriteFrames({
-      root: process.cwd(),
-    }),
-  ],
-});
+// Sentry({
+//   dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214",
+//   integrations: [
+//     new RewriteFrames({
+//       root: process.cwd(),
+//     }),
+//   ],
+// });
 
 new Store();
 const Cider = new AppEvents();
