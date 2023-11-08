@@ -25,7 +25,8 @@ export default class playbackNotifications {
    */
   createNotification(a: any): void {
     if (this._notification) {
-      this._notification.close();
+      // Not closing notification, to workaround libnotify + electron bug inside portal
+      // this._notification.close();
     }
 
     this._notification = new Notification({
