@@ -110,9 +110,9 @@
     }
   ],
   "build": {
-    "electronVersion": "25.0.0",
+    "electronVersion": "28.2.10",
     "electronDownload": {
-      "version": "25.0.0+wvcus",
+      "version": "28.2.10+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",
