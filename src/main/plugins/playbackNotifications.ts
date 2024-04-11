@@ -71,6 +71,11 @@ export default class playbackNotifications {
     });
 
     this._notification.show();
+
+    setTimeout(() => {
+      if (this._notification)
+        this._notification.close();
+    }, 5000);
   }
 
   /*******************************************************************************************
