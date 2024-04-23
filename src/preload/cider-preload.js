@@ -32,12 +32,21 @@ const MusicKitInterop = {
 
     /* MusicKit.Events.playbackTimeDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.playbackTimeDidChange, () => {
-      ipcRenderer.send("mpris:playbackTimeDidChange", MusicKit.getInstance()?.currentPlaybackTime * 1000 * 1000 ?? 0);
+      // ipcRenderer.send("mpris:playbackTimeDidChange", MusicKit.getInstance()?.currentPlaybackTime * 1000 * 1000 ?? 0);
       const attributes = MusicKitInterop.getAttributes();
       if (!attributes) return;
       ipcRenderer.send("playbackTimeDidChange", attributes);
       MusicKitInterop.updatePositionState(attributes);
     });
+
+    // Run it every 50ms (20 Hz)
+    let previousPlaybackTime = 0;
+    setInterval(() => {
+      const currentPlaybackTime = MusicKit.getInstance()?.currentPlaybackTime * 1000 * 1000 ?? 0;
+      if (currentPlaybackTime === previousPlaybackTime) return;
+      previousPlaybackTime = currentPlaybackTime;
+      ipcRenderer.send("mpris:playbackTimeDidChange", currentPlaybackTime);
+    }, 50);
 
     /* MusicKit.Events.nowPlayingItemDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
