@@ -58,9 +58,9 @@ export class Store {
           "CommandOrControl", // Who the hell uses a different key for this? Fucking Option?
           ",",
         ],
-        zoomn: ["Control", "numadd"],
-        zoomt: ["Control", "numsub"],
-        zoomrst: ["Control", "num0"],
+        zoomn: ["Control", "Shift", "="],
+        zoomt: ["Control", "-"],
+        zoomrst: ["Control", "0"],
         openDeveloperTools: ["CommandOrControl", "Shift", "I"],
       },
       showLovedTracksInline: true,

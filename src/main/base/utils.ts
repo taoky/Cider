@@ -273,6 +273,14 @@ export class utils {
         "term.unmute": "Unmute",
         "term.autoplay": "Autoplay",
         "action.cast.scanning": "Scanning",
+        "action.cut": "Cut",
+        "action.copy": "Copy",
+        "action.paste": "Paste",
+        "action.delete": "Delete",
+        "action.selectAll": "Select All",
+        "term.reset": "Reset",
+        "settings.option.general.keybindings.interface": "Interface",
+        "term.time.updated": "Time updated",
       }
     };
   }
