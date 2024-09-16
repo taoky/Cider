@@ -1,6 +1,6 @@
 import { AutoClient } from "discord-auto-rpc";
 import { ipcMain } from "electron";
-import fetch from "electron-fetch";
+// import fetch from "electron-fetch";
 
 export default class DiscordRPC {
   /**
@@ -60,18 +60,18 @@ export default class DiscordRPC {
     ipcMain.on("discordrpc:updateImage", async (_event, artworkUrl) => {
       if (this._utils.getStoreValue("general.privateEnabled")) return;
 
-      fetch("https://api.cider.sh/v1/images", {
-        method: "POST",
-        headers: {
-          "User-Agent": this._utils.getWindow().webContents.getUserAgent(),
-          url: artworkUrl,
-        },
-      })
-        .then((res) => res.json())
-        .then(function (json) {
-          self._activityCache.largeImageKey = "https://images.weserv.nl/?url=" + json.imageUrl + "&w=1024&h=1024&output=jpg";
-          self._client.setActivity(self._activityCache);
-        });
+      // fetch("https://api.cider.sh/v1/images", {
+      //   method: "POST",
+      //   headers: {
+      //     "User-Agent": this._utils.getWindow().webContents.getUserAgent(),
+      //     url: artworkUrl,
+      //   },
+      // })
+      //   .then((res) => res.json())
+      //   .then(function (json) {
+      //     self._activityCache.largeImageKey = "https://images.weserv.nl/?url=" + json.imageUrl + "&w=1024&h=1024&output=jpg";
+      //     self._client.setActivity(self._activityCache);
+      //   });
     });
     ipcMain.on("discordrpc:reload", (_event, configUpdate = null) => {
       console.log(`[DiscordRPC][reload] Reloading DiscordRPC.`);

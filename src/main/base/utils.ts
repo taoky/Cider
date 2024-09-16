@@ -261,6 +261,10 @@ export class utils {
         "term.repeat": "Repeat",
         "action.tray.minimize": "Minimize",
         "action.tray.show": "Show",
+        "action.showInAppleMusic": "Show in Apple Music",
+        "action.love": "Love",
+        "action.dislike": "Dislike",
+        "action.removeFavorite": "Remove Favorite",
       }
     };
   }

@@ -1,6 +1,6 @@
 import * as ElectronStore from "electron-store";
 import { app, ipcMain } from "electron";
-import fetch from "electron-fetch";
+// import fetch from "electron-fetch";
 
 export class Store {
   static cfg: ElectronStore;
@@ -278,20 +278,21 @@ export class Store {
         advanced: Store.cfg.get("advanced"),
       });
     }
-    let postBody = {
-      id: Store.cfg.get("connectUser.id"),
-      app: app.getName(),
-      version: app.isPackaged ? app.getVersion() : "dev",
-      syncData: syncData,
-    };
+    // let postBody = {
+    //   id: Store.cfg.get("connectUser.id"),
+    //   app: app.getName(),
+    //   version: app.isPackaged ? app.getVersion() : "dev",
+    //   syncData: syncData,
+    // };
 
-    fetch("https://connect.cidercollective.dev/api/v1/setttings/set", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(postBody),
-    });
+    // No longer available, do nothing.
+    // fetch("https://connect.cidercollective.dev/api/v1/setttings/set", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(postBody),
+    // });
   }
 
   /**
