@@ -5098,11 +5098,11 @@ const app = new Vue({
         return false;
       }
     },
-    async showWebRemoteQR() {
-      //this.webremoteqr = await ipcRenderer.invoke('setRemoteQR','')
-      this.webremoteurl = await ipcRenderer.invoke("showQR", "");
-      //this.modals.qrcode = true;
-    },
+    // async showWebRemoteQR() {
+    //   //this.webremoteqr = await ipcRenderer.invoke('setRemoteQR','')
+    //   this.webremoteurl = await ipcRenderer.invoke("showQR", "");
+    //   //this.modals.qrcode = true;
+    // },
     checkMarquee() {
       if (isElementOverflowing("#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-artist") == true) {
         document.getElementsByClassName("song-artist")[0].classList.add("marquee");

@@ -1330,22 +1330,22 @@ export class BrowserWindow {
       }
     });
 
-    //QR Code
-    ipcMain.handle("showQR", async (_event, _) => {
-      //macOS
-      let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
-      BrowserWindow.win.webContents.send("send-remote-pair-url", `https://cider.sh/remote/pair?url=${Buffer.from(encodeURI(url)).toString("base64")}`.toString());
-    });
+    // //QR Code
+    // ipcMain.handle("showQR", async (_event, _) => {
+    //   //macOS
+    //   let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
+    //   BrowserWindow.win.webContents.send("send-remote-pair-url", `https://cider.sh/remote/pair?url=${Buffer.from(encodeURI(url)).toString("base64")}`.toString());
+    // });
 
-    ipcMain.on("get-remote-pair-url", (_event, _) => {
-      // Linux and Windows
-      let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
-      //if (app.isPackaged) {
-      BrowserWindow.win.webContents.send("send-remote-pair-url", `https://cider.sh/remote/pair?url=${Buffer.from(encodeURI(url)).toString("base64")}`.toString());
-      //} else {
-      //    BrowserWindow.win.webContents.send('send-remote-pair-url', (`http://127.0.0.1:5500/pair-remote.html?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
-      //}
-    });
+    // ipcMain.on("get-remote-pair-url", (_event, _) => {
+    //   // Linux and Windows
+    //   let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
+    //   //if (app.isPackaged) {
+    //   BrowserWindow.win.webContents.send("send-remote-pair-url", `https://cider.sh/remote/pair?url=${Buffer.from(encodeURI(url)).toString("base64")}`.toString());
+    //   //} else {
+    //   //    BrowserWindow.win.webContents.send('send-remote-pair-url', (`http://127.0.0.1:5500/pair-remote.html?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
+    //   //}
+    // });
 
     if (process.platform === "darwin") {
       //macOS

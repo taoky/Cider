@@ -48,12 +48,6 @@
         </button>
         <button
           class="usermenu-item"
-          @click="appRoute('remote-pair')">
-          <span class="usermenu-item-icon"> <%- include("../svg/smartphone.svg") %> </span>
-          <span class="usermenu-item-name">{{ $root.getLz("action.showWebRemoteQR") }}</span>
-        </button>
-        <button
-          class="usermenu-item"
           @click="modals.castMenu = true">
           <span class="usermenu-item-icon"> <%- include("../svg/cast.svg") %> </span>
           <span class="usermenu-item-name">{{ $root.getLz("term.cast") }}</span>
@@ -127,7 +121,7 @@
               style="height: 16px; width: 16px"
               src="./assets/logocut.png" />
           </span>
-          <span class="usermenu-item-name">Cider 2 Upgrade</span>
+          <!-- <span class="usermenu-item-name">Cider 2 Upgrade</span> -->
         </button>
       </div>
     </div>
