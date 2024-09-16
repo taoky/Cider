@@ -267,24 +267,6 @@ export default class Thumbar {
           },
           { type: "separator" },
           {
-            label: utils.getLocale(utils.getStoreValue("general.language"), "menubar.options.report"),
-            submenu: [
-              {
-                label: utils.getLocale(utils.getStoreValue("general.language"), "menubar.options.bug"),
-                click: () => shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=bug%2Ctriage&template=bug_report.yaml&title=%5BBug%5D%3A+").catch(console.error),
-              },
-              {
-                label: utils.getLocale(utils.getStoreValue("general.language"), "menubar.options.feature"),
-                click: () => shell.openExternal("https://github.com/ciderapp/Cider/discussions/new?category=feature-request").catch(console.error),
-              },
-              {
-                label: utils.getLocale(utils.getStoreValue("general.language"), "menubar.options.trans"),
-                click: () => shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=%F0%9F%8C%90+Translations&template=translation.yaml&title=%5BTranslation%5D%3A+").catch(console.error),
-              },
-            ],
-          },
-          { type: "separator" },
-          {
             label: utils.getLocale(utils.getStoreValue("general.language"), "menubar.options.license"),
             click: () => shell.openExternal("https://github.com/ciderapp/Cider/blob/main/LICENSE").catch(console.error),
           },

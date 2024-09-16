@@ -3,12 +3,12 @@ import * as path from "path";
 import { Store } from "./store";
 import { BrowserWindow as bw } from "./browserwindow";
 import { app, BrowserWindow, ipcMain } from "electron";
-import OtaClient from "@crowdin/ota-client";
+// import OtaClient from "@crowdin/ota-client";
 import fetch from "electron-fetch";
 import ElectronStore from "electron-store";
 
 export class utils {
-  static crowdinClient: OtaClient = new OtaClient("fda9a6528649ea90dee35390wog");
+  // static crowdinClient: OtaClient = new OtaClient("fda9a6528649ea90dee35390wog");
   static i18n: any = {};
 
   /**
@@ -106,7 +106,88 @@ export class utils {
   }
 
   static async initializeTranslations() {
-    this.i18n = await this.crowdinClient.getTranslations();
+    this.i18n = {
+      "en": {
+        "term.about": "About",
+        "term.toggleprivate": "Toggle private session",
+        "term.settings": "Settings",
+        "term.quit": "Quit",
+        "menubar.options.view": "View",
+        "menubar.options.window": "Window",
+        "term.search": "Search",
+        "term.listenNow": "Listen Now",
+        "term.browse": "Browse",
+        "term.audio": "Audio",
+        "home.title": "Home",
+        "term.library": "Library",
+        "term.recentlyAdded": "Recently Added",
+        "term.songs": "Songs",
+        "term.albums": "Albums",
+        "term.artists": "Artists",
+        "term.videos": "Videos",
+        "term.podcasts": "Podcasts",
+        "term.appleMusic": "Apple Music",
+        "term.playlists": "Playlists",
+        "home.recentlyPlayed": "Recently Played",
+        "term.history": "History",
+        "term.seeAll": "See All",
+        "home.artistsFeed": "Artists Feed",
+        "home.syncFavorites": "Sync Favorites",
+        "home.artistsFeed.noArtist": "No artist",
+        "term.replay": "Replay",
+        "home.madeForYou": "Made For You",
+        "action.createNew": "Create New",
+        "menubar.options.zoom": "Zoom",
+        "term.zoomin": "Zoom in",
+        "term.zoomout": "Zoom out",
+        "term.zoomreset": "Zoom reset",
+        "term.fullscreen": "Fullscreen",
+        "action.close": "Close",
+        "menubar.options.reload": "Reload",
+        "menubar.options.forcereload": "Force reload",
+        "term.playpause": "Play/Pause",
+        "term.next": "Next",
+        "term.previous": "Previous",
+        "menubar.options.volumeup": "Volume up",
+        "menubar.options.volumedown": "Volume down",
+        "term.cast2": "Cast to",
+        "term.webremote": "Web remote",
+        "term.audioSettings": "Audio settings",
+        "menubar.options.plugins": "Plugins",
+        "term.play": "Play",
+        "term.mute": "Mute",
+        "term.cast": "Cast",
+        "term.queue": "Queue",
+        "term.navigateBack": "Navigate back",
+        "term.navigateForward": "Navigate forward",
+        "action.hideLibrary": "Hide library",
+        "term.language": "Language",
+        "oobe.amupsell.title": "Welcome",
+        "oobe.amupsell.text": "Basic settings",
+        "oobe.intro.title": "Introduction",
+        "oobe.intro.text": "Introduction",
+        "oobe.next": "Next",
+        "oobe.previous": "Previous",
+        "oobe.visual.title": "Visual",
+        "oobe.visual.layout.text": "Choose a layout",
+        "oobe.audio.title": "Audio",
+        "oobe.audio.text": "Audio settings",
+        "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Enable Cider PPE",
+        "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "idk what Cider PPE is",
+        "menubar.options.minimize": "Minimize",
+        "menubar.options.controls": "Controls",
+        "term.accountSettings": "Account settings",
+        "menubar.options.signout": "Sign out",
+        "menubar.options.account": "Account",
+        "oobe.done": "Done",
+        "term.discord": "Discord",
+        "term.github": "GitHub",
+        "menubar.options.license": "License",
+        "menubar.options.toggledevtools": "Toggle dev tools",
+        "menubar.options.conf": "Open config",
+        "menubar.options.support": "Support",
+      }
+    };
   }
 
   /**
@@ -118,13 +199,13 @@ export class utils {
   static getLocale(language: string, key?: string): string | object {
     let i18n: any = {};
     if (!this.i18n[language]) {
-      i18n = this.i18n["en"][0].content;
+      i18n = this.i18n["en"];
     } else {
-      i18n = this.i18n[language ?? "en"][0].content;
+      i18n = this.i18n[language ?? "en"];
     }
 
     if (key) {
-      return i18n[key];
+      return i18n[key] ?? key;
     } else {
       return i18n;
     }

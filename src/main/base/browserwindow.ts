@@ -1058,10 +1058,10 @@ export class BrowserWindow {
       for (const lang in translations) {
         i18nListing.push({
           code: lang,
-          nameNative: translations[lang][0].content["i18n.languageName"] ?? lang,
-          nameEnglish: translations[lang][0].content["i18n.languageNameEnglish"] ?? lang,
-          category: translations[lang][0].content["i18n.category"] ?? "",
-          authors: translations[lang][0].content["i18n.authors"] ?? "",
+          nameNative: translations[lang]["i18n.languageName"] ?? lang,
+          nameEnglish: translations[lang]["i18n.languageNameEnglish"] ?? lang,
+          category: translations[lang]["i18n.category"] ?? "",
+          authors: translations[lang]["i18n.authors"] ?? "",
         });
       }
 
