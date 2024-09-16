@@ -265,6 +265,14 @@ export class utils {
         "action.love": "Love",
         "action.dislike": "Dislike",
         "action.removeFavorite": "Remove Favorite",
+        "notification.buildingPlaylistCache": "Building Playlist Cache",
+        "term.time.hour": "hour",
+        "action.openArtworkInBrowser": "Open artwork in browser",
+        "term.topSongs": "Top Songs",
+        "action.showLibrary": "Show library",
+        "term.unmute": "Unmute",
+        "term.autoplay": "Autoplay",
+        "action.cast.scanning": "Scanning",
       }
     };
   }
