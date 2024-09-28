@@ -280,7 +280,7 @@ export class AppEvents {
     this.tray.setToolTip(app.getName());
     this.setTray(false);
 
-    this.tray.on("double-click", () => {
+    const clickFunc = () => {
       if (utils.getWindow()) {
         if (utils.getWindow().isVisible()) {
           utils.getWindow().focus();
@@ -288,7 +288,13 @@ export class AppEvents {
           utils.getWindow().show();
         }
       }
-    });
+    };
+
+    this.tray.on("double-click", clickFunc);
+
+    if (process.platform === "linux") {
+      this.tray.on("click", clickFunc);
+    }
 
     utils.getWindow().on("show", () => {
       this.setTray(true);
