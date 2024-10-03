@@ -285,6 +285,8 @@ export class utils {
         "term.reset": "Reset",
         "settings.option.general.keybindings.interface": "Interface",
         "term.time.updated": "Time updated",
+        "action.favorite": "Favorite",
+        "term.latestReleases": "Latest Releases",
       }
     };
   }
