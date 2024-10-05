@@ -287,6 +287,8 @@ export class utils {
         "term.time.updated": "Time updated",
         "action.favorite": "Favorite",
         "term.latestReleases": "Latest Releases",
+        "term.discNumber": "Disc ${discNumber}",
+        "term.share.success": "Successfully shared",
       }
     };
   }
