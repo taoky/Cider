@@ -2,7 +2,7 @@
 
 with pkgs; mkShell {
     buildInputs = [
-        nodejs-18_x
+        nodejs_20
         python311
         nodePackages.pnpm
     ];

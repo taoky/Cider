@@ -17,9 +17,9 @@ finish-args:
   - --share=ipc
   - --share=network
   - --socket=pulseaudio
-  - --socket=x11
-  #- --socket=wayland
-  #- --socket=fallback-x11
+  # - --socket=x11
+  - --socket=wayland
+  - --socket=fallback-x11
   - --allow=devel  # allow ptrace() to get backtraces
   - --system-talk-name=org.freedesktop.UPower
   - --talk-name=com.canonical.AppMenu.Registrar
