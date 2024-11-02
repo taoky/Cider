@@ -7,6 +7,9 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import fetch from "electron-fetch";
 import ElectronStore from "electron-store";
 
+// DO NOT convert following code to import format!
+const translations = require("./translations.json");
+
 export class utils {
   // static crowdinClient: OtaClient = new OtaClient("fda9a6528649ea90dee35390wog");
   static i18n: any = {};
@@ -106,191 +109,7 @@ export class utils {
   }
 
   static async initializeTranslations() {
-    this.i18n = {
-      "en": {
-        "term.about": "About",
-        "term.toggleprivate": "Toggle private session",
-        "term.settings": "Settings",
-        "term.quit": "Quit",
-        "menubar.options.view": "View",
-        "menubar.options.window": "Window",
-        "term.search": "Search",
-        "term.listenNow": "Listen Now",
-        "term.browse": "Browse",
-        "term.audio": "Audio",
-        "term.radio": "Radio",
-        "home.followedArtists": "Followed Artists",
-        "home.title": "Home",
-        "term.library": "Library",
-        "term.recentlyAdded": "Recently Added",
-        "term.songs": "Songs",
-        "term.albums": "Albums",
-        "term.artists": "Artists",
-        "term.videos": "Videos",
-        "term.podcasts": "Podcasts",
-        "term.appleMusic": "Apple Music",
-        "term.playlists": "Playlists",
-        "home.recentlyPlayed": "Recently Played",
-        "term.history": "History",
-        "term.seeAll": "See All",
-        "home.artistsFeed": "Artists Feed",
-        "home.syncFavorites": "Sync Favorites",
-        "home.artistsFeed.noArtist": "No artist",
-        "term.replay": "Replay",
-        "home.madeForYou": "Made For You",
-        "action.createNew": "Create New",
-        "menubar.options.zoom": "Zoom",
-        "term.zoomin": "Zoom in",
-        "term.zoomout": "Zoom out",
-        "term.zoomreset": "Zoom reset",
-        "term.fullscreen": "Fullscreen",
-        "action.close": "Close",
-        "menubar.options.reload": "Reload",
-        "menubar.options.forcereload": "Force reload",
-        "term.playpause": "Play/Pause",
-        "term.next": "Next",
-        "term.previous": "Previous",
-        "menubar.options.volumeup": "Volume up",
-        "menubar.options.volumedown": "Volume down",
-        "term.cast2": "Cast to",
-        "term.webremote": "Web remote",
-        "term.audioSettings": "Audio settings",
-        "menubar.options.plugins": "Plugins",
-        "term.play": "Play",
-        "term.mute": "Mute",
-        "term.cast": "Cast",
-        "term.queue": "Queue",
-        "term.navigateBack": "Navigate back",
-        "term.navigateForward": "Navigate forward",
-        "action.hideLibrary": "Hide library",
-        "term.language": "Language",
-        "oobe.amupsell.title": "Welcome",
-        "oobe.amupsell.text": "Basic settings",
-        "oobe.intro.title": "Introduction",
-        "oobe.intro.text": "Introduction",
-        "oobe.next": "Next",
-        "oobe.previous": "Previous",
-        "oobe.visual.title": "Visual",
-        "oobe.visual.layout.text": "Choose a layout",
-        "oobe.audio.title": "Audio",
-        "oobe.audio.text": "Audio settings",
-        "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Enable Cider PPE",
-        "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "idk what Cider PPE is",
-        "menubar.options.minimize": "Minimize",
-        "menubar.options.controls": "Controls",
-        "term.accountSettings": "Account settings",
-        "menubar.options.signout": "Sign out",
-        "menubar.options.account": "Account",
-        "oobe.done": "Done",
-        "term.discord": "Discord",
-        "term.github": "GitHub",
-        "menubar.options.license": "License",
-        "menubar.options.toggledevtools": "Toggle dev tools",
-        "menubar.options.conf": "Open config",
-        "menubar.options.support": "Support",
-        "term.logout": "Logout",
-        "error.noResults": "No Results",
-        "error.noResults.description": "No results anyway",
-        "podcast.subscribedOnItunes": "Subscribed on iTunes",
-        "term.noVideos": "No videos",
-        "notification.updatingLibrarySongs": "Updating Library Songs",
-        "notification.updatingLibraryAlbums": "Updating Library Albums",
-        "notification.updatingLibraryArtists": "Updating Library Artists",
-        "term.sortBy": "Sort by",
-        "term.sortBy.album": "Sort by album",
-        "term.sortBy.artist": "Sort by artist",
-        "term.sortBy.name": "Sort by name",
-        "term.sortBy.genre": "Sort by genre",
-        "term.sortBy.releaseDate": "Sort by release date",
-        "term.sortBy.duration": "Sort by duration",
-        "term.sortBy.dateAdded": "Sort by date added",
-        "term.sortOrder": "Sort order",
-        "term.sortOrder.ascending": "Ascending",
-        "term.sortOrder.descending": "Descending",
-        "term.viewAs": "View as",
-        "term.viewAs.coverArt": "View as Cover art",
-        "term.viewAs.list": "View as List",
-        "term.scroll": "Scroll",
-        "term.scroll.paged": "Scroll Paged",
-        "term.scroll.infinite": "Scroll Infinite",
-        "term.enableShuffle": "Enable shuffle",
-        "term.more": "More",
-        "action.addToLibrary": "Add to library",
-        "action.addToPlaylist": "Add to playlist",
-        "action.startRadio": "Start radio",
-        "action.goToArtist": "Go to artist",
-        "action.goToAlbum": "Go to album",
-        "action.share": "Share",
-        "action.share (song.link)": "Share (song.link)",
-        "term.equalizer": "Equalizer",
-        "settings.option.audio.audioLab": "Audio Lab",
-        "term.shuffle": "Shuffle",
-        "term.size": "Size",
-        "term.size.normal": "Normal size",
-        "term.size.compact": "Compact size",
-        "action.removeFromLibrary": "Remove from library",
-        "term.share": "Share",
-        "term.time.released": "Time released",
-        "term.track": "track",
-        "term.time.minute": "minute",
-        "term.time.minutes": "minutes",
-        "term.confirm": "Confirm",
-        "term.time.added": "Time added",
-        "action.showAlbum": "Show album",
-        "term.tracks": "Tracks",
-        "action.playNext": "Play next",
-        "action.playLater": "Play later",
-        "term.pause": "Pause",
-        "term.version": "Version",
-        "about.thanks": "Thanks",
-        "term.copyright": "Copyright",
-        "term.rightsReserved": "Rights reserved",
-        "term.sponsor": "Sponsor",
-        "term.socials": "Socials",
-        "term.contributors": "Contributors",
-        "term.lyrics": "Lyrics",
-        "term.fullscreenView": "View in full screen",
-        "term.defaultView": "View by default",
-        "term.miniplayer": "Miniplayer",
-        "action.cast.todevices": "Cast to devices",
-        "action.cast.chromecast": "Chromecast",
-        "action.cast.airplay": "Airplay",
-        "action.cast.scan": "Scan",
-        "term.audioControls": "Audio Controls",
-        "settings.option.audio.changePlaybackRate": "Change playback rate",
-        "term.enableRepeatOne": "Enable repeat one",
-        "term.disableRepeatOne": "Disable repeat one",
-        "term.disableRepeat": "Disable repeat",
-        "term.repeat": "Repeat",
-        "action.tray.minimize": "Minimize",
-        "action.tray.show": "Show",
-        "action.showInAppleMusic": "Show in Apple Music",
-        "action.love": "Love",
-        "action.dislike": "Dislike",
-        "action.removeFavorite": "Remove Favorite",
-        "notification.buildingPlaylistCache": "Building Playlist Cache",
-        "term.time.hour": "hour",
-        "term.time.hours": "hours",
-        "action.openArtworkInBrowser": "Open artwork in browser",
-        "term.topSongs": "Top Songs",
-        "action.showLibrary": "Show library",
-        "term.unmute": "Unmute",
-        "term.autoplay": "Autoplay",
-        "action.cast.scanning": "Scanning",
-        "action.cut": "Cut",
-        "action.copy": "Copy",
-        "action.paste": "Paste",
-        "action.delete": "Delete",
-        "action.selectAll": "Select All",
-        "term.reset": "Reset",
-        "settings.option.general.keybindings.interface": "Interface",
-        "term.time.updated": "Time updated",
-        "action.favorite": "Favorite",
-        "term.latestReleases": "Latest Releases",
-        "term.discNumber": "Disc ${discNumber}",
-        "term.share.success": "Successfully shared",
-      }
-    };
+    this.i18n = translations;
   }
 
   /**
@@ -301,16 +120,23 @@ export class utils {
    */
   static getLocale(language: string, key?: string): string | object {
     let i18n: any = {};
-    if (!this.i18n[language]) {
-      i18n = this.i18n["en"];
-    } else {
-      i18n = this.i18n[language ?? "en"];
+    if (language == "en") {
+      language = "en-US";
     }
+    try {
+      if (!this.i18n[language]) {
+        i18n = this.i18n["en-US"][0].content;
+      } else {
+        i18n = this.i18n[language ?? "en-US"][0].content;
+      }
 
-    if (key) {
-      return i18n[key] ?? key;
-    } else {
-      return i18n;
+      if (key) {
+        return i18n[key] ?? key;
+      } else {
+        return i18n;
+      }
+    } catch (error) {
+      return key ?? {};
     }
   }
 
