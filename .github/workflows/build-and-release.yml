@@ -1,0 +1,115 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-pnpm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build x86_64 Software
+        run: pnpm dist -l --x64
+      
+      - name: Upload dist for next stage
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+  build-flatpak-and-release:
+    runs-on: ubuntu-latest
+    needs: build-pnpm
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:freedesktop-24.08
+      options: --privileged
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download dist
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Build Flatpak Package
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: sh.cider.Cider.flatpak
+          manifest-path: flatpak/sh.cider.Cider.yml
+          cache-key: flatpak-builder-${{ github.sha }}
+
+      - name: Set Release Version
+        id: vars
+        run: echo "VERSION=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "v${{ env.VERSION }}"
+          release_name: "Release v${{ env.VERSION }}"
+          draft: false
+          prerelease: true
+
+      - name: Upload .deb files
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/*.deb
+          asset_name: cider_1.6.2_amd64.deb
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: Upload .snap files
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/*.snap
+          asset_name: cider_1.6.2_amd64.snap
+          asset_content_type: application/octet-stream
+
+      - name: Upload .AppImage files
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/*.AppImage
+          asset_name: Cider-1.6.2.AppImage
+          asset_content_type: application/octet-stream
+
+      - name: Upload Flatpak Package
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build-flatpak/*.flatpak
+          asset_name: sh.cider.Cider.flatpak
+          asset_content_type: application/octet-stream
