@@ -4,4 +4,10 @@ for i in {0..9}; do
     test -S $XDG_RUNTIME_DIR/discord-ipc-$i || ln -sf {app/com.discordapp.Discord,$XDG_RUNTIME_DIR}/discord-ipc-$i;
 done
 
-cider --ozone-platform-hint=auto --enable-wayland-ime --wayland-text-input-version=3 "$@"
+if [ -z "$(ls -A /tmp/.X11-unix 2>/dev/null)" ] && [ -n "$WAYLAND_DISPLAY" ]; then
+  # Do wayland
+  cider --ozone-platform-hint=auto --enable-wayland-ime --wayland-text-input-version=3 "$@"
+else
+  # X11 server exists
+  cider "$@"
+fi
