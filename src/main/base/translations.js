@@ -1,7 +1,7 @@
-{
+export default {
   "zh-TW": [
     {
-      "content": {
+      content: {
         "i18n.languageName": "繁體中文（台灣）",
         "i18n.languageNameEnglish": "Trad. Chinese (Taiwan)",
         "i18n.category": "main",
@@ -123,22 +123,22 @@
         "term.time.released": "發行於",
         "term.time.updated": "更新於",
         "term.time.day": {
-          "one": "天",
-          "other": "天"
+          one: "天",
+          other: "天",
         },
         "term.time.hours": "小時",
         "term.time.hour": {
-          "one": "小時",
-          "other": "小時"
+          one: "小時",
+          other: "小時",
         },
         "term.time.minute": {
-          "one": "分鐘",
-          "other": "分鐘"
+          one: "分鐘",
+          other: "分鐘",
         },
         "term.time.seconds": "秒",
         "term.time.second": {
-          "one": "秒",
-          "other": "秒"
+          one: "秒",
+          other: "秒",
         },
         "term.fullscreenView": "全螢幕顯示",
         "term.defaultView": "預設顯示",
@@ -163,8 +163,8 @@
         "term.reset": "重設",
         "term.tracks": "歌曲",
         "term.track": {
-          "one": "首歌曲",
-          "other": "首歌曲"
+          one: "首歌曲",
+          other: "首歌曲",
         },
         "term.videos": "音樂錄影帶",
         "term.menu": "選單",
@@ -222,10 +222,10 @@
         "term.nowPlaying": "現在播放",
         "term.localFiles": "本機歌曲",
         "home.greeting": {
-          "rise": "起床啦，${name}",
-          "morning": "早安，${name}",
-          "afternoon": "午安，${name}",
-          "evening": "晚安，${name}"
+          rise: "起床啦，${name}",
+          morning: "早安，${name}",
+          afternoon: "午安，${name}",
+          evening: "晚安，${name}",
         },
         "home.syncFavorites": "同步追蹤",
         "home.syncFavorites.gettingArtists": "取得追蹤的藝人列表... ",
@@ -875,16 +875,16 @@
         "marketplace.trustedAuthor.tooltip": "這是一位經過認證信賴的作者",
         "settings.option.general.language.main": "語言",
         "settings.header.languages": "語言設定",
-        "catalog": {
-          "new": "新發現"
-        }
+        catalog: {
+          new: "新發現",
+        },
       },
-      "file": "/content/zh-TW/[ciderapp.cider-i18n] main/zh_TW"
-    }
+      file: "/content/zh-TW/[ciderapp.cider-i18n] main/zh_TW",
+    },
   ],
   "zh-CN": [
     {
-      "content": {
+      content: {
         "i18n.languageName": "简体中文",
         "i18n.languageNameEnglish": "Simp. Chinese",
         "i18n.category": "main",
@@ -1006,22 +1006,22 @@
         "term.time.released": "发布于",
         "term.time.updated": "更新于",
         "term.time.day": {
-          "one": "天",
-          "other": "天"
+          one: "天",
+          other: "天",
         },
         "term.time.hours": "小时",
         "term.time.hour": {
-          "one": "小时",
-          "other": "小时"
+          one: "小时",
+          other: "小时",
         },
         "term.time.minute": {
-          "one": "分钟",
-          "other": "分钟"
+          one: "分钟",
+          other: "分钟",
         },
         "term.time.seconds": "秒",
         "term.time.second": {
-          "one": "秒",
-          "other": "秒"
+          one: "秒",
+          other: "秒",
         },
         "term.fullscreenView": "全屏幕显示",
         "term.defaultView": "默认显示",
@@ -1046,8 +1046,8 @@
         "term.reset": "重置",
         "term.tracks": "歌曲",
         "term.track": {
-          "one": "首歌曲",
-          "other": "首歌曲"
+          one: "首歌曲",
+          other: "首歌曲",
         },
         "term.videos": "音乐视频",
         "term.menu": "菜单",
@@ -1105,10 +1105,10 @@
         "term.nowPlaying": "正在播放",
         "term.localFiles": "本地歌曲",
         "home.greeting": {
-          "rise": "起床啦，${name}",
-          "morning": "早上好，${name}",
-          "afternoon": "下午好，${name}",
-          "evening": "晚上好，${name}"
+          rise: "起床啦，${name}",
+          morning: "早上好，${name}",
+          afternoon: "下午好，${name}",
+          evening: "晚上好，${name}",
         },
         "home.syncFavorites": "同步喜爱艺人",
         "home.syncFavorites.gettingArtists": "正在获取喜爱艺人..",
@@ -1559,7 +1559,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "音频设置",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider 能够自定义调整和设置的音频属性以提供丰富的高品质音频体验。\n这些功能包括 Cider 数码增强音频处理器，氛围实现器和空间音频。\n要启用这些功能，必须先启用 \"高级音频功能\"。\n启用高级音频功能后，你便可以使用位于应用设置中的 Cider 音频实验室里的这些增强功能了。",
+        "oobe.audio.text": 'Cider 能够自定义调整和设置的音频属性以提供丰富的高品质音频体验。\n这些功能包括 Cider 数码增强音频处理器，氛围实现器和空间音频。\n要启用这些功能，必须先启用 "高级音频功能"。\n启用高级音频功能后，你便可以使用位于应用设置中的 Cider 音频实验室里的这些增强功能了。',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "外观设置",
         "oobe.visual.subtitle": "",
@@ -1758,16 +1758,16 @@
         "marketplace.trustedAuthor.tooltip": "这是一个受信任且已验证的作者",
         "settings.option.general.language.main": "语言",
         "settings.header.languages": "语言设置",
-        "catalog": {
-          "new": "新发现"
-        }
+        catalog: {
+          new: "新发现",
+        },
       },
-      "file": "/content/zh-CN/[ciderapp.cider-i18n] main/zh_CN"
-    }
+      file: "/content/zh-CN/[ciderapp.cider-i18n] main/zh_CN",
+    },
   ],
-  "cs": [
+  cs: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Čeština (CZ)",
         "i18n.languageNameEnglish": "Czech (CZ)",
         "i18n.category": "main",
@@ -1889,22 +1889,22 @@
         "term.time.released": "Vydáno",
         "term.time.updated": "Aktualizováno",
         "term.time.day": {
-          "one": "den",
-          "other": "dny"
+          one: "den",
+          other: "dny",
         },
         "term.time.hours": "hodin",
         "term.time.hour": {
-          "one": "hodina",
-          "other": "hodiny"
+          one: "hodina",
+          other: "hodiny",
         },
         "term.time.minute": {
-          "one": "minuta",
-          "other": "minuty"
+          one: "minuta",
+          other: "minuty",
         },
         "term.time.seconds": "sekundy",
         "term.time.second": {
-          "one": "sekunda",
-          "other": "sekundy"
+          one: "sekunda",
+          other: "sekundy",
         },
         "term.fullscreenView": "Zobrazení na celou obrazovku",
         "term.defaultView": "Výchozí zobrazení",
@@ -1929,8 +1929,8 @@
         "term.reset": "Resetovat",
         "term.tracks": "skladby",
         "term.track": {
-          "one": "stopa",
-          "other": "skladby"
+          one: "stopa",
+          other: "skladby",
         },
         "term.videos": "Videa",
         "term.menu": "Menu",
@@ -1988,10 +1988,10 @@
         "term.nowPlaying": "Právě hraje",
         "term.localFiles": "Místní soubory",
         "home.greeting": {
-          "rise": "Vzestup a lesklý, ${name}",
-          "morning": "Dobré ráno, ${name}",
-          "afternoon": "Dobré odpoledne, ${name}",
-          "evening": "Dobrý večer, ${name}"
+          rise: "Vzestup a lesklý, ${name}",
+          morning: "Dobré ráno, ${name}",
+          afternoon: "Dobré odpoledne, ${name}",
+          evening: "Dobrý večer, ${name}",
         },
         "home.syncFavorites": "Synchronizovat Oblíbené",
         "home.syncFavorites.gettingArtists": "Získávám oblíbené interprety...",
@@ -2442,7 +2442,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Zvuk",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider nabízí vlastní upravený a navržený zvukový zásobník, který poskytuje bohatý zážitek z vysoce kvalitního zvuku.\nVytváří Cider Adrenaline, Atmosphere Realizér a Spatialized Audio.\nChcete-li povolit tuto funkci \"Rozšířená funkce zvuku\" musí být povolena.\nPovolení pokročilé funkce zvuku vám umožní přístup k těmto vylepšením v zvukových laboratořích Cider, které se nacházejí v nastavení aplikace.",
+        "oobe.audio.text": 'Cider nabízí vlastní upravený a navržený zvukový zásobník, který poskytuje bohatý zážitek z vysoce kvalitního zvuku.\nVytváří Cider Adrenaline, Atmosphere Realizér a Spatialized Audio.\nChcete-li povolit tuto funkci "Rozšířená funkce zvuku" musí být povolena.\nPovolení pokročilé funkce zvuku vám umožní přístup k těmto vylepšením v zvukových laboratořích Cider, které se nacházejí v nastavení aplikace.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Vizuální",
         "oobe.visual.subtitle": "",
@@ -2641,16 +2641,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Jazyky",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/cs/[ciderapp.cider-i18n] main/cs_CZ"
-    }
+      file: "/content/cs/[ciderapp.cider-i18n] main/cs_CZ",
+    },
   ],
   "zh-HK": [
     {
-      "content": {
+      content: {
         "i18n.languageName": "繁體中文（香港）",
         "i18n.languageNameEnglish": "Trad. Chinese (Hong Kong)",
         "i18n.category": "main",
@@ -2772,22 +2772,22 @@
         "term.time.released": "發行於",
         "term.time.updated": "更新於",
         "term.time.day": {
-          "one": "天",
-          "other": "天"
+          one: "天",
+          other: "天",
         },
         "term.time.hours": "小時",
         "term.time.hour": {
-          "one": "小時",
-          "other": "小時"
+          one: "小時",
+          other: "小時",
         },
         "term.time.minute": {
-          "one": "分鐘",
-          "other": "分鐘"
+          one: "分鐘",
+          other: "分鐘",
         },
         "term.time.seconds": "秒",
         "term.time.second": {
-          "one": "秒",
-          "other": "秒"
+          one: "秒",
+          other: "秒",
         },
         "term.fullscreenView": "全螢幕檢視",
         "term.defaultView": "一般檢視",
@@ -2812,8 +2812,8 @@
         "term.reset": "重置",
         "term.tracks": "歌曲",
         "term.track": {
-          "one": "首歌曲",
-          "other": "首歌曲"
+          one: "首歌曲",
+          other: "首歌曲",
         },
         "term.videos": "MV",
         "term.menu": "選單",
@@ -2871,10 +2871,10 @@
         "term.nowPlaying": "正在播放",
         "term.localFiles": "本機歌曲",
         "home.greeting": {
-          "rise": "起床啦，${name}",
-          "morning": "早上好，${name}",
-          "afternoon": "下午好，${name}",
-          "evening": "晚上好，${name}"
+          rise: "起床啦，${name}",
+          morning: "早上好，${name}",
+          afternoon: "下午好，${name}",
+          evening: "晚上好，${name}",
         },
         "home.syncFavorites": "同步追蹤",
         "home.syncFavorites.gettingArtists": "取得追蹤的藝人列表... ",
@@ -3325,7 +3325,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "音訊設定",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider 能夠自訂調整和設定的音訊屬性，提供豐富的高品質音訊體驗，包括Cider Adrenaline Processor，臨場音效和空間音訊。要使用這些功能，必須開啟 \"音訊實驗室功能\"。",
+        "oobe.audio.text": 'Cider 能夠自訂調整和設定的音訊屬性，提供豐富的高品質音訊體驗，包括Cider Adrenaline Processor，臨場音效和空間音訊。要使用這些功能，必須開啟 "音訊實驗室功能"。',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "外觀",
         "oobe.visual.subtitle": "",
@@ -3524,16 +3524,16 @@
         "marketplace.trustedAuthor.tooltip": "這是一位經過認證信賴的作者",
         "settings.option.general.language.main": "語言",
         "settings.header.languages": "語言設定",
-        "catalog": {
-          "new": "新發現"
-        }
+        catalog: {
+          new: "新發現",
+        },
       },
-      "file": "/content/zh-HK/[ciderapp.cider-i18n] main/zh_HK"
-    }
+      file: "/content/zh-HK/[ciderapp.cider-i18n] main/zh_HK",
+    },
   ],
   "en-GB": [
     {
-      "content": {
+      content: {
         "i18n.languageName": "English (UK)",
         "i18n.languageNameEnglish": "English (UK)",
         "i18n.category": "main",
@@ -3655,22 +3655,22 @@
         "term.time.released": "Released",
         "term.time.updated": "Updated",
         "term.time.day": {
-          "one": "day",
-          "other": "days"
+          one: "day",
+          other: "days",
         },
         "term.time.hours": "hours",
         "term.time.hour": {
-          "one": "hour",
-          "other": "hours"
+          one: "hour",
+          other: "hours",
         },
         "term.time.minute": {
-          "one": "minute",
-          "other": "minutes"
+          one: "minute",
+          other: "minutes",
         },
         "term.time.seconds": "seconds",
         "term.time.second": {
-          "one": "second",
-          "other": "seconds"
+          one: "second",
+          other: "seconds",
         },
         "term.fullscreenView": "Fullscreen View",
         "term.defaultView": "Default View",
@@ -3695,8 +3695,8 @@
         "term.reset": "Reset",
         "term.tracks": "songs",
         "term.track": {
-          "one": "song",
-          "other": "songs"
+          one: "song",
+          other: "songs",
         },
         "term.videos": "Videos",
         "term.menu": "Menu",
@@ -3754,10 +3754,10 @@
         "term.nowPlaying": "Now Playing",
         "term.localFiles": "Local Files",
         "home.greeting": {
-          "rise": "Rise and shine, ${name}",
-          "morning": "Good morning, ${name}",
-          "afternoon": "Good afternoon, ${name}",
-          "evening": "Good evening, ${name}"
+          rise: "Rise and shine, ${name}",
+          morning: "Good morning, ${name}",
+          afternoon: "Good afternoon, ${name}",
+          evening: "Good evening, ${name}",
         },
         "home.syncFavorites": "Sync Favourites",
         "home.syncFavorites.gettingArtists": "Getting Favourited Artists...",
@@ -4208,7 +4208,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Audio",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider features a custom tuned and designed audio stack that delivers a rich high quality audio experience.\nFeaturing Cider Adrenaline, Atmosphere Realiser, and Spatialised Audio.\nTo enable this functionality \"Advanced Audio Functionality\" must be enabled.\nEnabling Advanced Audio Functionality will give you access to these enhancements in the Cider Audio Labs, found in the app settings.",
+        "oobe.audio.text": 'Cider features a custom tuned and designed audio stack that delivers a rich high quality audio experience.\nFeaturing Cider Adrenaline, Atmosphere Realiser, and Spatialised Audio.\nTo enable this functionality "Advanced Audio Functionality" must be enabled.\nEnabling Advanced Audio Functionality will give you access to these enhancements in the Cider Audio Labs, found in the app settings.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Visual",
         "oobe.visual.subtitle": "",
@@ -4407,16 +4407,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Languages",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/en-GB/[ciderapp.cider-i18n] main/en_GB"
-    }
+      file: "/content/en-GB/[ciderapp.cider-i18n] main/en_GB",
+    },
   ],
-  "nl": [
+  nl: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Nederlands",
         "i18n.languageNameEnglish": "Nederlands (NL)",
         "i18n.category": "main",
@@ -4538,22 +4538,22 @@
         "term.time.released": "Uitgebracht",
         "term.time.updated": "Bijgewerkt",
         "term.time.day": {
-          "one": "dag",
-          "other": "dagen"
+          one: "dag",
+          other: "dagen",
         },
         "term.time.hours": "uur",
         "term.time.hour": {
-          "one": "uur",
-          "other": "uur"
+          one: "uur",
+          other: "uur",
         },
         "term.time.minute": {
-          "one": "minuut",
-          "other": "minuten"
+          one: "minuut",
+          other: "minuten",
         },
         "term.time.seconds": "seconden",
         "term.time.second": {
-          "one": "seconde",
-          "other": "seconden"
+          one: "seconde",
+          other: "seconden",
         },
         "term.fullscreenView": "Volledig scherm",
         "term.defaultView": "Standaard Weergave",
@@ -4578,8 +4578,8 @@
         "term.reset": "Resetten",
         "term.tracks": "nummers",
         "term.track": {
-          "one": "nummer",
-          "other": "nummers"
+          one: "nummer",
+          other: "nummers",
         },
         "term.videos": "Video's",
         "term.menu": "Menu",
@@ -4637,10 +4637,10 @@
         "term.nowPlaying": "Speelt nu",
         "term.localFiles": "Lokale bestanden",
         "home.greeting": {
-          "rise": "Welkom terug, ${name}",
-          "morning": "Goede morgen, ${name}",
-          "afternoon": "Goedemiddag, ${name}",
-          "evening": "Goede avond, ${name}"
+          rise: "Welkom terug, ${name}",
+          morning: "Goede morgen, ${name}",
+          afternoon: "Goedemiddag, ${name}",
+          evening: "Goede avond, ${name}",
         },
         "home.syncFavorites": "Favorieten synchroniseren",
         "home.syncFavorites.gettingArtists": "Favoriete artiesten ophalen...",
@@ -5091,7 +5091,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Geluid",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider beschikt over een op maat afgestemde en ontworpen audio-stack die een rijke audio-ervaring van hoge kwaliteit levert, door middel van Cider Adrenaline, Atmosfeer Realisator en Ruimtelijke Audio.\nOm deze functionaliteit in te schakelen, moet \"Geavanceerde audiofunctionaliteit\" zijn ingeschakeld.\nAls u geavanceerde audiofunctionaliteit inschakelt, krijgt u toegang tot deze verbeteringen in de Cider Audio Lab, te vinden in de app-instellingen.",
+        "oobe.audio.text": 'Cider beschikt over een op maat afgestemde en ontworpen audio-stack die een rijke audio-ervaring van hoge kwaliteit levert, door middel van Cider Adrenaline, Atmosfeer Realisator en Ruimtelijke Audio.\nOm deze functionaliteit in te schakelen, moet "Geavanceerde audiofunctionaliteit" zijn ingeschakeld.\nAls u geavanceerde audiofunctionaliteit inschakelt, krijgt u toegang tot deze verbeteringen in de Cider Audio Lab, te vinden in de app-instellingen.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Visueel",
         "oobe.visual.subtitle": "",
@@ -5117,7 +5117,7 @@
         "action.addToPlaylist.addAll": "Voeg alle toe",
         "action.addToPlaylist.addNew": "Nieuwe Toevoegen\n",
         "action.addToPlaylist.added": "Voeg {count} {tracks} toe aan {playlist}",
-        "action.addToPlaylist.duplicateOne": "\"{songName}\" zit al in je \"{playlist}\" afspeellijst.",
+        "action.addToPlaylist.duplicateOne": '"{songName}" zit al in je "{playlist}" afspeellijst.',
         "action.addToPlaylist.dontAdd": "Voeg niet toe",
         "action.addToPlaylist.addAnyway": "Voeg toch toe",
         "term.replay.uniqueAlbums": "{count} Unieke Albums",
@@ -5290,16 +5290,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Talen",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/nl/[ciderapp.cider-i18n] main/nl_NL"
-    }
+      file: "/content/nl/[ciderapp.cider-i18n] main/nl_NL",
+    },
   ],
-  "fi": [
+  fi: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Suomi (FI)",
         "i18n.languageNameEnglish": "Finnish (FI)",
         "i18n.category": "main",
@@ -5421,22 +5421,22 @@
         "term.time.released": "Julkaistu",
         "term.time.updated": "Päivitetty",
         "term.time.day": {
-          "one": "päivä",
-          "other": "päivää"
+          one: "päivä",
+          other: "päivää",
         },
         "term.time.hours": "Tuntia",
         "term.time.hour": {
-          "one": "tunti",
-          "other": "tuntia"
+          one: "tunti",
+          other: "tuntia",
         },
         "term.time.minute": {
-          "one": "minuutti",
-          "other": "minuuttia"
+          one: "minuutti",
+          other: "minuuttia",
         },
         "term.time.seconds": "Sekuntia",
         "term.time.second": {
-          "one": "sekunti",
-          "other": "sekuntia"
+          one: "sekunti",
+          other: "sekuntia",
         },
         "term.fullscreenView": "Koko näytön näkymä",
         "term.defaultView": "Oletusnäkymä",
@@ -5461,8 +5461,8 @@
         "term.reset": "Nollaa",
         "term.tracks": "Kappaleita",
         "term.track": {
-          "one": "kappale",
-          "other": "kappaleet"
+          one: "kappale",
+          other: "kappaleet",
         },
         "term.videos": "Videoita",
         "term.menu": "Valikko",
@@ -5520,10 +5520,10 @@
         "term.nowPlaying": "Nyt Soi",
         "term.localFiles": "Paikalliset Tiedostot",
         "home.greeting": {
-          "rise": "Nousta ja kiiltoa, ${name}",
-          "morning": "Hyvää huomenta, ${name}",
-          "afternoon": "Hyvää iltapäivää, ${name}",
-          "evening": "Hyvää iltaa ${name}"
+          rise: "Nousta ja kiiltoa, ${name}",
+          morning: "Hyvää huomenta, ${name}",
+          afternoon: "Hyvää iltapäivää, ${name}",
+          evening: "Hyvää iltaa ${name}",
         },
         "home.syncFavorites": "Synkronoi Suosikit",
         "home.syncFavorites.gettingArtists": "Haetaan Suosikkiartisteja...",
@@ -5974,7 +5974,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Ääni",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider sisältää mukautetun viritetyn ja suunnitellun äänipinon, joka tarjoaa rikkaan korkealaatuisen äänikokemuksen.\nSisältää Cider Adrenaliinin, Atmosphere Realizerin ja Spatialized Audion.\nTämän toiminnon mahdollistamiseksi \"Advanced Audio Functionality\" on otettava käyttöön.\nOta käyttöön Advanced Audio Toiminnallisuus antaa sinulle pääsyn näihin parannuksiin Cider Audio Labsissa, joka löytyy sovelluksen asetuksista.",
+        "oobe.audio.text": 'Cider sisältää mukautetun viritetyn ja suunnitellun äänipinon, joka tarjoaa rikkaan korkealaatuisen äänikokemuksen.\nSisältää Cider Adrenaliinin, Atmosphere Realizerin ja Spatialized Audion.\nTämän toiminnon mahdollistamiseksi "Advanced Audio Functionality" on otettava käyttöön.\nOta käyttöön Advanced Audio Toiminnallisuus antaa sinulle pääsyn näihin parannuksiin Cider Audio Labsissa, joka löytyy sovelluksen asetuksista.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Ulkonäkö",
         "oobe.visual.subtitle": "",
@@ -6173,16 +6173,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Kieli",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/fi/[ciderapp.cider-i18n] main/fi_FI"
-    }
+      file: "/content/fi/[ciderapp.cider-i18n] main/fi_FI",
+    },
   ],
   "en-US": [
     {
-      "content": {
+      content: {
         "i18n.languageName": "English (US)",
         "i18n.languageNameEnglish": "English (US)",
         "i18n.category": "main",
@@ -6304,22 +6304,22 @@
         "term.time.released": "Released",
         "term.time.updated": "Updated",
         "term.time.day": {
-          "one": "day",
-          "other": "days"
+          one: "day",
+          other: "days",
         },
         "term.time.hours": "hours",
         "term.time.hour": {
-          "one": "hour",
-          "other": "hours"
+          one: "hour",
+          other: "hours",
         },
         "term.time.minute": {
-          "one": "minute",
-          "other": "minutes"
+          one: "minute",
+          other: "minutes",
         },
         "term.time.seconds": "seconds",
         "term.time.second": {
-          "one": "second",
-          "other": "seconds"
+          one: "second",
+          other: "seconds",
         },
         "term.fullscreenView": "Fullscreen View",
         "term.defaultView": "Default View",
@@ -6344,8 +6344,8 @@
         "term.reset": "Reset",
         "term.tracks": "tracks",
         "term.track": {
-          "one": "track",
-          "other": "tracks"
+          one: "track",
+          other: "tracks",
         },
         "term.videos": "Videos",
         "term.menu": "Menu",
@@ -6403,10 +6403,10 @@
         "term.nowPlaying": "Now Playing",
         "term.localFiles": "Local Files",
         "home.greeting": {
-          "rise": "Rise and shine, ${name}",
-          "morning": "Good morning, ${name}",
-          "afternoon": "Good afternoon, ${name}",
-          "evening": "Good evening, ${name}"
+          rise: "Rise and shine, ${name}",
+          morning: "Good morning, ${name}",
+          afternoon: "Good afternoon, ${name}",
+          evening: "Good evening, ${name}",
         },
         "home.syncFavorites": "Sync Favorites",
         "home.syncFavorites.gettingArtists": "Getting Favorited Artists...",
@@ -6857,7 +6857,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Audio",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider features a custom tuned and designed audio stack that delivers a rich high quality audio experience.\nFeaturing Cider Adrenaline, Atmosphere Realizer, and Spatialized Audio.\nTo enable this functionality \"Advanced Audio Functionality\" must be enabled.\nEnabling Advanced Audio Functionality will give you access to these enhancements in the Cider Audio Labs, found in the app settings.",
+        "oobe.audio.text": 'Cider features a custom tuned and designed audio stack that delivers a rich high quality audio experience.\nFeaturing Cider Adrenaline, Atmosphere Realizer, and Spatialized Audio.\nTo enable this functionality "Advanced Audio Functionality" must be enabled.\nEnabling Advanced Audio Functionality will give you access to these enhancements in the Cider Audio Labs, found in the app settings.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Visual",
         "oobe.visual.subtitle": "",
@@ -7056,16 +7056,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Languages",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/en-US/[ciderapp.cider-i18n] main/en_US"
-    }
+      file: "/content/en-US/[ciderapp.cider-i18n] main/en_US",
+    },
   ],
   "fr-CA": [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Français (CA)",
         "i18n.languageNameEnglish": "French (CA)",
         "i18n.category": "main",
@@ -7187,22 +7187,22 @@
         "term.time.released": "Publié",
         "term.time.updated": "Mis à jour",
         "term.time.day": {
-          "one": "jour",
-          "other": "Jours"
+          one: "jour",
+          other: "Jours",
         },
         "term.time.hours": "heures",
         "term.time.hour": {
-          "one": "heure",
-          "other": "heures"
+          one: "heure",
+          other: "heures",
         },
         "term.time.minute": {
-          "one": "minute",
-          "other": "minutes"
+          one: "minute",
+          other: "minutes",
         },
         "term.time.seconds": "secondes",
         "term.time.second": {
-          "one": "seconde",
-          "other": "secondes"
+          one: "seconde",
+          other: "secondes",
         },
         "term.fullscreenView": "Vue plein écran",
         "term.defaultView": "Vue par défaut",
@@ -7227,8 +7227,8 @@
         "term.reset": "Réinitialiser",
         "term.tracks": "chansons",
         "term.track": {
-          "one": "Piste",
-          "other": "Pistes"
+          one: "Piste",
+          other: "Pistes",
         },
         "term.videos": "Vidéos",
         "term.menu": "Menu",
@@ -7286,10 +7286,10 @@
         "term.nowPlaying": "En cours de lecture",
         "term.localFiles": "Fichiers locaux",
         "home.greeting": {
-          "rise": "Se lever et briller, ${name}",
-          "morning": "Bonjour, ${name}",
-          "afternoon": "Bonjour, ${name}",
-          "evening": "Bonsoir, ${name}"
+          rise: "Se lever et briller, ${name}",
+          morning: "Bonjour, ${name}",
+          afternoon: "Bonjour, ${name}",
+          evening: "Bonsoir, ${name}",
         },
         "home.syncFavorites": "Synchroniser les Favoris",
         "home.syncFavorites.gettingArtists": "Récupération des artistes favoris...",
@@ -7740,7 +7740,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Audio",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider features a custom tuned and designed audio stack that delivers a rich high quality audio experience.\nFeaturing Cider Adrenaline, Atmosphere Realizer, and Spatialized Audio.\nTo enable this functionality \"Advanced Audio Functionality\" must be enabled.\nEnabling Advanced Audio Functionality will give you access to these enhancements in the Cider Audio Labs, found in the app settings.",
+        "oobe.audio.text": 'Cider features a custom tuned and designed audio stack that delivers a rich high quality audio experience.\nFeaturing Cider Adrenaline, Atmosphere Realizer, and Spatialized Audio.\nTo enable this functionality "Advanced Audio Functionality" must be enabled.\nEnabling Advanced Audio Functionality will give you access to these enhancements in the Cider Audio Labs, found in the app settings.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Visuel",
         "oobe.visual.subtitle": "",
@@ -7939,16 +7939,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Langue",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/fr-CA/[ciderapp.cider-i18n] main/fr_CA"
-    }
+      file: "/content/fr-CA/[ciderapp.cider-i18n] main/fr_CA",
+    },
   ],
-  "fr": [
+  fr: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Français",
         "i18n.languageNameEnglish": "French",
         "i18n.category": "main",
@@ -8070,22 +8070,22 @@
         "term.time.released": "Publié",
         "term.time.updated": "Mis à jour",
         "term.time.day": {
-          "one": "jour",
-          "other": "jours"
+          one: "jour",
+          other: "jours",
         },
         "term.time.hours": "heures",
         "term.time.hour": {
-          "one": "heure",
-          "other": "heures"
+          one: "heure",
+          other: "heures",
         },
         "term.time.minute": {
-          "one": "minute",
-          "other": "minutes"
+          one: "minute",
+          other: "minutes",
         },
         "term.time.seconds": "secondes",
         "term.time.second": {
-          "one": "seconde",
-          "other": "secondes"
+          one: "seconde",
+          other: "secondes",
         },
         "term.fullscreenView": "Vue plein écran",
         "term.defaultView": "Vue par défaut",
@@ -8110,8 +8110,8 @@
         "term.reset": "Réinitialiser",
         "term.tracks": "morceaux",
         "term.track": {
-          "one": "morceau",
-          "other": "morceaux"
+          one: "morceau",
+          other: "morceaux",
         },
         "term.videos": "Vidéos",
         "term.menu": "Menu",
@@ -8169,10 +8169,10 @@
         "term.nowPlaying": "En cours de lecture",
         "term.localFiles": "Fichiers locaux",
         "home.greeting": {
-          "rise": "Lève-toi et brille, ${name}",
-          "morning": "Bonjour, ${name}",
-          "afternoon": "Bon après-midi, ${name}",
-          "evening": "Bonsoir, ${name}"
+          rise: "Lève-toi et brille, ${name}",
+          morning: "Bonjour, ${name}",
+          afternoon: "Bon après-midi, ${name}",
+          evening: "Bonsoir, ${name}",
         },
         "home.syncFavorites": "Synchronisation des favoris",
         "home.syncFavorites.gettingArtists": "Obtension des artistes préférés...",
@@ -8649,7 +8649,7 @@
         "action.addToPlaylist.addAll": "Tout ajouter",
         "action.addToPlaylist.addNew": "Ajouter nouveau",
         "action.addToPlaylist.added": "Ajouté {count} {tracks} à {playlist}",
-        "action.addToPlaylist.duplicateOne": "Cette musique est déjà dans votre playlist \"{playlist}\".",
+        "action.addToPlaylist.duplicateOne": 'Cette musique est déjà dans votre playlist "{playlist}".',
         "action.addToPlaylist.dontAdd": "Ne pas ajouter",
         "action.addToPlaylist.addAnyway": "Ajouter quand même",
         "term.replay.uniqueAlbums": "{count} albums uniques",
@@ -8678,7 +8678,7 @@
         "settings.connectivity.lastfm.scrobbleDelay.hint": "Doit être d'au moins 50% comme spécifié par l'API de Last.FM.",
         "term.upNext": "À suivre",
         "action.toggleSidePanel": "Basculer le panneau latéral",
-        "action.undoSuggestLess": "Annuler \"Suggérer moins\"",
+        "action.undoSuggestLess": 'Annuler "Suggérer moins"',
         "action.suggestLess": "Suggérer moins",
         "term.clearQueue": "Effacer",
         "audiolab.waiting": "En attente d’une chanson en file d’attente",
@@ -8822,16 +8822,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Langues",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/fr/[ciderapp.cider-i18n] main/fr_FR"
-    }
+      file: "/content/fr/[ciderapp.cider-i18n] main/fr_FR",
+    },
   ],
-  "de": [
+  de: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Deutsch",
         "i18n.languageNameEnglish": "German",
         "i18n.category": "main",
@@ -8953,22 +8953,22 @@
         "term.time.released": "Veröffentlicht",
         "term.time.updated": "Aktualisiert",
         "term.time.day": {
-          "one": "Tag",
-          "other": "Tage"
+          one: "Tag",
+          other: "Tage",
         },
         "term.time.hours": "Stunden",
         "term.time.hour": {
-          "one": "Stunde",
-          "other": "Stunden"
+          one: "Stunde",
+          other: "Stunden",
         },
         "term.time.minute": {
-          "one": "Minute",
-          "other": "Minuten"
+          one: "Minute",
+          other: "Minuten",
         },
         "term.time.seconds": "Sekunden",
         "term.time.second": {
-          "one": "Sekunde",
-          "other": "Sekunden"
+          one: "Sekunde",
+          other: "Sekunden",
         },
         "term.fullscreenView": "Vollbildansicht",
         "term.defaultView": "Normale Ansicht",
@@ -8993,8 +8993,8 @@
         "term.reset": "Zurücksetzen",
         "term.tracks": "Titel",
         "term.track": {
-          "one": "Titel",
-          "other": "Titel"
+          one: "Titel",
+          other: "Titel",
         },
         "term.videos": "Videos",
         "term.menu": "Menü",
@@ -9052,10 +9052,10 @@
         "term.nowPlaying": "Jetzt läuft",
         "term.localFiles": "Lokale Dateien",
         "home.greeting": {
-          "rise": "Guten Morgen, ${name}",
-          "morning": "Guten Morgen, ${name}",
-          "afternoon": "Guten Nachmittag, ${name}",
-          "evening": "Guten Abend, ${name}"
+          rise: "Guten Morgen, ${name}",
+          morning: "Guten Morgen, ${name}",
+          afternoon: "Guten Nachmittag, ${name}",
+          evening: "Guten Abend, ${name}",
         },
         "home.syncFavorites": "Sync Favoriten",
         "home.syncFavorites.gettingArtists": "Favorisierte Künstler werden geladen...",
@@ -9506,7 +9506,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Ton",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider enthält einen eigen entwickelt und entworfenen Audio Stack, der eine großartige Audioerfahrung abliefert.\nEnthalten sind: \"Cider Adrenaline\", \" Atmosphere Realizer\" und \"Spatialized Audio\".\nDamit diese Features aktiviert werden können, muss \"Advanced Audio Functionality\" aktiviert sein.\nDurch das Aktivieren von \"Advanced Audio Functionality\" erhälst du Zurgiff auf diese Verbesserungen im Cider Audio Labor, zu finden in den App Einstellungen.",
+        "oobe.audio.text": 'Cider enthält einen eigen entwickelt und entworfenen Audio Stack, der eine großartige Audioerfahrung abliefert.\nEnthalten sind: "Cider Adrenaline", " Atmosphere Realizer" und "Spatialized Audio".\nDamit diese Features aktiviert werden können, muss "Advanced Audio Functionality" aktiviert sein.\nDurch das Aktivieren von "Advanced Audio Functionality" erhälst du Zurgiff auf diese Verbesserungen im Cider Audio Labor, zu finden in den App Einstellungen.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Visuell",
         "oobe.visual.subtitle": "",
@@ -9685,7 +9685,7 @@
         "term.am.language.description": "Bestimmt die Sprache, in der die Apple Music-Elemente angezeigt werden. Wenn Sie das Schaufenster ändern, ändern sich die verfügbaren Sprachen. Es kann sein, dass Sie nicht alle Sprachen aus bestimmten Regionen sehen können, die in Ihrem Apple-Konto eingestellt sind.",
         "term.am.language": "Apple Music Sprache",
         "term.am.storefront": "Apple Music Schaufenster",
-        "term.am.storefront.description": "Das \"Schaufenster\" oder die Region, aus der die Inhalte bereitgestellt werden. Dazu gehören Suchergebnisse, Browse, Listen Now und Radio. Es wird nicht empfohlen, diese Einstellung zu ändern, da dies zu Problemen bei der Nutzung führen kann.",
+        "term.am.storefront.description": 'Das "Schaufenster" oder die Region, aus der die Inhalte bereitgestellt werden. Dazu gehören Suchergebnisse, Browse, Listen Now und Radio. Es wird nicht empfohlen, diese Einstellung zu ändern, da dies zu Problemen bei der Nutzung führen kann.',
         "term.prerelease": "Vorabveröffentlichung",
         "settings.option.visual.layoutType": "Layout Typ",
         "settings.option.visual.sizeProfile": "UI-Größenprofil",
@@ -9705,16 +9705,16 @@
         "marketplace.trustedAuthor.tooltip": "Dies ist ein vertrauenswürdiger und verifizierter Autor",
         "settings.option.general.language.main": "Sprachen",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/de/[ciderapp.cider-i18n] main/de_DE"
-    }
+      file: "/content/de/[ciderapp.cider-i18n] main/de_DE",
+    },
   ],
-  "el": [
+  el: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Ελληνικά",
         "i18n.languageNameEnglish": "Greek",
         "i18n.category": "main",
@@ -9836,22 +9836,22 @@
         "term.time.released": "Κυκλοφόρησε",
         "term.time.updated": "Ενημερώθηκε",
         "term.time.day": {
-          "one": "μέρα",
-          "other": "μέρες"
+          one: "μέρα",
+          other: "μέρες",
         },
         "term.time.hours": "ώρες",
         "term.time.hour": {
-          "one": "ώρα",
-          "other": "ώρες"
+          one: "ώρα",
+          other: "ώρες",
         },
         "term.time.minute": {
-          "one": "λεπτό",
-          "other": "λεπτά"
+          one: "λεπτό",
+          other: "λεπτά",
         },
         "term.time.seconds": "δευτερόλεπτα",
         "term.time.second": {
-          "one": "δευτερόλεπτο",
-          "other": "δευτερόλεπτα"
+          one: "δευτερόλεπτο",
+          other: "δευτερόλεπτα",
         },
         "term.fullscreenView": "Πλήρης οθόνη",
         "term.defaultView": "Κανονική οθόνη",
@@ -9876,8 +9876,8 @@
         "term.reset": "Επαναφορά",
         "term.tracks": "τραγούδια",
         "term.track": {
-          "one": "τραγούδι",
-          "other": "τραγούδια"
+          one: "τραγούδι",
+          other: "τραγούδια",
         },
         "term.videos": "Βίντεο",
         "term.menu": "Μενού",
@@ -9935,10 +9935,10 @@
         "term.nowPlaying": "Παίζει τώρα",
         "term.localFiles": "Τοπικά αρχεία",
         "home.greeting": {
-          "rise": "Καλά ξημερώματα, ${name}",
-          "morning": "Καλημέρα, ${name}",
-          "afternoon": "Καλησπέρα, ${name}",
-          "evening": "Καλησπέρα, ${name}"
+          rise: "Καλά ξημερώματα, ${name}",
+          morning: "Καλημέρα, ${name}",
+          afternoon: "Καλησπέρα, ${name}",
+          evening: "Καλησπέρα, ${name}",
         },
         "home.syncFavorites": "Συγχρονισμός αγαπημένων",
         "home.syncFavorites.gettingArtists": "Λήψη αγαπημένων καλλιτεχνών...",
@@ -10292,12 +10292,12 @@
         "settings.option.connectivity.discordRPC.showArtist.description": "Show the artist icon as a small image on Discord Rich Presence",
         "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling",
         "settings.option.connectivity.lastfmScrobble.delay": "Καθυστέρηση LastFM Scrobble (%)",
-        "settings.option.connectivity.lastfmScrobble.nowPlaying": "Ενεργοποίηση LastFM \"Now Playing\"",
+        "settings.option.connectivity.lastfmScrobble.nowPlaying": 'Ενεργοποίηση LastFM "Now Playing"',
         "settings.option.connectivity.lastfmScrobble.removeFeatured": "Αφαίρεση καλλιτεχνών feature από τον τίτλο του τραγουδιού (LastFM)",
         "settings.option.connectivity.lastfmScrobble.filterLoop": "Φιλτράρισμα επανειλημμένου τραγουδιού (LastFM)",
-        "settings.option.connectivity.lastfmScrobble.filterLoop.description": "Αποτροπή scrobble ή εμφάνιση \"Now Playing\" στο Last.fm των τραγουδιών που επαναλαμβάνονται.",
+        "settings.option.connectivity.lastfmScrobble.filterLoop.description": 'Αποτροπή scrobble ή εμφάνιση "Now Playing" στο Last.fm των τραγουδιών που επαναλαμβάνονται.',
         "settings.option.connectivity.lastfmScrobble.filterTypes": "Φιλτράρισμα τύπων μέσων (Last.fm)",
-        "settings.option.connectivity.lastfmScrobble.filterTypes.description": "Αποτροπή scrobble ή εμφάνιση \"Now Playing\" στο Last.fm των τραγουδιών των επιλεγμένων τύπων μέσων.",
+        "settings.option.connectivity.lastfmScrobble.filterTypes.description": 'Αποτροπή scrobble ή εμφάνιση "Now Playing" στο Last.fm των τραγουδιών των επιλεγμένων τύπων μέσων.',
         "settings.option.connectivity.lastfmScrobble.manualToken": "Μη αυτόματη εισαγωγή του Last.fm token",
         "settings.option.connectivity.lastfmScrobble.manualToken.link": "Πατήστε εδώ για λήψη ενός Last.fm token",
         "settings.notyf.connectivity.lastfmScrobble.connectError": "Λήξη χρόνου σύνδεσης Last.fm",
@@ -10389,7 +10389,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Ήχος",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Ο Cider διαθέτει μια προσαρμοσμένη συντονισμένη και σχεδιασμένη στοίβα ήχου για μια πλούσια εμπειρία ήχου.\nΓια να ενεργοποιήσετε αυτή τη λειτουργηκότητα, η \"προηγμένη λειτουργηκότητα\" πρέπει να είναι ενεργοποιημένη.\nΕνεργοποιώντας την προηγμένη λειτουργηκότητα θα σας δώσει πρόσβαση σε πρόσθετες ρυθμίσεις ήχου.",
+        "oobe.audio.text": 'Ο Cider διαθέτει μια προσαρμοσμένη συντονισμένη και σχεδιασμένη στοίβα ήχου για μια πλούσια εμπειρία ήχου.\nΓια να ενεργοποιήσετε αυτή τη λειτουργηκότητα, η "προηγμένη λειτουργηκότητα" πρέπει να είναι ενεργοποιημένη.\nΕνεργοποιώντας την προηγμένη λειτουργηκότητα θα σας δώσει πρόσβαση σε πρόσθετες ρυθμίσεις ήχου.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Οπτικά",
         "oobe.visual.subtitle": "",
@@ -10588,16 +10588,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Γλώσσες",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/el/[ciderapp.cider-i18n] main/el_GR"
-    }
+      file: "/content/el/[ciderapp.cider-i18n] main/el_GR",
+    },
   ],
-  "hu": [
+  hu: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Magyar",
         "i18n.languageNameEnglish": "Hungarian",
         "i18n.category": "main",
@@ -10719,22 +10719,22 @@
         "term.time.released": "Kiadva",
         "term.time.updated": "Frissítve",
         "term.time.day": {
-          "one": "nap",
-          "other": "nap"
+          one: "nap",
+          other: "nap",
         },
         "term.time.hours": "óra",
         "term.time.hour": {
-          "one": "óra",
-          "other": "óra"
+          one: "óra",
+          other: "óra",
         },
         "term.time.minute": {
-          "one": "perc",
-          "other": "perc"
+          one: "perc",
+          other: "perc",
         },
         "term.time.seconds": "másodperc",
         "term.time.second": {
-          "one": "másodperc",
-          "other": "másodperc"
+          one: "másodperc",
+          other: "másodperc",
         },
         "term.fullscreenView": "Teljes képernyős mód",
         "term.defaultView": "Alapértelmezett nézet",
@@ -10759,8 +10759,8 @@
         "term.reset": "Visszaállítás",
         "term.tracks": "zeneszám",
         "term.track": {
-          "one": "zeneszám",
-          "other": "zeneszám"
+          one: "zeneszám",
+          other: "zeneszám",
         },
         "term.videos": "Videók",
         "term.menu": "Menü",
@@ -10818,10 +10818,10 @@
         "term.nowPlaying": "Jelenleg lejátszás alatt",
         "term.localFiles": "Helyi fájlok",
         "home.greeting": {
-          "rise": "Kelj fel és ragyogj, ${name}",
-          "morning": "Jó reggelt, ${name}",
-          "afternoon": "Szép délutánt, ${name}",
-          "evening": "Jó estét, ${name}"
+          rise: "Kelj fel és ragyogj, ${name}",
+          morning: "Jó reggelt, ${name}",
+          afternoon: "Szép délutánt, ${name}",
+          evening: "Jó estét, ${name}",
         },
         "home.syncFavorites": "Kedvencek szinkronizálása",
         "home.syncFavorites.gettingArtists": "Kedvenc előadók betöltése...",
@@ -11263,7 +11263,8 @@
         "oobe.amupsell.explainBtn": "Magyarázat",
         "oobe.amupsell.subscribeUrl": "https://apple.co/3MdqJVQ",
         "oobe.amupsell.amWebUrl": "https://beta.music.apple.com/",
-        "oobe.amupsell.promoExplained": "Egyes promóciós és nem egyesült államokbeli Apple Music próba-előfizetések nem férnek hozzá a szükséges Apple Music Web Player API-khoz, amelyek a Cider működéséhez szükségesek.  Ha le szeretnéd ellenőrizni, hogy az aktív előfizetésed kompatibilis a Cider-rel, kattints a <a href='{{ amWebUrl }}'>{{ amWebUrl }}</a> linkre, jelentkezz be és próbálj meg lejátszani bármilyen zenét.  Ha működik, akkor jó hírunk van! Készen állsz arra, hogy használd a Cider-t. Viszont ha mégsem működött, fizess elő Apple Music-ra ezen a linken: <a href='{{ subscribeUrl }}'>{{ subscribeUrl }}</a>",
+        "oobe.amupsell.promoExplained":
+          "Egyes promóciós és nem egyesült államokbeli Apple Music próba-előfizetések nem férnek hozzá a szükséges Apple Music Web Player API-khoz, amelyek a Cider működéséhez szükségesek.  Ha le szeretnéd ellenőrizni, hogy az aktív előfizetésed kompatibilis a Cider-rel, kattints a <a href='{{ amWebUrl }}'>{{ amWebUrl }}</a> linkre, jelentkezz be és próbálj meg lejátszani bármilyen zenét.  Ha működik, akkor jó hírunk van! Készen állsz arra, hogy használd a Cider-t. Viszont ha mégsem működött, fizess elő Apple Music-ra ezen a linken: <a href='{{ subscribeUrl }}'>{{ subscribeUrl }}</a>",
         "oobe.intro.title": "Üdvözlünk a Cider-ben!",
         "oobe.intro.subtitle": "",
         "oobe.intro.text": "Állítsunk be néhány dolgot, hogy tetszés szerint használhasd a Cider-t. Ezeket a beállításokat később bármikor módosíthatod.",
@@ -11272,7 +11273,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Hang",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "A Cider egyedi hangolású és tervezett hangkészletekkel rendelkezik, amely gazdag, kiváló minőségű hangélményt biztosít.\nKöztük van a Cider Adrenaline, Atmosphere Realizer, és a Spatialized Audio.\nA hangkészletek engedélyezéséhez a \"Fejlett audiófunkciók\"-at be kell kapcsolni.\nA fejlett audiófunkciók engedélyezése hozzáférést biztosít ezekhez a hangkészletekhez a Cider Audio Labs szolgáltatásban, amely az alkalmazás beállításai között található.",
+        "oobe.audio.text": 'A Cider egyedi hangolású és tervezett hangkészletekkel rendelkezik, amely gazdag, kiváló minőségű hangélményt biztosít.\nKöztük van a Cider Adrenaline, Atmosphere Realizer, és a Spatialized Audio.\nA hangkészletek engedélyezéséhez a "Fejlett audiófunkciók"-at be kell kapcsolni.\nA fejlett audiófunkciók engedélyezése hozzáférést biztosít ezekhez a hangkészletekhez a Cider Audio Labs szolgáltatásban, amely az alkalmazás beállításai között található.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Vizuális",
         "oobe.visual.subtitle": "",
@@ -11471,16 +11472,16 @@
         "marketplace.trustedAuthor.tooltip": "Megbízható készítő",
         "settings.option.general.language.main": "Nyelvek",
         "settings.header.languages": "Nyelv és régió",
-        "catalog": {
-          "new": "Új"
-        }
+        catalog: {
+          new: "Új",
+        },
       },
-      "file": "/content/hu/[ciderapp.cider-i18n] main/hu_HU"
-    }
+      file: "/content/hu/[ciderapp.cider-i18n] main/hu_HU",
+    },
   ],
-  "hi": [
+  hi: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "हिन्दी",
         "i18n.languageNameEnglish": "Hindi",
         "i18n.category": "main",
@@ -11602,22 +11603,22 @@
         "term.time.released": "Released",
         "term.time.updated": "Updated",
         "term.time.day": {
-          "one": "day",
-          "other": "days"
+          one: "day",
+          other: "days",
         },
         "term.time.hours": "hours",
         "term.time.hour": {
-          "one": "hour",
-          "other": "hours"
+          one: "hour",
+          other: "hours",
         },
         "term.time.minute": {
-          "one": "minute",
-          "other": "minutes"
+          one: "minute",
+          other: "minutes",
         },
         "term.time.seconds": "seconds",
         "term.time.second": {
-          "one": "second",
-          "other": "seconds"
+          one: "second",
+          other: "seconds",
         },
         "term.fullscreenView": "Fullscreen View",
         "term.defaultView": "Default View",
@@ -11642,8 +11643,8 @@
         "term.reset": "Reset",
         "term.tracks": "tracks",
         "term.track": {
-          "one": "track",
-          "other": "tracks"
+          one: "track",
+          other: "tracks",
         },
         "term.videos": "Videos",
         "term.menu": "Menu",
@@ -11701,10 +11702,10 @@
         "term.nowPlaying": "Now Playing",
         "term.localFiles": "Local Files",
         "home.greeting": {
-          "rise": "Rise and shine, ${name}",
-          "morning": "Good morning, ${name}",
-          "afternoon": "Good afternoon, ${name}",
-          "evening": "Good evening, ${name}"
+          rise: "Rise and shine, ${name}",
+          morning: "Good morning, ${name}",
+          afternoon: "Good afternoon, ${name}",
+          evening: "Good evening, ${name}",
         },
         "home.syncFavorites": "Sync Favorites",
         "home.syncFavorites.gettingArtists": "Getting Favorited Artists...",
@@ -12155,7 +12156,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Audio",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider features a custom tuned and designed audio stack that delivers a rich high quality audio experience.\nFeaturing Cider Adrenaline, Atmosphere Realizer, and Spatialized Audio.\nTo enable this functionality \"Advanced Audio Functionality\" must be enabled.\nEnabling Advanced Audio Functionality will give you access to these enhancements in the Cider Audio Labs, found in the app settings.",
+        "oobe.audio.text": 'Cider features a custom tuned and designed audio stack that delivers a rich high quality audio experience.\nFeaturing Cider Adrenaline, Atmosphere Realizer, and Spatialized Audio.\nTo enable this functionality "Advanced Audio Functionality" must be enabled.\nEnabling Advanced Audio Functionality will give you access to these enhancements in the Cider Audio Labs, found in the app settings.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Visual",
         "oobe.visual.subtitle": "",
@@ -12354,16 +12355,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Languages",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/hi/[ciderapp.cider-i18n] main/hi_IN"
-    }
+      file: "/content/hi/[ciderapp.cider-i18n] main/hi_IN",
+    },
   ],
-  "it": [
+  it: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Italiano",
         "i18n.languageNameEnglish": "Italian",
         "i18n.category": "main",
@@ -12485,22 +12486,22 @@
         "term.time.released": "Rilasciato",
         "term.time.updated": "Aggiornato",
         "term.time.day": {
-          "one": "giorno",
-          "other": "giorni"
+          one: "giorno",
+          other: "giorni",
         },
         "term.time.hours": "ore",
         "term.time.hour": {
-          "one": "ora",
-          "other": "ore"
+          one: "ora",
+          other: "ore",
         },
         "term.time.minute": {
-          "one": "minuto",
-          "other": "minuti"
+          one: "minuto",
+          other: "minuti",
         },
         "term.time.seconds": "secondi",
         "term.time.second": {
-          "one": "secondo",
-          "other": "secondi"
+          one: "secondo",
+          other: "secondi",
         },
         "term.fullscreenView": "Vista schermo pieno",
         "term.defaultView": "Vista normale",
@@ -12525,8 +12526,8 @@
         "term.reset": "Reinizializza",
         "term.tracks": "brani",
         "term.track": {
-          "one": "brano",
-          "other": "brani"
+          one: "brano",
+          other: "brani",
         },
         "term.videos": "Video",
         "term.menu": "Menù",
@@ -12584,10 +12585,10 @@
         "term.nowPlaying": "In riproduzione",
         "term.localFiles": "File locali",
         "home.greeting": {
-          "rise": "Alzati e risplendi, ${name}",
-          "morning": "Buongiorno, ${name}",
-          "afternoon": "Buon pomeriggio, ${name}",
-          "evening": "Buonasera, ${name}"
+          rise: "Alzati e risplendi, ${name}",
+          morning: "Buongiorno, ${name}",
+          afternoon: "Buon pomeriggio, ${name}",
+          evening: "Buonasera, ${name}",
         },
         "home.syncFavorites": "Sincronizza Preferiti",
         "home.syncFavorites.gettingArtists": "Sincronizzazione artisti preferiti in corso...",
@@ -13237,16 +13238,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Lingue",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/it/[ciderapp.cider-i18n] main/it_IT"
-    }
+      file: "/content/it/[ciderapp.cider-i18n] main/it_IT",
+    },
   ],
-  "id": [
+  id: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Bahasa Indonesia",
         "i18n.languageNameEnglish": "Indonesian",
         "i18n.category": "main",
@@ -13368,22 +13369,22 @@
         "term.time.released": "Dirilis",
         "term.time.updated": "Diperbarui",
         "term.time.day": {
-          "one": "hari",
-          "other": "hari"
+          one: "hari",
+          other: "hari",
         },
         "term.time.hours": "jam",
         "term.time.hour": {
-          "one": "jam",
-          "other": "jam"
+          one: "jam",
+          other: "jam",
         },
         "term.time.minute": {
-          "one": "menit",
-          "other": "menit"
+          one: "menit",
+          other: "menit",
         },
         "term.time.seconds": "detik",
         "term.time.second": {
-          "one": "detik",
-          "other": "detik"
+          one: "detik",
+          other: "detik",
         },
         "term.fullscreenView": "Mode Layar Penuh",
         "term.defaultView": "Mode Default",
@@ -13408,8 +13409,8 @@
         "term.reset": "Atur Ulang",
         "term.tracks": "lagu",
         "term.track": {
-          "one": "lagu",
-          "other": "lagu"
+          one: "lagu",
+          other: "lagu",
         },
         "term.videos": "Video",
         "term.menu": "Menu",
@@ -13467,10 +13468,10 @@
         "term.nowPlaying": "Sedang diputar",
         "term.localFiles": "File Lokal",
         "home.greeting": {
-          "rise": "Bangun dan bersinar, ${name}",
-          "morning": "Selamat Pagi, ${name}",
-          "afternoon": "Selamat siang, ${name}",
-          "evening": "Selamat sore, ${name}"
+          rise: "Bangun dan bersinar, ${name}",
+          morning: "Selamat Pagi, ${name}",
+          afternoon: "Selamat siang, ${name}",
+          evening: "Selamat sore, ${name}",
         },
         "home.syncFavorites": "Sinkronkan Favorit",
         "home.syncFavorites.gettingArtists": "Mendapatkan artis favorit",
@@ -13921,7 +13922,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Audio",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider menghadirkan tumpukan audio yang disesuaikan dan dirancang khusus. Serta menghadirkan pengalaman audio berkualitas tinggi yang baik.\nDengan fitur seperti Cider Adrenaline, Atmosphere Realizer, dan Spatialized Audio.\nUntuk mengaktifkan fungsi ini \"Pengaturan Audio Tingkat Lanjut\" harus dinyalakan.\nMengaktifkan Pengaturan Audio Tingkat Lanjut akan memberi Anda akses ke peningkatan ini di Lab Audio Cider, yang ditemukan di pengaturan aplikasi",
+        "oobe.audio.text": 'Cider menghadirkan tumpukan audio yang disesuaikan dan dirancang khusus. Serta menghadirkan pengalaman audio berkualitas tinggi yang baik.\nDengan fitur seperti Cider Adrenaline, Atmosphere Realizer, dan Spatialized Audio.\nUntuk mengaktifkan fungsi ini "Pengaturan Audio Tingkat Lanjut" harus dinyalakan.\nMengaktifkan Pengaturan Audio Tingkat Lanjut akan memberi Anda akses ke peningkatan ini di Lab Audio Cider, yang ditemukan di pengaturan aplikasi',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Visual",
         "oobe.visual.subtitle": "",
@@ -14120,16 +14121,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Bahasa",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/id/[ciderapp.cider-i18n] main/id_ID"
-    }
+      file: "/content/id/[ciderapp.cider-i18n] main/id_ID",
+    },
   ],
-  "ko": [
+  ko: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "한국어 (KR)",
         "i18n.languageNameEnglish": "Korean (KR)",
         "i18n.category": "main",
@@ -14251,22 +14252,22 @@
         "term.time.released": "발매일",
         "term.time.updated": "업데이트일",
         "term.time.day": {
-          "one": "일",
-          "other": "일"
+          one: "일",
+          other: "일",
         },
         "term.time.hours": "시간",
         "term.time.hour": {
-          "one": "시간",
-          "other": "시간"
+          one: "시간",
+          other: "시간",
         },
         "term.time.minute": {
-          "one": "분",
-          "other": "분"
+          one: "분",
+          other: "분",
         },
         "term.time.seconds": "초",
         "term.time.second": {
-          "one": "초",
-          "other": "초"
+          one: "초",
+          other: "초",
         },
         "term.fullscreenView": "전체 화면",
         "term.defaultView": "기본 화면",
@@ -14291,8 +14292,8 @@
         "term.reset": "초기화",
         "term.tracks": "트랙",
         "term.track": {
-          "one": "트랙",
-          "other": "트랙"
+          one: "트랙",
+          other: "트랙",
         },
         "term.videos": "비디오",
         "term.menu": "메뉴",
@@ -14350,10 +14351,10 @@
         "term.nowPlaying": "지금 재생중",
         "term.localFiles": "로컬 파일",
         "home.greeting": {
-          "rise": "잠에서 깨어나세요, ${name}",
-          "morning": "좋은 아침입니다, ${name}",
-          "afternoon": "안녕하세요, ${name}",
-          "evening": "좋은 저녁입니다, ${name}"
+          rise: "잠에서 깨어나세요, ${name}",
+          morning: "좋은 아침입니다, ${name}",
+          afternoon: "안녕하세요, ${name}",
+          evening: "좋은 저녁입니다, ${name}",
         },
         "home.syncFavorites": "즐겨찾기 동기화",
         "home.syncFavorites.gettingArtists": "좋아하는 가수를 불러오는 중...",
@@ -14804,7 +14805,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "오디오",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider에는 고품질의 오디오를 제공하기 위해 디자인된 오디오 스택 기능이 있습니다.\nCider Adrenaline, Atmosphere Realizer, 및 공간화 오디오가 있습니다.\n이 기능을 활성화하기 위해 \"고급 오디오 기능\"이 활성화되어있어야 합니다.\n고급 오디오 기능을 활성화하면 앱 설정의 Cider Audio Labs에 있는 이러한 강화 기능들을 사용할 수 있습니다.",
+        "oobe.audio.text": 'Cider에는 고품질의 오디오를 제공하기 위해 디자인된 오디오 스택 기능이 있습니다.\nCider Adrenaline, Atmosphere Realizer, 및 공간화 오디오가 있습니다.\n이 기능을 활성화하기 위해 "고급 오디오 기능"이 활성화되어있어야 합니다.\n고급 오디오 기능을 활성화하면 앱 설정의 Cider Audio Labs에 있는 이러한 강화 기능들을 사용할 수 있습니다.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "시각",
         "oobe.visual.subtitle": "",
@@ -15003,16 +15004,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "언어",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/ko/[ciderapp.cider-i18n] main/ko_KR"
-    }
+      file: "/content/ko/[ciderapp.cider-i18n] main/ko_KR",
+    },
   ],
-  "ja": [
+  ja: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "日本語",
         "i18n.languageNameEnglish": "Japanese",
         "i18n.category": "main",
@@ -15134,22 +15135,22 @@
         "term.time.released": "配信開始日",
         "term.time.updated": "最終更新日",
         "term.time.day": {
-          "one": "日",
-          "other": "日"
+          one: "日",
+          other: "日",
         },
         "term.time.hours": "時間",
         "term.time.hour": {
-          "one": "時間",
-          "other": "時間"
+          one: "時間",
+          other: "時間",
         },
         "term.time.minute": {
-          "one": "分",
-          "other": "分"
+          one: "分",
+          other: "分",
         },
         "term.time.seconds": "秒",
         "term.time.second": {
-          "one": "秒",
-          "other": "秒"
+          one: "秒",
+          other: "秒",
         },
         "term.fullscreenView": "全画面表示",
         "term.defaultView": "ウィンドウ表示",
@@ -15174,8 +15175,8 @@
         "term.reset": "リセット",
         "term.tracks": "曲",
         "term.track": {
-          "one": "曲",
-          "other": "曲"
+          one: "曲",
+          other: "曲",
         },
         "term.videos": "ビデオ",
         "term.menu": "メニュー",
@@ -15233,10 +15234,10 @@
         "term.nowPlaying": "再生中",
         "term.localFiles": "ローカルファイル",
         "home.greeting": {
-          "rise": "${name}さん、おはようございます",
-          "morning": "${name}さん、おはようございます",
-          "afternoon": "${name}さん、こんにちは",
-          "evening": "${name}さん、こんばんは"
+          rise: "${name}さん、おはようございます",
+          morning: "${name}さん、おはようございます",
+          afternoon: "${name}さん、こんにちは",
+          evening: "${name}さん、こんばんは",
         },
         "home.syncFavorites": "お気に入りを同期",
         "home.syncFavorites.gettingArtists": "お気に入りのアーティストを同期中...",
@@ -15687,7 +15688,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "オーディオ",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Ciderにはリッチで高品質なオーディオを提供するための、カスタマイズ、デザインされたオーディオスタック機能があります。\nCider Adrenaline、Atmosphere Realizer、ならびにSpatailized Audioがあります。\nこれらの機能を有効化するには、\"先進的な機能\"を有効化する必要があります。\n先進的な機能を有効化すると、これらの強化機能をアプリ設定のCider Audio Labsから利用することができるようになります。",
+        "oobe.audio.text": 'Ciderにはリッチで高品質なオーディオを提供するための、カスタマイズ、デザインされたオーディオスタック機能があります。\nCider Adrenaline、Atmosphere Realizer、ならびにSpatailized Audioがあります。\nこれらの機能を有効化するには、"先進的な機能"を有効化する必要があります。\n先進的な機能を有効化すると、これらの強化機能をアプリ設定のCider Audio Labsから利用することができるようになります。',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "ビジュアル",
         "oobe.visual.subtitle": "",
@@ -15886,16 +15887,16 @@
         "marketplace.trustedAuthor.tooltip": "検証された信頼できる投稿者",
         "settings.option.general.language.main": "メイン",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/ja/[ciderapp.cider-i18n] main/ja_JP"
-    }
+      file: "/content/ja/[ciderapp.cider-i18n] main/ja_JP",
+    },
   ],
-  "pl": [
+  pl: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Polski (PL)",
         "i18n.languageNameEnglish": "Polish (PL)",
         "i18n.category": "main",
@@ -16017,22 +16018,22 @@
         "term.time.released": "Wydane",
         "term.time.updated": "Zaktualizowane",
         "term.time.day": {
-          "one": "dzień",
-          "other": "dni"
+          one: "dzień",
+          other: "dni",
         },
         "term.time.hours": "godziny",
         "term.time.hour": {
-          "one": "godzina",
-          "other": "godzin"
+          one: "godzina",
+          other: "godzin",
         },
         "term.time.minute": {
-          "one": "minuta",
-          "other": "minut"
+          one: "minuta",
+          other: "minut",
         },
         "term.time.seconds": "sekundy",
         "term.time.second": {
-          "one": "sekunda",
-          "other": "sekund"
+          one: "sekunda",
+          other: "sekund",
         },
         "term.fullscreenView": "Widok pełnoekranowy",
         "term.defaultView": "Domyślny widok",
@@ -16057,8 +16058,8 @@
         "term.reset": "Zresetuj",
         "term.tracks": "utwory",
         "term.track": {
-          "one": "utwór",
-          "other": "utwory"
+          one: "utwór",
+          other: "utwory",
         },
         "term.videos": "Wideo",
         "term.menu": "Menu",
@@ -16116,10 +16117,10 @@
         "term.nowPlaying": "Teraz odtwarzane",
         "term.localFiles": "Pliki Lokalne",
         "home.greeting": {
-          "rise": "Pobudka, ${name}",
-          "morning": "Dzień dobry, ${name}",
-          "afternoon": "Miłego popołudnia, ${name}",
-          "evening": "Dobry wieczór, ${name}"
+          rise: "Pobudka, ${name}",
+          morning: "Dzień dobry, ${name}",
+          afternoon: "Miłego popołudnia, ${name}",
+          evening: "Dobry wieczór, ${name}",
         },
         "home.syncFavorites": "Synchronizuj ulubione",
         "home.syncFavorites.gettingArtists": "Synchronizuję ulubionych artystów...",
@@ -16570,7 +16571,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Dźwięk",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider posiada specjalnie zaprojektowany i dostrojony zestaw ustawień audio, który zapewnia bogate, wysokiej jakości wrażenia dźwiękowe.\nMiędzy innymi są to Cider Adrenaline, Atmosphere Realizer, i Dźwięk przestrzenny.\nAby skorzystać z tych usprawnień, musisz włączyć \"Zaawansowaną funkcjonalność Audio\".\nWłączenie tej opcji da Ci dostęp do wcześniej wymienionych usprawnień w sekcji Cider Audio Labs, którą znajdziesz w ustawieniach aplikacji.",
+        "oobe.audio.text": 'Cider posiada specjalnie zaprojektowany i dostrojony zestaw ustawień audio, który zapewnia bogate, wysokiej jakości wrażenia dźwiękowe.\nMiędzy innymi są to Cider Adrenaline, Atmosphere Realizer, i Dźwięk przestrzenny.\nAby skorzystać z tych usprawnień, musisz włączyć "Zaawansowaną funkcjonalność Audio".\nWłączenie tej opcji da Ci dostęp do wcześniej wymienionych usprawnień w sekcji Cider Audio Labs, którą znajdziesz w ustawieniach aplikacji.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Wygląd",
         "oobe.visual.subtitle": "",
@@ -16749,7 +16750,7 @@
         "term.am.language.description": "Określa język, w którym elementy Apple Music będą wyświetlane. Zmienienie regionu elementów zmieni dostępne języki. Możesz nie być w stanie zobaczyć wszystkich dostępnych języków z pewnych regionów ustawionych na twoim koncie Apple.",
         "term.am.language": "Język Apple Music",
         "term.am.storefront": "Region Elementów Apple Music",
-        "term.am.storefront.description": "\"Region elementów\", z którego ta zawartość będzie serwowana. W tym: rezultaty wyszukiwania, Przeglądaj, Słuchaj Teraz i Radio. Zaleca się pozostawienie tego ustawienia na swoim regionie, gdyż zmiana może powodować problemy z doświadczeniem.",
+        "term.am.storefront.description": '"Region elementów", z którego ta zawartość będzie serwowana. W tym: rezultaty wyszukiwania, Przeglądaj, Słuchaj Teraz i Radio. Zaleca się pozostawienie tego ustawienia na swoim regionie, gdyż zmiana może powodować problemy z doświadczeniem.',
         "term.prerelease": "Wydanie przedpremierowe",
         "settings.option.visual.layoutType": "Typ układu",
         "settings.option.visual.sizeProfile": "Profil rozmiaru interfejsu",
@@ -16769,16 +16770,16 @@
         "marketplace.trustedAuthor.tooltip": "To jest zaufany i zweryfikowany autor",
         "settings.option.general.language.main": "Języki",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/pl/[ciderapp.cider-i18n] main/pl_PL"
-    }
+      file: "/content/pl/[ciderapp.cider-i18n] main/pl_PL",
+    },
   ],
   "pt-BR": [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Português (Brasil)",
         "i18n.languageNameEnglish": "Portuguese (Brazil)",
         "i18n.category": "main",
@@ -16900,22 +16901,22 @@
         "term.time.released": "Lançado em",
         "term.time.updated": "Atualizado em",
         "term.time.day": {
-          "one": "dia",
-          "other": "dias"
+          one: "dia",
+          other: "dias",
         },
         "term.time.hours": "horas",
         "term.time.hour": {
-          "one": "hora",
-          "other": "horas"
+          one: "hora",
+          other: "horas",
         },
         "term.time.minute": {
-          "one": "minuto",
-          "other": "minutos"
+          one: "minuto",
+          other: "minutos",
         },
         "term.time.seconds": "segundos",
         "term.time.second": {
-          "one": "segundo",
-          "other": "segundos"
+          one: "segundo",
+          other: "segundos",
         },
         "term.fullscreenView": "Modo Tela Cheia",
         "term.defaultView": "Modo Normal",
@@ -16940,8 +16941,8 @@
         "term.reset": "Resetar",
         "term.tracks": "Faixas",
         "term.track": {
-          "one": "Faixa",
-          "other": "Faixas"
+          one: "Faixa",
+          other: "Faixas",
         },
         "term.videos": "Vídeos",
         "term.menu": "Menu",
@@ -16999,10 +17000,10 @@
         "term.nowPlaying": "Tocando Agora",
         "term.localFiles": "Arquivos Locais",
         "home.greeting": {
-          "rise": "Levante-se e brilhe, ${name}",
-          "morning": "Bom dia, ${name}",
-          "afternoon": "Boa tarde, ${name}",
-          "evening": "Boa noite, ${name}"
+          rise: "Levante-se e brilhe, ${name}",
+          morning: "Bom dia, ${name}",
+          afternoon: "Boa tarde, ${name}",
+          evening: "Boa noite, ${name}",
         },
         "home.syncFavorites": "Sincronizar Favoritos",
         "home.syncFavorites.gettingArtists": "Obtendo Artistas Favoritos...",
@@ -17361,7 +17362,7 @@
         "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtrar músicas repetidas (Last.fm)",
         "settings.option.connectivity.lastfmScrobble.filterLoop.description": "Prevenir músicas repetidas de serem srobbladas ou mostradas na lista de em scrobble no momento no Last.fm.",
         "settings.option.connectivity.lastfmScrobble.filterTypes": "Filtrar Tipos de Mídia (Last.fm)",
-        "settings.option.connectivity.lastfmScrobble.filterTypes.description": "Impedir que os tipos de mídia selecionados de serem scrobblados ou exibidos na lista de \"tocando agora\" do Last.fm.",
+        "settings.option.connectivity.lastfmScrobble.filterTypes.description": 'Impedir que os tipos de mídia selecionados de serem scrobblados ou exibidos na lista de "tocando agora" do Last.fm.',
         "settings.option.connectivity.lastfmScrobble.manualToken": "Introduzir Token do Last.fm Manualmente",
         "settings.option.connectivity.lastfmScrobble.manualToken.link": "Clique aqui para obter um token do Last.fm",
         "settings.notyf.connectivity.lastfmScrobble.connectError": "A Conexão ao Last.fm Expirou",
@@ -17453,7 +17454,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Áudio",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider tem a sua disposição um conjunto personalizado de áudio sintonizado e feito especialmente para criar uma experiência de áudio em alta qualidade.\nApresentando Cider Adrenaline, Atmosphere Realizer, e Áudio Espacial.\nPara ativar essas funcionalidades, a \"Funcionalidade de Áudio Avançada\" deve ser ativada.\nAtivar a Funcionalidade de Áudio Avançada vai te dar acesso a essas melhorias no Laboratório de Áudio Cider, encontrado nas configurações do aplicativo.",
+        "oobe.audio.text": 'Cider tem a sua disposição um conjunto personalizado de áudio sintonizado e feito especialmente para criar uma experiência de áudio em alta qualidade.\nApresentando Cider Adrenaline, Atmosphere Realizer, e Áudio Espacial.\nPara ativar essas funcionalidades, a "Funcionalidade de Áudio Avançada" deve ser ativada.\nAtivar a Funcionalidade de Áudio Avançada vai te dar acesso a essas melhorias no Laboratório de Áudio Cider, encontrado nas configurações do aplicativo.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Aparência",
         "oobe.visual.subtitle": "",
@@ -17652,16 +17653,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Idiomas",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/pt-BR/[ciderapp.cider-i18n] main/pt_BR"
-    }
+      file: "/content/pt-BR/[ciderapp.cider-i18n] main/pt_BR",
+    },
   ],
-  "ro": [
+  ro: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Română",
         "i18n.languageNameEnglish": "Romanian",
         "i18n.category": "main",
@@ -17783,22 +17784,22 @@
         "term.time.released": "Lansate",
         "term.time.updated": "Actualizate",
         "term.time.day": {
-          "one": "zi",
-          "other": "zile"
+          one: "zi",
+          other: "zile",
         },
         "term.time.hours": "ore",
         "term.time.hour": {
-          "one": "oră",
-          "other": "ore"
+          one: "oră",
+          other: "ore",
         },
         "term.time.minute": {
-          "one": "minut",
-          "other": "minute"
+          one: "minut",
+          other: "minute",
         },
         "term.time.seconds": "secunde",
         "term.time.second": {
-          "one": "secundă",
-          "other": "secunde"
+          one: "secundă",
+          other: "secunde",
         },
         "term.fullscreenView": "Vizualizare Ecran Complet",
         "term.defaultView": "Vizualizare Standard",
@@ -17823,8 +17824,8 @@
         "term.reset": "Resetare la setările din fabrică",
         "term.tracks": "melodii",
         "term.track": {
-          "one": "melodie",
-          "other": "melodii"
+          one: "melodie",
+          other: "melodii",
         },
         "term.videos": "Videoclipuri",
         "term.menu": "Meniu",
@@ -17882,10 +17883,10 @@
         "term.nowPlaying": "Acum se redă",
         "term.localFiles": "Fișiere locale",
         "home.greeting": {
-          "rise": "Ridică-te și strălucește, ${name}",
-          "morning": "Bună dimineața, ${name}",
-          "afternoon": "Bună ziua, ${name}",
-          "evening": "Bună seara, ${name}"
+          rise: "Ridică-te și strălucește, ${name}",
+          morning: "Bună dimineața, ${name}",
+          afternoon: "Bună ziua, ${name}",
+          evening: "Bună seara, ${name}",
         },
         "home.syncFavorites": "Sincronizează Favoritele",
         "home.syncFavorites.gettingArtists": "Se obțin Artiștii Favoriți...",
@@ -18336,7 +18337,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Audio",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider prezintă o stivă audio personalizată și proiectată care oferă o bogată experiență audio de înaltă calitate.\nPrezentând componenta Cider Adrenaline, Realizator Atmosphere și Spatialized Audio.\nPentru a activa această funcționalitate, \"Funcționalitate audio avansată\" trebuie să fie activată.\nActivarea Funcționalității Audio Avansate vă va oferi acces la aceste îmbunătățiri în laboratoarele audio Cider, găsite în setările aplicației.",
+        "oobe.audio.text": 'Cider prezintă o stivă audio personalizată și proiectată care oferă o bogată experiență audio de înaltă calitate.\nPrezentând componenta Cider Adrenaline, Realizator Atmosphere și Spatialized Audio.\nPentru a activa această funcționalitate, "Funcționalitate audio avansată" trebuie să fie activată.\nActivarea Funcționalității Audio Avansate vă va oferi acces la aceste îmbunătățiri în laboratoarele audio Cider, găsite în setările aplicației.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Vedere",
         "oobe.visual.subtitle": "",
@@ -18535,16 +18536,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Limbi",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/ro/[ciderapp.cider-i18n] main/ro_RO"
-    }
+      file: "/content/ro/[ciderapp.cider-i18n] main/ro_RO",
+    },
   ],
-  "sk": [
+  sk: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Slovenčina (SK)",
         "i18n.languageNameEnglish": "Slovak (SK)",
         "i18n.category": "main",
@@ -18666,22 +18667,22 @@
         "term.time.released": "Vydané",
         "term.time.updated": "Aktualizované",
         "term.time.day": {
-          "one": "deň",
-          "other": "dní"
+          one: "deň",
+          other: "dní",
         },
         "term.time.hours": "hodín",
         "term.time.hour": {
-          "one": "hodina",
-          "other": "hodín"
+          one: "hodina",
+          other: "hodín",
         },
         "term.time.minute": {
-          "one": "minúta",
-          "other": "minút"
+          one: "minúta",
+          other: "minút",
         },
         "term.time.seconds": "sekúnd",
         "term.time.second": {
-          "one": "sekunda",
-          "other": "sekúnd"
+          one: "sekunda",
+          other: "sekúnd",
         },
         "term.fullscreenView": "Zobrazenie na celej obrazovke",
         "term.defaultView": "Predvolené zobrazenie",
@@ -18706,8 +18707,8 @@
         "term.reset": "Resetovať",
         "term.tracks": "pesničiek",
         "term.track": {
-          "one": "skladba",
-          "other": "skladby"
+          one: "skladba",
+          other: "skladby",
         },
         "term.videos": "Videá",
         "term.menu": "Menu",
@@ -18765,10 +18766,10 @@
         "term.nowPlaying": "Práve hrá",
         "term.localFiles": "Lokálne súbory",
         "home.greeting": {
-          "rise": "Vstaň do nového dňa, ${name}",
-          "morning": "Dobré ráno, ${name}",
-          "afternoon": "Dobré popoludnie, ${name}",
-          "evening": "Dobrý večer, ${name}"
+          rise: "Vstaň do nového dňa, ${name}",
+          morning: "Dobré ráno, ${name}",
+          afternoon: "Dobré popoludnie, ${name}",
+          evening: "Dobrý večer, ${name}",
         },
         "home.syncFavorites": "Synchronizovať obľúbené",
         "home.syncFavorites.gettingArtists": "Načítavam obľúbených interpretov...",
@@ -19125,9 +19126,9 @@
         "settings.option.connectivity.lastfmScrobble.nowPlaying": "Zapnúť Last.fm Now Playing",
         "settings.option.connectivity.lastfmScrobble.removeFeatured": "Odstrániť tvorcov z počúvanej pesničky (Last.fm)",
         "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtrovať loopované pesničky (Last.fm)",
-        "settings.option.connectivity.lastfmScrobble.filterLoop.description": "Zamedziť, aby skladby so zapnutým opakovaním boli \"scrobbled\" alebo zobrazené v zozname prehrávaných skladieb na Last.fm.",
+        "settings.option.connectivity.lastfmScrobble.filterLoop.description": 'Zamedziť, aby skladby so zapnutým opakovaním boli "scrobbled" alebo zobrazené v zozname prehrávaných skladieb na Last.fm.',
         "settings.option.connectivity.lastfmScrobble.filterTypes": "Filtrovať typy médií (Last.fm)",
-        "settings.option.connectivity.lastfmScrobble.filterTypes.description": "Zamedziť, aby skladby vybraných typov so zapnutým opakovaním boli \"scrobbled\" alebo zobrazené v zozname prehrávaných skladieb na Last.fm.",
+        "settings.option.connectivity.lastfmScrobble.filterTypes.description": 'Zamedziť, aby skladby vybraných typov so zapnutým opakovaním boli "scrobbled" alebo zobrazené v zozname prehrávaných skladieb na Last.fm.',
         "settings.option.connectivity.lastfmScrobble.manualToken": "Zadajte Last.fm token manuálne",
         "settings.option.connectivity.lastfmScrobble.manualToken.link": "Kliknite sem pre získanie Last.fm tokenu",
         "settings.notyf.connectivity.lastfmScrobble.connectError": "Pripojenie k Last.fm vypršalo",
@@ -19245,7 +19246,7 @@
         "action.addToPlaylist.addAll": "Pridať všetky",
         "action.addToPlaylist.addNew": "Pridať novú",
         "action.addToPlaylist.added": "Pridané {count} {tracks} do {playlist}",
-        "action.addToPlaylist.duplicateOne": "\"{songName}\" už je vo vašom playliste \"{playlist}\".",
+        "action.addToPlaylist.duplicateOne": '"{songName}" už je vo vašom playliste "{playlist}".',
         "action.addToPlaylist.dontAdd": "Nepridávať",
         "action.addToPlaylist.addAnyway": "Pridať aj tak",
         "term.replay.uniqueAlbums": "{count} unikátnych albumov",
@@ -19264,7 +19265,7 @@
         "settings.connectivity.lastfm.context": "Prihláste sa do Last.FM pre zapnutie funkcie Scrobbling a aktualizácii skladieb Teraz hraje",
         "settings.connectivity.lastfm.signedIn": "Prihlásený v Last.FM ako {username}",
         "settings.connectivity.lastfm.primaryArtist": "Odstrániť odporúčaných interpretov",
-        "settings.connectivity.lastfm.primaryArtist.description": "Odstrániť špeciálnych (featured) umelcov z dát skladby pri \"scrobblovaní\" alebo aktualizovaní Teraz hraje.",
+        "settings.connectivity.lastfm.primaryArtist.description": 'Odstrániť špeciálnych (featured) umelcov z dát skladby pri "scrobblovaní" alebo aktualizovaní Teraz hraje.',
         "settings.connectivity.lastfm.scrobbleDelay": "Oneskorenie Scrobble funkcie",
         "settings.connectivity.lastfm.scrobbleDelay.description": "Scrobbluj skladbu po tom, čo ubehne určité percento jej trvania.",
         "term.autoplay.description": "Podobná hudba bude naďalej hrať",
@@ -19418,16 +19419,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Jazyky",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/sk/[ciderapp.cider-i18n] main/sk_SK"
-    }
+      file: "/content/sk/[ciderapp.cider-i18n] main/sk_SK",
+    },
   ],
-  "ru": [
+  ru: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Русский (RU)",
         "i18n.languageNameEnglish": "Russian (RU)",
         "i18n.category": "main",
@@ -19549,22 +19550,22 @@
         "term.time.released": "Релиз: ",
         "term.time.updated": "Обновлено",
         "term.time.day": {
-          "one": "день",
-          "other": "дней"
+          one: "день",
+          other: "дней",
         },
         "term.time.hours": "часов",
         "term.time.hour": {
-          "one": "час",
-          "other": "часов"
+          one: "час",
+          other: "часов",
         },
         "term.time.minute": {
-          "one": "минута",
-          "other": "минут"
+          one: "минута",
+          other: "минут",
         },
         "term.time.seconds": "секунд",
         "term.time.second": {
-          "one": "секунд",
-          "other": "секунд"
+          one: "секунд",
+          other: "секунд",
         },
         "term.fullscreenView": "Полноэкранный режим",
         "term.defaultView": "Стандартное отображение",
@@ -19589,8 +19590,8 @@
         "term.reset": "Сбросить",
         "term.tracks": "треки",
         "term.track": {
-          "one": "песня",
-          "other": "песен"
+          one: "песня",
+          other: "песен",
         },
         "term.videos": "Видео",
         "term.menu": "Меню",
@@ -19648,10 +19649,10 @@
         "term.nowPlaying": "Сейчас играет",
         "term.localFiles": "Локальные файлы",
         "home.greeting": {
-          "rise": "Поднимайся и сияй, ${name}",
-          "morning": "Доброе утро, ${name}",
-          "afternoon": "Добрый день, ${name}",
-          "evening": "Добрый вечер, ${name}"
+          rise: "Поднимайся и сияй, ${name}",
+          morning: "Доброе утро, ${name}",
+          afternoon: "Добрый день, ${name}",
+          evening: "Добрый вечер, ${name}",
         },
         "home.syncFavorites": "Синхронизировать",
         "home.syncFavorites.gettingArtists": "Получение отслеживаемых исполнителей...",
@@ -20102,7 +20103,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Аудио",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "В Cider используется специально настроенный и разработанный звуковой стек, который обеспечивает богатое высококачественное звучание.\nВключая Cider Adrenaline, Atmosphere Realizer и Spatialized Audio.\nДля включения этой функции необходимо включить \"Расширенные функции звука\".\nВключение расширенного звука Функциональность даст вам доступ к этим улучшениям в Cider Audio Labs, которые можно найти в настройках приложения.",
+        "oobe.audio.text": 'В Cider используется специально настроенный и разработанный звуковой стек, который обеспечивает богатое высококачественное звучание.\nВключая Cider Adrenaline, Atmosphere Realizer и Spatialized Audio.\nДля включения этой функции необходимо включить "Расширенные функции звука".\nВключение расширенного звука Функциональность даст вам доступ к этим улучшениям в Cider Audio Labs, которые можно найти в настройках приложения.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Визуальный",
         "oobe.visual.subtitle": "",
@@ -20301,16 +20302,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Языки",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/ru/[ciderapp.cider-i18n] main/ru_RU"
-    }
+      file: "/content/ru/[ciderapp.cider-i18n] main/ru_RU",
+    },
   ],
   "es-ES": [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Español (España)",
         "i18n.languageNameEnglish": "Español (España)",
         "i18n.category": "main",
@@ -20432,22 +20433,22 @@
         "term.time.released": "Publicado",
         "term.time.updated": "Actualizado",
         "term.time.day": {
-          "one": "Día",
-          "other": "Días"
+          one: "Día",
+          other: "Días",
         },
         "term.time.hours": "Horas",
         "term.time.hour": {
-          "one": "Hora",
-          "other": "Horas"
+          one: "Hora",
+          other: "Horas",
         },
         "term.time.minute": {
-          "one": "Minuto",
-          "other": "Minutos"
+          one: "Minuto",
+          other: "Minutos",
         },
         "term.time.seconds": "Segundos",
         "term.time.second": {
-          "one": "Segundo",
-          "other": "Segundos"
+          one: "Segundo",
+          other: "Segundos",
         },
         "term.fullscreenView": "Pantalla Completa",
         "term.defaultView": "Vista Predeterminada",
@@ -20472,8 +20473,8 @@
         "term.reset": "Reiniciar",
         "term.tracks": "Canciones",
         "term.track": {
-          "one": "Pista",
-          "other": "Canciones"
+          one: "Pista",
+          other: "Canciones",
         },
         "term.videos": "Vídeos",
         "term.menu": "Menú",
@@ -20531,10 +20532,10 @@
         "term.nowPlaying": "Reproduciendo Ahora",
         "term.localFiles": "Archivos locales",
         "home.greeting": {
-          "rise": "Hora de levantarse, ${name}",
-          "morning": "Buenos días, ${name}",
-          "afternoon": "Buenas tardes, ${name}",
-          "evening": "Buenas noches, ${name}"
+          rise: "Hora de levantarse, ${name}",
+          morning: "Buenos días, ${name}",
+          afternoon: "Buenas tardes, ${name}",
+          evening: "Buenas noches, ${name}",
         },
         "home.syncFavorites": "Sincronizar Favoritos",
         "home.syncFavorites.gettingArtists": "Obteniendo Artistas Favoritos...",
@@ -20985,7 +20986,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Audio",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider cuenta con una pila de audio diseñada y afinada a medida que brinda una experiencia de audio rica y de alta calidad.\nCon Cider Adrenaline, Atmosphere Realizer y Spatialized Audio.\nPara habilitar esta funcionalidad, \"Funcionalidad de audio avanzada\" debe estar habilitada.\nHabilitar audio avanzado La funcionalidad le dará acceso a estas mejoras en Cider Audio Labs, que se encuentra en la configuración de la aplicación.",
+        "oobe.audio.text": 'Cider cuenta con una pila de audio diseñada y afinada a medida que brinda una experiencia de audio rica y de alta calidad.\nCon Cider Adrenaline, Atmosphere Realizer y Spatialized Audio.\nPara habilitar esta funcionalidad, "Funcionalidad de audio avanzada" debe estar habilitada.\nHabilitar audio avanzado La funcionalidad le dará acceso a estas mejoras en Cider Audio Labs, que se encuentra en la configuración de la aplicación.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Visual",
         "oobe.visual.subtitle": "",
@@ -21184,16 +21185,16 @@
         "marketplace.trustedAuthor.tooltip": "Este es un autor de confianza y verificado",
         "settings.option.general.language.main": "Idiomas",
         "settings.header.languages": "Ajustes de Idioma",
-        "catalog": {
-          "new": "Nuevo"
-        }
+        catalog: {
+          new: "Nuevo",
+        },
       },
-      "file": "/content/es-ES/[ciderapp.cider-i18n] main/es_ES"
-    }
+      file: "/content/es-ES/[ciderapp.cider-i18n] main/es_ES",
+    },
   ],
   "es-419": [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Español (Latinoamérica)",
         "i18n.languageNameEnglish": "Spanish (Latin America)",
         "i18n.category": "main",
@@ -21315,22 +21316,22 @@
         "term.time.released": "Publicado",
         "term.time.updated": "Actualizado",
         "term.time.day": {
-          "one": "Día",
-          "other": "Días"
+          one: "Día",
+          other: "Días",
         },
         "term.time.hours": "Horas",
         "term.time.hour": {
-          "one": "Hora",
-          "other": "Horas"
+          one: "Hora",
+          other: "Horas",
         },
         "term.time.minute": {
-          "one": "Minuto",
-          "other": "Minutos"
+          one: "Minuto",
+          other: "Minutos",
         },
         "term.time.seconds": "Segundos",
         "term.time.second": {
-          "one": "Segundo",
-          "other": "Segundos"
+          one: "Segundo",
+          other: "Segundos",
         },
         "term.fullscreenView": "Pantalla Completa",
         "term.defaultView": "Vista Predeterminada",
@@ -21355,8 +21356,8 @@
         "term.reset": "Reiniciar",
         "term.tracks": "Canciones",
         "term.track": {
-          "one": "Pista",
-          "other": "Canciones"
+          one: "Pista",
+          other: "Canciones",
         },
         "term.videos": "Vídeos",
         "term.menu": "Menú",
@@ -21414,10 +21415,10 @@
         "term.nowPlaying": "Reproduciendo Ahora",
         "term.localFiles": "Archivos locales",
         "home.greeting": {
-          "rise": "Hora de levantarse, ${name}",
-          "morning": "Buenos días, ${name}",
-          "afternoon": "Buenas tardes, ${name}",
-          "evening": "Buenas noches, ${name}"
+          rise: "Hora de levantarse, ${name}",
+          morning: "Buenos días, ${name}",
+          afternoon: "Buenas tardes, ${name}",
+          evening: "Buenas noches, ${name}",
         },
         "home.syncFavorites": "Sincronizar Favoritos",
         "home.syncFavorites.gettingArtists": "Obteniendo Artistas Favoritos...",
@@ -21868,7 +21869,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Audio",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider cuenta con una pila de audio diseñada y afinada a medida que brinda una experiencia de audio rica y de alta calidad.\nCon Cider Adrenaline, Atmosphere Realizer y Spatialized Audio.\nPara habilitar esta funcionalidad, \"Funcionalidad de audio avanzada\" debe estar habilitada.\nHabilitar audio avanzado La funcionalidad le dará acceso a estas mejoras en Cider Audio Labs, que se encuentra en la configuración de la aplicación.",
+        "oobe.audio.text": 'Cider cuenta con una pila de audio diseñada y afinada a medida que brinda una experiencia de audio rica y de alta calidad.\nCon Cider Adrenaline, Atmosphere Realizer y Spatialized Audio.\nPara habilitar esta funcionalidad, "Funcionalidad de audio avanzada" debe estar habilitada.\nHabilitar audio avanzado La funcionalidad le dará acceso a estas mejoras en Cider Audio Labs, que se encuentra en la configuración de la aplicación.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Visto",
         "oobe.visual.subtitle": "",
@@ -22067,16 +22068,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Idiomas",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/es-419/[ciderapp.cider-i18n] main/es_419"
-    }
+      file: "/content/es-419/[ciderapp.cider-i18n] main/es_419",
+    },
   ],
-  "th": [
+  th: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "ภาษาอังกฤษ (สหรัฐฯ)",
         "i18n.languageNameEnglish": "ภาษาอังกฤษ (สหรัฐฯ)",
         "i18n.category": "main",
@@ -22198,22 +22199,22 @@
         "term.time.released": "ปล่อยเมื่อ",
         "term.time.updated": "Updated",
         "term.time.day": {
-          "one": "วัน",
-          "other": "วัน"
+          one: "วัน",
+          other: "วัน",
         },
         "term.time.hours": "ชั่วโมง",
         "term.time.hour": {
-          "one": "ชั่วโมง",
-          "other": "ชั่วโมง"
+          one: "ชั่วโมง",
+          other: "ชั่วโมง",
         },
         "term.time.minute": {
-          "one": "นาที",
-          "other": "นาที"
+          one: "นาที",
+          other: "นาที",
         },
         "term.time.seconds": "วินาที",
         "term.time.second": {
-          "one": "วินาที",
-          "other": "วินาที"
+          one: "วินาที",
+          other: "วินาที",
         },
         "term.fullscreenView": "มุมมองแบบเต็มหน้าจอ",
         "term.defaultView": "Default View",
@@ -22238,8 +22239,8 @@
         "term.reset": "รีเซ็ต",
         "term.tracks": "tracks",
         "term.track": {
-          "one": "track",
-          "other": "tracks"
+          one: "track",
+          other: "tracks",
         },
         "term.videos": "วิดีโอ",
         "term.menu": "เมนู",
@@ -22297,10 +22298,10 @@
         "term.nowPlaying": "กำลังเล่น",
         "term.localFiles": "Local Files",
         "home.greeting": {
-          "rise": "อรุณสวัสดิ์, ${name}",
-          "morning": "สวัสดีตอนเช้า, ${name}",
-          "afternoon": "สวัสดีตอนบ่าย, ${name}",
-          "evening": "สวัสดีตอนเย็น, ${name}"
+          rise: "อรุณสวัสดิ์, ${name}",
+          morning: "สวัสดีตอนเช้า, ${name}",
+          afternoon: "สวัสดีตอนบ่าย, ${name}",
+          evening: "สวัสดีตอนเย็น, ${name}",
         },
         "home.syncFavorites": "ซิงค์รายการโปรด",
         "home.syncFavorites.gettingArtists": "กำดึงข้อมูลศิลปินที่คุณติดตามอยู่ ...",
@@ -22751,7 +22752,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "เสียง",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider features a custom tuned and designed audio stack that delivers a rich high quality audio experience.\nFeaturing Cider Adrenaline, Atmosphere Realizer, and Spatialized Audio.\nTo enable this functionality \"Advanced Audio Functionality\" must be enabled.\nEnabling Advanced Audio Functionality will give you access to these enhancements in the Cider Audio Labs, found in the app settings.",
+        "oobe.audio.text": 'Cider features a custom tuned and designed audio stack that delivers a rich high quality audio experience.\nFeaturing Cider Adrenaline, Atmosphere Realizer, and Spatialized Audio.\nTo enable this functionality "Advanced Audio Functionality" must be enabled.\nEnabling Advanced Audio Functionality will give you access to these enhancements in the Cider Audio Labs, found in the app settings.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Visual",
         "oobe.visual.subtitle": "",
@@ -22950,16 +22951,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "ภาษา",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/th/[ciderapp.cider-i18n] main/th_TH"
-    }
+      file: "/content/th/[ciderapp.cider-i18n] main/th_TH",
+    },
   ],
   "sv-SE": [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Svenska (SE)",
         "i18n.languageNameEnglish": "Swedish (SE)",
         "i18n.category": "main",
@@ -23081,22 +23082,22 @@
         "term.time.released": "Tillagd den",
         "term.time.updated": "Uppdaterad",
         "term.time.day": {
-          "one": "dag",
-          "other": "dagar"
+          one: "dag",
+          other: "dagar",
         },
         "term.time.hours": "timmar",
         "term.time.hour": {
-          "one": "timme",
-          "other": "timmar"
+          one: "timme",
+          other: "timmar",
         },
         "term.time.minute": {
-          "one": "minut",
-          "other": "minuter"
+          one: "minut",
+          other: "minuter",
         },
         "term.time.seconds": "sekunder",
         "term.time.second": {
-          "one": "sekund",
-          "other": "sekunder"
+          one: "sekund",
+          other: "sekunder",
         },
         "term.fullscreenView": "Helskärmsvy",
         "term.defaultView": "Standardvy",
@@ -23121,8 +23122,8 @@
         "term.reset": "Återställ",
         "term.tracks": "låtar",
         "term.track": {
-          "one": "spår",
-          "other": "spår"
+          one: "spår",
+          other: "spår",
         },
         "term.videos": "Videor",
         "term.menu": "Meny",
@@ -23180,10 +23181,10 @@
         "term.nowPlaying": "Spelas nu",
         "term.localFiles": "Lokala filer",
         "home.greeting": {
-          "rise": "Rise and shine, ${name}",
-          "morning": "God morgon, ${name}",
-          "afternoon": "God eftermiddag, ${name}",
-          "evening": "God kväll, ${name}"
+          rise: "Rise and shine, ${name}",
+          morning: "God morgon, ${name}",
+          afternoon: "God eftermiddag, ${name}",
+          evening: "God kväll, ${name}",
         },
         "home.syncFavorites": "Synkronisera favoriter",
         "home.syncFavorites.gettingArtists": "Hämtar favoritartister...",
@@ -23634,7 +23635,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Ljud",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider har en skräddarsydd och utformad ljudstack som ger en rik högkvalitativ ljudupplevelse.\nMed Cider Adrenalin, Atmosfär Realizer och Spatialized Audio.\nFör att aktivera denna funktionalitet måste \"Avancerad ljudfunktionalitet\" vara aktiverad.\nAktivering av avancerad ljudfunktionalitet ger dig tillgång till dessa förbättringar i Cider Audio Labs, som finns i appinställningarna.",
+        "oobe.audio.text": 'Cider har en skräddarsydd och utformad ljudstack som ger en rik högkvalitativ ljudupplevelse.\nMed Cider Adrenalin, Atmosfär Realizer och Spatialized Audio.\nFör att aktivera denna funktionalitet måste "Avancerad ljudfunktionalitet" vara aktiverad.\nAktivering av avancerad ljudfunktionalitet ger dig tillgång till dessa förbättringar i Cider Audio Labs, som finns i appinställningarna.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Visuell",
         "oobe.visual.subtitle": "",
@@ -23813,7 +23814,7 @@
         "term.am.language.description": "Bestämmer vilket språk som Apple Music-elementen kommer visas i. Att byta skyltfönster kommer byta de tillgängliga språken, du kanske inte kan se alla språk från vissa regioner som anges av din Apple-konto",
         "term.am.language": "Apple Music språk",
         "term.am.storefront": "Apple Music skyltfönster",
-        "term.am.storefront.description": "Det \"skyltfönster\" eller region som innehållet streamas från. Detta inkluderar Sökresultat, Bläddra, Lyssna nu och Radio. Att ändra detta är inte rekommenderat eftersom det kan orsaka problem med din upplevelse.",
+        "term.am.storefront.description": 'Det "skyltfönster" eller region som innehållet streamas från. Detta inkluderar Sökresultat, Bläddra, Lyssna nu och Radio. Att ändra detta är inte rekommenderat eftersom det kan orsaka problem med din upplevelse.',
         "term.prerelease": "Försläpp",
         "settings.option.visual.layoutType": "Layouttyp",
         "settings.option.visual.sizeProfile": "UI Storleks Profil",
@@ -23833,16 +23834,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Språk",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/sv-SE/[ciderapp.cider-i18n] main/sv_SE"
-    }
+      file: "/content/sv-SE/[ciderapp.cider-i18n] main/sv_SE",
+    },
   ],
-  "tr": [
+  tr: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Türkçe",
         "i18n.languageNameEnglish": "Turkish",
         "i18n.category": "main",
@@ -23964,22 +23965,22 @@
         "term.time.released": "Şu tarihte yayınalndı: ",
         "term.time.updated": "Şu tarihte güncellendi: ",
         "term.time.day": {
-          "one": "gün",
-          "other": "gün"
+          one: "gün",
+          other: "gün",
         },
         "term.time.hours": "saat",
         "term.time.hour": {
-          "one": "saat",
-          "other": "saat"
+          one: "saat",
+          other: "saat",
         },
         "term.time.minute": {
-          "one": "dakika",
-          "other": "dakika"
+          one: "dakika",
+          other: "dakika",
         },
         "term.time.seconds": "saniye",
         "term.time.second": {
-          "one": "saniye",
-          "other": "saniye"
+          one: "saniye",
+          other: "saniye",
         },
         "term.fullscreenView": "Tam Ekrana Geç",
         "term.defaultView": "Normal Görünüme Dön",
@@ -24004,8 +24005,8 @@
         "term.reset": "Sıfırla",
         "term.tracks": "şarkı",
         "term.track": {
-          "one": "şarkı",
-          "other": "şarkı"
+          one: "şarkı",
+          other: "şarkı",
         },
         "term.videos": "Video Klipler",
         "term.menu": "Menü",
@@ -24063,10 +24064,10 @@
         "term.nowPlaying": "Şimdi Çalıyor",
         "term.localFiles": "Yerel Dosyalar",
         "home.greeting": {
-          "rise": "Kalkma Zamanı!",
-          "morning": "Günaydın, {{fullName}}!",
-          "afternoon": "İyi günler, {{fullName}}!",
-          "evening": "İyi akşamlar, {{fullName}}!"
+          rise: "Kalkma Zamanı!",
+          morning: "Günaydın, {{fullName}}!",
+          afternoon: "İyi günler, {{fullName}}!",
+          evening: "İyi akşamlar, {{fullName}}!",
         },
         "home.syncFavorites": "Favorileri Senkronize Et",
         "home.syncFavorites.gettingArtists": "Favorilenen Sanatçıları Alma...",
@@ -24517,7 +24518,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Ses",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider, zengin ve yüksek kaliteli bir ses deneyimi sunan özel olarak ayarlanmış ve tasarlanmış bir ses yığınına sahiptir.\nCider Adrenaline, Atmosphere Realizer ve Spatialized Audio özelliklerine sahiptir.\nBu işlevselliği etkinleştirmek için \"Gelişmiş Ses İşlevselliği\" etkinleştirilmelidir.\nGelişmiş Ses İşlevselliğini etkinleştirmek, uygulama ayarlarında bulunan Cider Audio Labs'daki bu geliştirmelere erişmenizi sağlayacaktır.",
+        "oobe.audio.text": 'Cider, zengin ve yüksek kaliteli bir ses deneyimi sunan özel olarak ayarlanmış ve tasarlanmış bir ses yığınına sahiptir.\nCider Adrenaline, Atmosphere Realizer ve Spatialized Audio özelliklerine sahiptir.\nBu işlevselliği etkinleştirmek için "Gelişmiş Ses İşlevselliği" etkinleştirilmelidir.\nGelişmiş Ses İşlevselliğini etkinleştirmek, uygulama ayarlarında bulunan Cider Audio Labs\'daki bu geliştirmelere erişmenizi sağlayacaktır.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Görsel",
         "oobe.visual.subtitle": "",
@@ -24716,16 +24717,16 @@
         "marketplace.trustedAuthor.tooltip": "Bu sanatçı güvenilir ve doğrulanmış",
         "settings.option.general.language.main": "Gerçek Diller",
         "settings.header.languages": "Dil Ayarları",
-        "catalog": {
-          "new": "Yeni"
-        }
+        catalog: {
+          new: "Yeni",
+        },
       },
-      "file": "/content/tr/[ciderapp.cider-i18n] main/tr_TR"
-    }
+      file: "/content/tr/[ciderapp.cider-i18n] main/tr_TR",
+    },
   ],
-  "uk": [
+  uk: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Українська (UA)",
         "i18n.languageNameEnglish": "Ukrainian (UA)",
         "i18n.category": "main",
@@ -24847,22 +24848,22 @@
         "term.time.released": "Реліз: ",
         "term.time.updated": "Оновлено",
         "term.time.day": {
-          "one": "день",
-          "other": "днів"
+          one: "день",
+          other: "днів",
         },
         "term.time.hours": "годин",
         "term.time.hour": {
-          "one": "година",
-          "other": "годин"
+          one: "година",
+          other: "годин",
         },
         "term.time.minute": {
-          "one": "хвилина",
-          "other": "хвилин"
+          one: "хвилина",
+          other: "хвилин",
         },
         "term.time.seconds": "секунд",
         "term.time.second": {
-          "one": "секунда",
-          "other": "секунд"
+          one: "секунда",
+          other: "секунд",
         },
         "term.fullscreenView": "Повноекранний режим",
         "term.defaultView": "Стандартне відображення",
@@ -24887,8 +24888,8 @@
         "term.reset": "Скинути",
         "term.tracks": "треки",
         "term.track": {
-          "one": "пісня",
-          "other": "пісень"
+          one: "пісня",
+          other: "пісень",
         },
         "term.videos": "Відео",
         "term.menu": "Меню",
@@ -24946,10 +24947,10 @@
         "term.nowPlaying": "Зараз грає",
         "term.localFiles": "Локальні файли",
         "home.greeting": {
-          "rise": "Вставай і сяй, ${name}",
-          "morning": "Доброго ранку, ${name}",
-          "afternoon": "Гарного дня, ${name}",
-          "evening": "Доброго вечора, ${name}"
+          rise: "Вставай і сяй, ${name}",
+          morning: "Доброго ранку, ${name}",
+          afternoon: "Гарного дня, ${name}",
+          evening: "Доброго вечора, ${name}",
         },
         "home.syncFavorites": "Синхронізувати",
         "home.syncFavorites.gettingArtists": "Синхронізація улюблених виконавців...",
@@ -25400,7 +25401,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Аудіо",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider містить спеціально налаштований і розроблений стек аудіо, який забезпечує насичене високоякісне звучання.\nВключаючи Cider Adrenaline, Atmosphere Realizer і Spatialized Audio.\nЩоб увімкнути цю функцію, потрібно ввімкнути \"Advanced Audio Functionality\".\nУвімкнення Advanced Audio надасть вам доступ до цих покращень у Cider Audio Labs, які можна знайти в налаштуваннях програми.",
+        "oobe.audio.text": 'Cider містить спеціально налаштований і розроблений стек аудіо, який забезпечує насичене високоякісне звучання.\nВключаючи Cider Adrenaline, Atmosphere Realizer і Spatialized Audio.\nЩоб увімкнути цю функцію, потрібно ввімкнути "Advanced Audio Functionality".\nУвімкнення Advanced Audio надасть вам доступ до цих покращень у Cider Audio Labs, які можна знайти в налаштуваннях програми.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Візуальні",
         "oobe.visual.subtitle": "",
@@ -25599,16 +25600,16 @@
         "marketplace.trustedAuthor.tooltip": "Це надійний і перевірений автор",
         "settings.option.general.language.main": "Мови",
         "settings.header.languages": "Налаштування мови",
-        "catalog": {
-          "new": "Нова"
-        }
+        catalog: {
+          new: "Нова",
+        },
       },
-      "file": "/content/uk/[ciderapp.cider-i18n] main/uk_UA"
-    }
+      file: "/content/uk/[ciderapp.cider-i18n] main/uk_UA",
+    },
   ],
-  "vi": [
+  vi: [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Tiếng Việt",
         "i18n.languageNameEnglish": "Vietnamese",
         "i18n.category": "main",
@@ -25730,22 +25731,22 @@
         "term.time.released": "Phát hành vào ngày",
         "term.time.updated": "Cập nhật vào ngày",
         "term.time.day": {
-          "one": "ngày",
-          "other": "ngày"
+          one: "ngày",
+          other: "ngày",
         },
         "term.time.hours": "giờ",
         "term.time.hour": {
-          "one": "giờ",
-          "other": "giờ"
+          one: "giờ",
+          other: "giờ",
         },
         "term.time.minute": {
-          "one": "phút",
-          "other": "phút"
+          one: "phút",
+          other: "phút",
         },
         "term.time.seconds": "giây",
         "term.time.second": {
-          "one": "giây",
-          "other": "giây"
+          one: "giây",
+          other: "giây",
         },
         "term.fullscreenView": "Xem toàn màn hình",
         "term.defaultView": "Xem gốc",
@@ -25770,8 +25771,8 @@
         "term.reset": "Đặt về mặc định",
         "term.tracks": "bài",
         "term.track": {
-          "one": "bài",
-          "other": "bài"
+          one: "bài",
+          other: "bài",
         },
         "term.videos": "Video",
         "term.menu": "Menu",
@@ -25829,10 +25830,10 @@
         "term.nowPlaying": "Đang phát",
         "term.localFiles": "Local Files",
         "home.greeting": {
-          "rise": "Chào buổi sáng, ${name}",
-          "morning": "Chào buổi sáng, ${name}",
-          "afternoon": "Chào buổi chiều, ${name}",
-          "evening": "Chào buổi tối, ${name}"
+          rise: "Chào buổi sáng, ${name}",
+          morning: "Chào buổi sáng, ${name}",
+          afternoon: "Chào buổi chiều, ${name}",
+          evening: "Chào buổi tối, ${name}",
         },
         "home.syncFavorites": "Đồng bộ Yêu thích",
         "home.syncFavorites.gettingArtists": "Đang tải Các nghệ sĩ Yêu thích",
@@ -26283,7 +26284,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Audio",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "Cider features a custom tuned and designed audio stack that delivers a rich high quality audio experience.\nFeaturing Cider Adrenaline, Atmosphere Realizer, and Spatialized Audio.\nTo enable this functionality \"Advanced Audio Functionality\" must be enabled.\nEnabling Advanced Audio Functionality will give you access to these enhancements in the Cider Audio Labs, found in the app settings.",
+        "oobe.audio.text": 'Cider features a custom tuned and designed audio stack that delivers a rich high quality audio experience.\nFeaturing Cider Adrenaline, Atmosphere Realizer, and Spatialized Audio.\nTo enable this functionality "Advanced Audio Functionality" must be enabled.\nEnabling Advanced Audio Functionality will give you access to these enhancements in the Cider Audio Labs, found in the app settings.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Visual",
         "oobe.visual.subtitle": "",
@@ -26482,16 +26483,16 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Ngôn ngữ chính",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/vi/[ciderapp.cider-i18n] main/vi_VN"
-    }
+      file: "/content/vi/[ciderapp.cider-i18n] main/vi_VN",
+    },
   ],
   "pt-PT": [
     {
-      "content": {
+      content: {
         "i18n.languageName": "Português (Portugal)",
         "i18n.languageNameEnglish": "Portuguese (Portugal)",
         "i18n.category": "main",
@@ -26613,22 +26614,22 @@
         "term.time.released": "Lançado",
         "term.time.updated": "Atualizado",
         "term.time.day": {
-          "one": "dia",
-          "other": "dias"
+          one: "dia",
+          other: "dias",
         },
         "term.time.hours": "horas",
         "term.time.hour": {
-          "one": "hora",
-          "other": "horas"
+          one: "hora",
+          other: "horas",
         },
         "term.time.minute": {
-          "one": "minuto",
-          "other": "minutos"
+          one: "minuto",
+          other: "minutos",
         },
         "term.time.seconds": "segundos",
         "term.time.second": {
-          "one": "segundo",
-          "other": "segundos"
+          one: "segundo",
+          other: "segundos",
         },
         "term.fullscreenView": "Vista de ecrã inteiro",
         "term.defaultView": "Vista normal",
@@ -26653,8 +26654,8 @@
         "term.reset": "Repor",
         "term.tracks": "músicas",
         "term.track": {
-          "one": "música",
-          "other": "músicas"
+          one: "música",
+          other: "músicas",
         },
         "term.videos": "Vídeos",
         "term.menu": "Menu",
@@ -26712,10 +26713,10 @@
         "term.nowPlaying": "Em reprodução",
         "term.localFiles": "Ficheiros locais",
         "home.greeting": {
-          "rise": "Toca a levantar, ${name}",
-          "morning": "Bom dia, ${name}",
-          "afternoon": "Boa tarde, ${name}",
-          "evening": "Boa noite, ${name}"
+          rise: "Toca a levantar, ${name}",
+          morning: "Bom dia, ${name}",
+          afternoon: "Boa tarde, ${name}",
+          evening: "Boa noite, ${name}",
         },
         "home.syncFavorites": "Sincronizar favoritos",
         "home.syncFavorites.gettingArtists": "A obter os artistas favoritos...",
@@ -26867,7 +26868,7 @@
         "settings.notyf.general.keybindings.update.success": "Atalho atualizado com sucesso",
         "settings.prompt.general.keybindings.update.success": "Atalho atualizado com sucesso. Prima OK para reiniciar o Cider",
         "settings.option.general.themeUpdateNotification": "Verificação automática de atualizações de temas",
-        "settings.option.general.showLovedTracksInline": "Mostrar músicas que gosta \"inline\"",
+        "settings.option.general.showLovedTracksInline": 'Mostrar músicas que gosta "inline"',
         "settings.option.general.pagination": "Itens a mostrar por página",
         "settings.option.general.privacy": "Privacidade",
         "settings.option.general.shareAnalytics": "Partilhar Analíticas",
@@ -27072,9 +27073,9 @@
         "settings.option.connectivity.lastfmScrobble.nowPlaying": "Ativar Last.fm Now Playing",
         "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remover artistas do título da música (Last.fm)",
         "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtrar música em loop (Last.fm)",
-        "settings.option.connectivity.lastfmScrobble.filterLoop.description": "Impedir que músicas em loop sejam \"scrobbled\" ou apresentadas na lista Now Playing na Last.fm.",
+        "settings.option.connectivity.lastfmScrobble.filterLoop.description": 'Impedir que músicas em loop sejam "scrobbled" ou apresentadas na lista Now Playing na Last.fm.',
         "settings.option.connectivity.lastfmScrobble.filterTypes": "Filtrar tipos de ficheiro (Last.fm)",
-        "settings.option.connectivity.lastfmScrobble.filterTypes.description": "Evita que as faixas dos tipos de ficheiros selecionados sejam \"scrobbled\" ou exibidas na lista de \"Agora a tocar\" no Last.fm.",
+        "settings.option.connectivity.lastfmScrobble.filterTypes.description": 'Evita que as faixas dos tipos de ficheiros selecionados sejam "scrobbled" ou exibidas na lista de "Agora a tocar" no Last.fm.',
         "settings.option.connectivity.lastfmScrobble.manualToken": "Introduzir Token Last.fm manualmente",
         "settings.option.connectivity.lastfmScrobble.manualToken.link": "Clique aqui para obter um token Last.fm",
         "settings.notyf.connectivity.lastfmScrobble.connectError": "Ligação à Last.fm expirou",
@@ -27092,7 +27093,7 @@
         "settings.option.experimental.compactUI": "UI compacta",
         "settings.option.window.close_button_hide": "Botão fechar oculta a aplicação",
         "settings.option.window.maxElementScale": "Escala máxima de elementos",
-        "settings.option.experimental.inline_playlists": "Listas de reprodução e álbuns \"inline\"",
+        "settings.option.experimental.inline_playlists": 'Listas de reprodução e álbuns "inline"',
         "settings.option.advanced.playlistTrackMapping": "Mapeamento de músicas de listas de reprodução",
         "settings.option.advanced.playlistTrackMapping.description": "Ativa uma análise profunda das listas de reprodução para determinar que músicas estão em que listas de reprodução. O tempo de construção da cache das listas de reprodução pode aumentar significativamente.",
         "settings.option.visual.artworkLoadingMethod": "Método de carregamento de grafismo",
@@ -27166,7 +27167,7 @@
         "oobe.general.text": "",
         "oobe.audio.title": "Áudio",
         "oobe.audio.subtitle": "",
-        "oobe.audio.text": "O Cider dispõe de um conjunto personalizado de áudio sintonizado e desenhado que proporciona uma rica experiência áudio de alta qualidade.\nApresentando o Cider Adrenalina, Realizador de Atmosfera, e Áudio Espacializado.\nPara ativar esta funcionalidade a \"Funcionalidade de áudio avançada\" deve ser ativada.\nA ativação da funcionalidade de áudio avançada dar-lhe-á acesso a estes melhoramentos no Cider Audio Lab, encontrados nas definições da aplicação.",
+        "oobe.audio.text": 'O Cider dispõe de um conjunto personalizado de áudio sintonizado e desenhado que proporciona uma rica experiência áudio de alta qualidade.\nApresentando o Cider Adrenalina, Realizador de Atmosfera, e Áudio Espacializado.\nPara ativar esta funcionalidade a "Funcionalidade de áudio avançada" deve ser ativada.\nA ativação da funcionalidade de áudio avançada dar-lhe-á acesso a estes melhoramentos no Cider Audio Lab, encontrados nas definições da aplicação.',
         "oobe.audio.advancedFunctionality": "",
         "oobe.visual.title": "Aparência",
         "oobe.visual.subtitle": "",
@@ -27365,11 +27366,11 @@
         "marketplace.trustedAuthor.tooltip": "This is a trusted and verified author",
         "settings.option.general.language.main": "Idiomas",
         "settings.header.languages": "Language Settings",
-        "catalog": {
-          "new": "New"
-        }
+        catalog: {
+          new: "New",
+        },
       },
-      "file": "/content/pt-PT/[ciderapp.cider-i18n] main/pt_PT"
-    }
-  ]
-}
+      file: "/content/pt-PT/[ciderapp.cider-i18n] main/pt_PT",
+    },
+  ],
+};

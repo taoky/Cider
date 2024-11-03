@@ -6,9 +6,7 @@ import { app, BrowserWindow, ipcMain } from "electron";
 // import OtaClient from "@crowdin/ota-client";
 import fetch from "electron-fetch";
 import ElectronStore from "electron-store";
-
-// DO NOT convert following code to import format!
-const translations = require("./translations.json");
+import translations from "./translations";
 
 export class utils {
   // static crowdinClient: OtaClient = new OtaClient("fda9a6528649ea90dee35390wog");
