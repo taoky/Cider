@@ -1,7 +1,7 @@
 #
 # spec file for package cider
 #
-# Copyright (c) 2023 SUSE LLC
+# Copyright (c) 2024 taoky & Cider Collective <cryptofyre@cider.sh> (https://cider.sh)
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
