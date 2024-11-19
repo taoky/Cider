@@ -28,6 +28,7 @@ Source:   https://github.com/taoky/Cider/releases/download/20241103221050/cider_
 # Upstream only produces artifacts for x86_64
 ExclusiveArch: x86_64
 BuildRequires: bsdtar, gtk3, libnotify, nss, libXScrnSaver, libXtst, xdg-utils, at-spi2-core, libuuid, libsecret, libappindicator-gtk3
+Requires: gtk3, libnotify, nss, libXScrnSaver, libXtst, xdg-utils, at-spi2-core, libuuid, libsecret, libappindicator-gtk3
 
 
 %description
