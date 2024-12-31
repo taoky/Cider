@@ -22,6 +22,7 @@ finish-args:
   - --socket=fallback-x11
   - --allow=devel  # allow ptrace() to get backtraces
   - --system-talk-name=org.freedesktop.UPower
+  - --system-talk-name=org.freedesktop.login1
   - --talk-name=com.canonical.AppMenu.Registrar
   - --talk-name=com.canonical.dbusmenu
   - --talk-name=org.freedesktop.Notifications
