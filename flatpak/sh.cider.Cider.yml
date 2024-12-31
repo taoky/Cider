@@ -21,11 +21,14 @@ finish-args:
   - --socket=wayland
   - --socket=fallback-x11
   - --allow=devel  # allow ptrace() to get backtraces
-  - --system-talk-name=org.freedesktop.UPower
   - --talk-name=com.canonical.AppMenu.Registrar
   - --talk-name=com.canonical.dbusmenu
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
+  # https://source.chromium.org/chromium/chromium/src/+/main:services/device/wake_lock/power_save_blocker/power_save_blocker_linux.cc
+  - --talk-name=org.gnome.SessionManager
+  - --talk-name=org.freedesktop.PowerManagement
+  - --talk-name=org.freedesktop.ScreenSaver
   - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons
 cleanup:
   - /share/icons/hicolor/1024x1024
