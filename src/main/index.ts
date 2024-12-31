@@ -56,9 +56,9 @@ app.on("ready", async () => {
 
     console.log("[Cider][Widevine] Status:", components.status());
     Cider.bwCreated();
-    win.on("ready-to-show", () => {
+    win.on("ready-to-show", async () => {
       console.debug("[Cider] Window is Ready.");
-      CiderPlug.callPlugins("onReady", win);
+      await CiderPlug.callPlugins("onReady", win);
       if (!app.commandLine.hasSwitch("hidden")) {
         win.show();
       }
@@ -70,26 +70,26 @@ app.on("ready", async () => {
  * Renderer Event Handlers
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 let rendererInitialized = false;
-ipcMain.handle("renderer-ready", (event) => {
+ipcMain.handle("renderer-ready", async (event) => {
   if (rendererInitialized) return;
-  CiderPlug.callPlugins("onRendererReady", event);
+  await CiderPlug.callPlugins("onRendererReady", event);
   rendererInitialized = true;
 });
 
-ipcMain.on("playbackStateDidChange", (_event, attributes) => {
-  CiderPlug.callPlugins("onPlaybackStateDidChange", attributes);
+ipcMain.on("playbackStateDidChange", async (_event, attributes) => {
+  await CiderPlug.callPlugins("onPlaybackStateDidChange", attributes);
 });
 
-ipcMain.on("nowPlayingItemDidChange", (_event, attributes) => {
-  CiderPlug.callPlugins("onNowPlayingItemDidChange", attributes);
+ipcMain.on("nowPlayingItemDidChange", async (_event, attributes) => {
+  await CiderPlug.callPlugins("onNowPlayingItemDidChange", attributes);
 });
 
-ipcMain.on("playbackTimeDidChange", (_event, attributes) => {
-  CiderPlug.callPlugins("playbackTimeDidChange", attributes);
+ipcMain.on("playbackTimeDidChange", async (_event, attributes) => {
+  await CiderPlug.callPlugins("playbackTimeDidChange", attributes);
 });
 
-app.on("before-quit", () => {
-  CiderPlug.callPlugins("onBeforeQuit");
+app.on("before-quit", async () => {
+  await CiderPlug.callPlugins("onBeforeQuit");
   console.warn(`${app.getName()} exited.`);
 });
 

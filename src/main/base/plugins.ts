@@ -100,11 +100,11 @@ export class Plugins {
     return plugins;
   }
 
-  public callPlugins(event: string, ...args: any[]) {
+  public async callPlugins(event: string, ...args: any[]) {
     for (const plugin in this.pluginsList) {
       if (this.pluginsList[plugin][event]) {
         try {
-          this.pluginsList[plugin][event](...args);
+          await this.pluginsList[plugin][event](...args);
         } catch (e) {
           console.error(`[${plugin}] An error was encountered: ${e}`);
           console.error(e);
@@ -113,9 +113,9 @@ export class Plugins {
     }
   }
 
-  public callPlugin(plugin: string, event: string, ...args: any[]) {
+  public async callPlugin(plugin: string, event: string, ...args: any[]) {
     if (this.pluginsList[plugin][event]) {
-      this.pluginsList[plugin][event](...args);
+      await this.pluginsList[plugin][event](...args);
     }
   }
 }
