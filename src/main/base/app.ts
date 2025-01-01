@@ -345,7 +345,13 @@ export class AppEvents {
       height: 24,
     });
 
-    const menu = Menu.buildFromTemplate([
+    const template: ({
+      label?: string;
+      enabled?: boolean;
+      icon?: any;
+      click?: () => void;
+      visible?: boolean;
+    })[] = [
       {
         label: app.getName(),
         enabled: false,
@@ -415,7 +421,15 @@ export class AppEvents {
           app.quit();
         },
       },
-    ]);
+    ].filter((item) => {
+      // Workaround for tray separator visibility bug in Electron
+      if (item.type === "separator" && item.visible === false) {
+        return false;
+      }
+      return true;
+    });
+
+    const menu = Menu.buildFromTemplate(template);
     this.tray.setContextMenu(menu);
   }
 
