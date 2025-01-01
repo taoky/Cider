@@ -44,10 +44,14 @@ app.on("ready", async () => {
     console.info("[Cider] Running in development mode.");
     require("vue-devtools").install();
   }
-  console.log("aa");
+
   components.whenReady().then(async () => {
     const bw = new BrowserWindow();
     console.log("[Cider] Creating Window.");
+    if (Cider.bwWouldBeCreated() === false) {
+      console.error("[Cider] Window creation was blocked.");
+      return;
+    }
     const win = await bw.createWindow();
 
     app.getGPUInfo("complete").then((gpuInfo) => {
@@ -72,6 +76,7 @@ app.on("ready", async () => {
 let rendererInitialized = false;
 ipcMain.handle("renderer-ready", async (event) => {
   if (rendererInitialized) return;
+  Cider.handleProcessArgs();
   await CiderPlug.callPlugins("onRendererReady", event);
   rendererInitialized = true;
 });

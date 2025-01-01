@@ -51,7 +51,7 @@ modules:
         --exclude=./usr/share/doc \
         ./usr/share
       - install -Dm755 cider-wrapper /app/bin/cider-wrapper
-      - desktop-file-edit --set-key=Exec --set-value=cider-wrapper ${FLATPAK_DEST}/share/applications/cider.desktop
+      - desktop-file-edit --set-key=Exec --set-value="cider-wrapper %U" ${FLATPAK_DEST}/share/applications/cider.desktop
       - install -Dm755 stub_sandbox ${FLATPAK_DEST}/cider/chrome-sandbox
       - install -Dm755 cider -t ${FLATPAK_DEST}/bin/
       - install -Dm644 -t /app/share/metainfo ${FLATPAK_ID}.metainfo.xml

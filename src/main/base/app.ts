@@ -128,14 +128,33 @@ export class AppEvents {
     AppEvents.setLoginSettings();
   }
 
+  public bwWouldBeCreated() {
+    return this.InstanceHandler();
+  }
+
+  public handleProcessArgs() {
+    if (process.argv.length >= 2) {
+      process.argv.forEach((arg: string) => {
+        if (arg.includes("cider://") || arg.includes("itms://") || arg.includes("itmss://") || arg.includes("music://") || arg.includes("musics://")) {
+          console.debug("[handleProcessArgs] Link detected with " + arg);
+          this.LinkHandler(arg);
+        }
+      });
+    }
+  }
+
   public bwCreated() {
-    app.on("open-url", (event, url) => {
-      event.preventDefault();
-      if (this.protocols.some((protocol: string) => url.includes(protocol))) {
-        this.LinkHandler(url);
-        console.log(url);
-      }
-    });
+    if (process.platform === "darwin") {
+      // only macOS supports open-url
+      // for non-macOS, we handle the protocol in renderer-ready handler
+      app.on("open-url", (event, url) => {
+        event.preventDefault();
+        if (this.protocols.some((protocol: string) => url.includes(protocol))) {
+          this.LinkHandler(url);
+          console.log(url);
+        }
+      });
+    }
 
     if (process.platform === "darwin") {
       app.setUserActivity(
@@ -148,7 +167,6 @@ export class AppEvents {
       );
     }
 
-    this.InstanceHandler();
     if (process.platform !== "darwin") {
       this.InitTray();
     }
@@ -235,6 +253,7 @@ export class AppEvents {
       // Runs on the new instance if another instance has been found
       console.log("[Cider] Another instance has been found, quitting.");
       app.quit();
+      return false;
     } else {
       // Runs on the first instance if no other instance has been found
       app.on("second-instance", (_event, startArgs) => {
@@ -255,6 +274,7 @@ export class AppEvents {
           }
         });
       });
+      return true;
     }
   }
 
