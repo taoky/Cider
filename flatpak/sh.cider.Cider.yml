@@ -20,8 +20,6 @@ finish-args:
   # - --socket=x11
   - --socket=wayland
   - --socket=fallback-x11
-  # Security Key 2FA
-  - --socket=pcsc
   - --allow=devel  # allow ptrace() to get backtraces
   - --talk-name=com.canonical.AppMenu.Registrar
   - --talk-name=com.canonical.dbusmenu
@@ -35,23 +33,6 @@ finish-args:
 cleanup:
   - /share/icons/hicolor/1024x1024
 modules:
-  - name: pcsc-lite
-    # https://ludovicrousseau.blogspot.com/2022/02/accessing-smart-cards-from-inside.html
-    # https://github.com/flathub/org.mozilla.firefox.BaseApp/blob/8c691648cb9f87b5378c57cd73862a92f8b1c96a/org.mozilla.firefox.BaseApp.json#L78-L99
-    config-opts:
-      - --disable-libudev
-      - --disable-libsystemd
-      - --without-systemdsystemunitdir
-      - --disable-serial
-      - --disable-usb
-      - --disable-documentation
-    post-install:
-      - rm /app/sbin/pcscd
-      - rmdir /app/sbin || true
-    sources:
-      - type: archive
-        url: https://salsa.debian.org/rousseau/PCSC/-/archive/1.9.9/PCSC-1.9.9.tar.bz2
-        sha256: 09067c3d807ab11509565899b7a46aec8dffd9e14bee9e6e2cdfddd9f8f49173
   - name: cider
     buildsystem: simple
     build-commands:
