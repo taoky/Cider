@@ -1,3 +1,24 @@
+A fork of the Cider v1 player, aimed to maintaining it to be happily running upon Linux desktop, with some fixes not in the original upstream.
+
+## FAQ
+
+### Flatpak
+
+#### Why does it require --device=all in the Flatpak manifest?
+
+Currently, FIDO2 support with Flatpak is a bit messy -- FIDO2 requires USB accesses, and currently the only way to do that is to allow it to access **all** devices.
+
+Portal support is still in development slowly:
+
+- <https://github.com/flatpak/xdg-desktop-portal/issues/989>
+- <https://alfioemanuele.io/dev/2024/01/31/a-vision-for-passkeys-on-the-linux-desktop.html>
+
+If you don't have a security key, you can change `--device=all` to `--device=dri` (GPU access is still required for hardware acceleration), with tools like Flatseal.
+
+---
+
+Original README:
+
 ## ⚠ Cider Classic has approached its End-of-Life status.
 This application is now no longer being actively maintained.  
 No support will be given on Windows.
