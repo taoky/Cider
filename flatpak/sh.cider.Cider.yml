@@ -20,6 +20,8 @@ finish-args:
   # - --socket=x11
   - --socket=wayland
   - --socket=fallback-x11
+  # Security Key 2FA
+  - --socket=pcsc
   - --allow=devel  # allow ptrace() to get backtraces
   - --talk-name=com.canonical.AppMenu.Registrar
   - --talk-name=com.canonical.dbusmenu
