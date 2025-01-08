@@ -89,7 +89,7 @@ const Events = {
 
     // Hang Timer
     app.hangtimer = setTimeout(() => {
-      if (confirm("Cider is not responding. Reload the app?")) {
+      if (confirm("Cider is not responding -- this might be a networking issue though. Reload the app?")) {
         window.location.reload();
       }
     }, 10000);
