@@ -293,17 +293,18 @@ const app = new Vue({
   },
   methods: {
     _fetch(url, opts = {}) {
-      if (app.cfg.advanced.experiments.includes("cider_mirror") === true) {
-        if (url.includes("api.github.com/")) {
-          return fetch(url.replace("api.github.com/", "mirror.api.cider.sh/v2/api/"), opts);
-        } else if (url.includes("raw.githubusercontent.com/")) {
-          return fetch(url.replace("raw.githubusercontent.com/", "mirror.api.cider.sh/v2/raw/"), opts);
-        } else {
-          return fetch(url, opts);
-        }
-      } else {
-        return fetch(url, opts);
-      }
+      return fetch(url, opts);
+      // if (app.cfg.advanced.experiments.includes("cider_mirror") === true) {
+      //   if (url.includes("api.github.com/")) {
+      //     return fetch(url.replace("api.github.com/", "mirror.api.cider.sh/v2/api/"), opts);
+      //   } else if (url.includes("raw.githubusercontent.com/")) {
+      //     return fetch(url.replace("raw.githubusercontent.com/", "mirror.api.cider.sh/v2/raw/"), opts);
+      //   } else {
+      //     return fetch(url, opts);
+      //   }
+      // } else {
+      //   return fetch(url, opts);
+      // }
     },
     setWindowHash(route = "") {
       this.setPagePos();

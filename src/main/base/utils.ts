@@ -93,17 +93,18 @@ export class utils {
         "User-Agent": utils.getWindow().webContents.getUserAgent(),
       },
     });
-    if (this.getStoreValue("advanced.experiments").includes("cider_mirror") === true) {
-      if (url.includes("api.github.com/")) {
-        return await fetch(url.replace("api.github.com/", "mirror.api.cider.sh/v2/api/"), opts);
-      } else if (url.includes("raw.githubusercontent.com/")) {
-        return await fetch(url.replace("raw.githubusercontent.com/", "mirror.api.cider.sh/v2/raw/"), opts);
-      } else {
-        return await fetch(url, opts);
-      }
-    } else {
-      return await fetch(url, opts);
-    }
+    return await fetch(url, opts);
+    // if (this.getStoreValue("advanced.experiments").includes("cider_mirror") === true) {
+    //   if (url.includes("api.github.com/")) {
+    //     return await fetch(url.replace("api.github.com/", "mirror.api.cider.sh/v2/api/"), opts);
+    //   } else if (url.includes("raw.githubusercontent.com/")) {
+    //     return await fetch(url.replace("raw.githubusercontent.com/", "mirror.api.cider.sh/v2/raw/"), opts);
+    //   } else {
+    //     return await fetch(url, opts);
+    //   }
+    // } else {
+    //   return await fetch(url, opts);
+    // }
   }
 
   static async initializeTranslations() {
