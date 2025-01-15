@@ -26,6 +26,8 @@ TOKEN_API=https://example.com/token flatpak run sh.cider.Cider  # or ./cider, or
 }
 ```
 
+To persist this, you could edit the `.desktop` file installed (`Exec` line). If you're using Flatpak, use [Flatseal](https://flathub.org/apps/com.github.tchx84.Flatseal) to add this environment variable.
+
 ### Flatpak
 
 #### Why does it require --device=all in the Flatpak manifest?
