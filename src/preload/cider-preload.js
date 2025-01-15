@@ -1,3 +1,4 @@
+const { contextBridge } = require("electron");
 global.ipcRenderer = require("electron").ipcRenderer;
 console.info("Loaded Preload");
 
@@ -359,3 +360,15 @@ process.once("loaded", () => {
   console.debug("[cider:preload] IPC Listeners Created!");
   global.MusicKitInterop = MusicKitInterop;
 });
+
+const tokenapi = {
+  get: () => {
+    return process.env.TOKEN_API || "https://api.cider.sh/v1/";
+  }
+};
+
+if (process.contextIsolated) {
+  contextBridge.exposeInMainWorld("tokenapi", tokenapi);
+} else {
+  window.tokenapi = tokenapi;
+}

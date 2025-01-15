@@ -102,7 +102,7 @@ function capiInit() {
       }
     }
   };
-  request.open("GET", "https://api.cider.sh/v1/");
+  request.open("GET", window.tokenapi.get());
   request.send();
 }
 

@@ -2,6 +2,30 @@ A fork of the Cider v1 player, aimed to maintaining it to be happily running upo
 
 ## FAQ
 
+### Account
+
+#### Blank screen / no login window
+
+This Cider build still requires a valid Apple Music **token** (not account!) to work. Unfortunately, this is costly: an [Apple Developer Program subscription](https://developer.apple.com/programs/) is required to generate a valid token ($99 USD per year). Please read <https://developer.apple.com/documentation/applemusicapi/generating_developer_tokens> for more information.
+
+This build by default still requires <https://api.cider.sh/v1/> returning a working, valid token -- currently I could not help with this if it does not work :-(.
+
+You could press "Ctrl+Shift+I" to open devtools, switch to "Console" tab, and see if there's any error message related to, for example, expired token.
+
+This build supports `TOKEN_API` env, which you could provide a custom API endpoint to fetch the token like this:
+
+```sh
+TOKEN_API=https://example.com/token flatpak run sh.cider.Cider  # or ./cider, or anything you like
+```
+
+`TOKEN_API` requires returning a JSON object with `token` like this:
+
+```json
+{
+  "token": "xxxx"
+}
+```
+
 ### Flatpak
 
 #### Why does it require --device=all in the Flatpak manifest?
