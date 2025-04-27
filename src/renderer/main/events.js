@@ -89,7 +89,57 @@ const Events = {
 
     // Hang Timer
     app.hangtimer = setTimeout(() => {
-      if (confirm("Cider is not responding -- this might be a networking issue though. Reload the app?")) {
+      const lastToken = localStorage.getItem("lastToken");
+      const tokenAPI = window.tokenapi.get();
+      var prompt = `Cider is not responding -- this might be a networking issue though, or the token from ${tokenAPI} is expired or invalid. Reload the app?`;
+      function getJwtExpiration(token) {
+        // Split the token into its three parts
+        var parts = token.split('.');
+        if (parts.length !== 3) {
+          throw new Error('Invalid JWT token');
+        }
+      
+        // The payload is the second part
+        var base64Url = parts[1];
+      
+        // Convert Base64Url to Base64 by replacing URL specific characters and add padding if needed
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        // Add padding '=' if you're missing characters
+        switch (base64.length % 4) {
+          case 0:
+            break;
+          case 2:
+            base64 += '==';
+            break;
+          case 3:
+            base64 += '=';
+            break;
+          default:
+            throw new Error('Illegal base64url string!');
+        }
+      
+        // Decode the Base64 string (atob is available in browsers)
+        var jsonPayload = decodeURIComponent(
+          atob(base64)
+            .split('')
+            .map(function(c) {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join('')
+        );
+      
+        // Parse the JSON payload and return the exp value
+        var payloadObj = JSON.parse(jsonPayload);
+        return payloadObj.exp;
+      }
+      try {
+        let expiredDate = getJwtExpiration(lastToken);
+        prompt += `\n Token Expiration: ${new Date(expiredDate * 1000).toLocaleString()}`;
+      } catch (e) {
+        console.error(e);
+        prompt += `\n Token Expiration: Invalid (error ${e})`;
+      }
+      if (confirm(prompt)) {
         window.location.reload();
       }
     }, 10000);
