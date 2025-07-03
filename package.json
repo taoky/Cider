@@ -113,7 +113,8 @@
       "version": "33.0.1+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
-    "appId": "cider",
+    "appId": "sh.cider.Cider",
+    "productName": "Cider",
     "afterPack": "./resources/afterPack.js",
     "afterSign": "./resources/notarize.js",
     "protocols": [
@@ -138,13 +139,12 @@
     "linux": {
       "target": [
         "AppImage",
-        "deb",
-        "snap"
+        "deb"
       ],
       "synopsis": "A new look into listening and enjoying music in style and performance. ",
       "category": "AudioVideo",
-      "icon": "cider",
-      "executableName": "cider"
+      "icon": "sh.cider.Cider",
+      "executableName": "sh.cider.Cider"
     },
     "appx": {
       "applicationId": "Cider",

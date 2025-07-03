@@ -20,7 +20,7 @@
     </p>
   </description>
   
-  <launchable type="desktop-id">cider.desktop</launchable>
+  <launchable type="desktop-id">sh.cider.Cider.desktop</launchable>
 
   <screenshots>
     <screenshot type="default">

@@ -5,8 +5,6 @@ sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: '24.08'
 command: cider-wrapper
-rename-desktop-file: cider.desktop
-rename-icon: cider
 build-options:
   strip: false
   no-debuginfo: true
@@ -54,7 +52,7 @@ modules:
         --exclude=./usr/share/doc \
         ./usr/share
       - install -Dm755 cider-wrapper /app/bin/cider-wrapper
-      - desktop-file-edit --set-key=Exec --set-value="cider-wrapper %U" ${FLATPAK_DEST}/share/applications/cider.desktop
+      - desktop-file-edit --set-key=Exec --set-value="cider-wrapper %U" ${FLATPAK_DEST}/share/applications/sh.cider.Cider.desktop
       - install -Dm755 stub_sandbox ${FLATPAK_DEST}/cider/chrome-sandbox
       - install -Dm755 cider -t ${FLATPAK_DEST}/bin/
       - install -Dm644 -t /app/share/metainfo ${FLATPAK_ID}.metainfo.xml
@@ -73,7 +71,7 @@ modules:
         commands:
           # share chromium singleton between multiple session, needed for flatpak<1.11.1
           - export TMPDIR=$XDG_RUNTIME_DIR/app/$FLATPAK_ID
-          - exec zypak-wrapper /app/cider/cider "$@"
+          - exec zypak-wrapper /app/cider/sh.cider.Cider "$@"
       - type: script
         dest-filename: stub_sandbox
         commands:

@@ -68,6 +68,5 @@ jobs:
         with:
           files: |
             ./dist/cider_1.6.2_amd64.deb
-            ./dist/cider_1.6.2_amd64.snap
-            ./dist/Cider-1.6.2.AppImage
+            ./dist/sh.cider.Cider-1.6.2.AppImage
             ./sh.cider.Cider.flatpak

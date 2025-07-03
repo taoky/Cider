@@ -51,6 +51,7 @@ export default class mpris {
       name: "cider",
       identity: "Cider",
       supportedInterfaces: ["player"],
+      desktopEntry: "sh.cider.Cider",
     });
 
     console.debug(`[${mpris.name}:connect] Successfully connected.`);

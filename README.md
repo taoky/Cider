@@ -2,6 +2,16 @@ A fork of the Cider v1 player, aimed to maintaining it to be happily running upo
 
 ## FAQ
 
+### Breaking changes
+
+#### Name changes
+
+The "DesktopEntry" property of MPRIS requires a fixed desktop file name. As I have no idea how to manually specify desktop file name with `electron-builder`, I have to change binary name, and following changes are made:
+
+- `cider.desktop` -> `sh.cider.Cider.desktop`
+- (desktop entry icon) `cider` -> `sh.cider.Cider`
+- `cider` binary -> `sh.cider.Cider` binary
+
 ### Account
 
 #### Blank screen / no login window
@@ -40,6 +50,14 @@ Portal support is still in development slowly:
 - <https://alfioemanuele.io/dev/2024/01/31/a-vision-for-passkeys-on-the-linux-desktop.html>
 
 If you don't have a security key, you can change `--device=all` to `--device=dri` (GPU access is still required for hardware acceleration), with tools like Flatseal.
+
+### Building
+
+#### `libcrypto.so.1` not found
+
+`electron-builder` requires OpenSSL 1.1 for now.
+
+For distros that using OpenSSL 3.x, you need to install OpenSSL 1.1 compatibility libraries. For example, on Arch Linux, you can install `libxcrypt-compat` package.
 
 ---
 
