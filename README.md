@@ -16,7 +16,9 @@ The "DesktopEntry" property of MPRIS requires a fixed desktop file name. As I ha
 
 #### Blank screen / no login window
 
-This Cider build still requires a valid Apple Music **token** (not account!) to work. Unfortunately, this is costly: an [Apple Developer Program subscription](https://developer.apple.com/programs/) is required to generate a valid token ($99 USD per year). Please read <https://developer.apple.com/documentation/applemusicapi/generating_developer_tokens> for more information.
+This Cider build (and other third party apps supporting Apple Music) requires a valid Apple Music **token** (not account!) to work. Unfortunately, this is costly: an [Apple Developer Program subscription](https://developer.apple.com/programs/) is required to generate a valid token ($99 USD per year). Please read <https://developer.apple.com/documentation/applemusicapi/generating_developer_tokens> for more information.
+
+Note that currently you could get others' token with `MusicKit.getInstance().developerToken` on webpages using [MusicKit](https://developer.apple.com/musickit/). Please refrain from using this in production (such as packaging it in your own apps). See <https://developer.apple.com/forums/thread/702228> for more discussion, and thanks for a user's email informing me about this.
 
 This build by default still requires <https://api.cider.sh/v1/> returning a working, valid token -- currently I could not help with this if it does not work :-(.
 
