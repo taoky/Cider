@@ -24,7 +24,7 @@ Summary:  A new cross-platform Apple Music experience
 License:  AGPLv3
 URL:      https://github.com/taoky/Cider
 # Upstream uses "auto tagging" soooooooooooooo :3
-Source:   https://github.com/taoky/Cider/releases/download/20241103221050/cider_1.6.2_amd64.deb
+Source:   https://github.com/taoky/Cider/releases/download/20250704035507/cider_1.6.2_amd64.deb
 # Upstream only produces artifacts for x86_64
 ExclusiveArch: x86_64
 BuildRequires: bsdtar, gtk3, libnotify, nss, libXScrnSaver, libXtst, xdg-utils, at-spi2-core, libuuid, libsecret, libappindicator-gtk3
@@ -52,13 +52,13 @@ tar -xJf %{_builddir}/data.tar.xz -C %{buildroot}
 chmod 4755 %{buildroot}/opt/Cider/chrome-sandbox
 
 %check
-/opt/Cider/cider --version
+%{buildroot}/opt/Cider/sh.cider.Cider --version
 
 
 %files
 /opt/Cider/
 %{_datadir}/icons/hicolor/
-/usr/share/applications/cider.desktop
+/usr/share/applications/sh.cider.Cider.desktop
 /usr/share/doc/cider/changelog.gz
 
 %changelog
