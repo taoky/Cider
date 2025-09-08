@@ -67,6 +67,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            ./dist/cider_1.6.2_amd64.deb
-            ./dist/sh.cider.Cider-1.6.2.AppImage
+            ./dist/cider_1.6.3_amd64.deb
+            ./dist/sh.cider.Cider-1.6.3.AppImage
             ./sh.cider.Cider.flatpak
