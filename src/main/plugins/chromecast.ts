@@ -83,13 +83,12 @@ export default class ChromecastPlugin {
     }
   }
 
-  private getServiceDescription(url: any, address: any) {
-    const request = require("request");
-    request.get(url, (error: any, response: any, body: any) => {
-      if (!error && response.statusCode === 200) {
-        this.parseServiceDescription(body, address, url);
-      }
-    });
+  private async getServiceDescription(url: any, address: any) {
+    const response = await fetch(url);
+    if (response.ok && response.status === 200) {
+      const body = await response.text();
+      this.parseServiceDescription(body, address, url);
+    }
   }
 
   private ondeviceup(host: any, name: any, location: any, type: any) {
