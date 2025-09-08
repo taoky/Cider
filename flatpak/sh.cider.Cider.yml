@@ -1,9 +1,9 @@
 app-id: sh.cider.Cider
 runtime: org.freedesktop.Platform
-runtime-version: '24.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '24.08'
+base-version: '25.08'
 command: cider-wrapper
 build-options:
   strip: false
@@ -59,7 +59,7 @@ modules:
     sources:
       - type: file
         dest-filename: cider.deb
-        path: ../dist/cider_1.6.2_amd64.deb
+        path: ../dist/cider_1.6.3_amd64.deb
         # sha256: a637119a14fb085215bdf9775bc26c916c931ad1755d0fdc50f6b1d6fbe48ad6
         # x-checker-data:
         #   type: json
