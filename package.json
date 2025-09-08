@@ -139,7 +139,8 @@
       "synopsis": "A new look into listening and enjoying music in style and performance. ",
       "category": "AudioVideo",
       "icon": "sh.cider.Cider",
-      "executableName": "sh.cider.Cider"
+      "executableName": "sh.cider.Cider",
+      "publish": null
     },
     "appx": {
       "applicationId": "Cider",
@@ -215,8 +216,13 @@
     }
   },
   "engines": {
-    "node": ">= 16",
+    "node": ">= 20",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "lastfm": "0.9.4"
+    }
   }
 }

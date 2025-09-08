@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  lastfm: 0.9.4
+
 importers:
 
   .:
@@ -1788,8 +1791,8 @@ packages:
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
-  lastfm@0.8.4:
-    resolution: {integrity: sha512-gqpLM8CydkanIXYTGF4JryQyF/MAT/Br9l7DeS/xu/JidAw9fZQ8T6OdQS4HEyeNa/drhiMQ40i+MC+AvM1yWA==}
+  lastfm@0.9.4:
+    resolution: {integrity: sha512-zT7nQfdFZVdUMjjaUwRldKFrmb5lv/8q/bcxzzDMZuK9Nq4nSoxbeHWq9SXDpREaJztd9aAXPPyaY2HOotdbCw==}
 
   lastfmapi@0.1.1:
     resolution: {integrity: sha512-v4L4ng8pJBA3bXUeyWVb3A5v1t00p+Yd/o8trXf0Hz5iRgkRc5Z5092PW3YlhymbUuQVAzx4J6tZuKfrbWfOMQ==}
@@ -5039,13 +5042,13 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  lastfm@0.8.4:
+  lastfm@0.9.4:
     dependencies:
       underscore: 1.13.7
 
   lastfmapi@0.1.1:
     dependencies:
-      lastfm: 0.8.4
+      lastfm: 0.9.4
 
   lazy-val@1.0.5: {}
 
