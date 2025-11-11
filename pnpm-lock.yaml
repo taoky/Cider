@@ -128,7 +128,7 @@ importers:
         version: 8.18.1
       electron:
         specifier: github:castlabs/electron-releases
-        version: https://codeload.github.com/castlabs/electron-releases/tar.gz/ce166bf0600f28a620b5cd947bbf8b51def8848f
+        version: https://codeload.github.com/castlabs/electron-releases/tar.gz/0b6d45ceb7e709ada82cd841365302fb4c3004be
       electron-builder:
         specifier: ^26.0.12
         version: 26.0.12(electron-builder-squirrel-windows@26.0.12)
@@ -1205,9 +1205,9 @@ packages:
     resolution: {integrity: sha512-bO3y10YikuUwUuDUQRM4KfwNkKhnpVO7IPdbsrejwN9/AABJzzTQ4GeHwyzNSrVO+tEH3/Np255a3sVZpZDjvg==}
     engines: {node: '>=8.0.0'}
 
-  electron@https://codeload.github.com/castlabs/electron-releases/tar.gz/ce166bf0600f28a620b5cd947bbf8b51def8848f:
-    resolution: {tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/ce166bf0600f28a620b5cd947bbf8b51def8848f}
-    version: 39.0.0-alpha.1
+  electron@https://codeload.github.com/castlabs/electron-releases/tar.gz/0b6d45ceb7e709ada82cd841365302fb4c3004be:
+    resolution: {tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/0b6d45ceb7e709ada82cd841365302fb4c3004be}
+    version: 40.0.0-alpha.2
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -1307,6 +1307,9 @@ packages:
 
   exponential-backoff@3.1.2:
     resolution: {integrity: sha512-8QxYTVXUkuy7fIIoitQkPwGonB8F3Zj8eEO8Sqg9Zv/bkI7RJAzowee4gr81Hak/dUTpA2Z7VfQgoijjPNlUZA==}
+
+  exponential-backoff@3.1.3:
+    resolution: {integrity: sha512-ZgEeZXj30q+I0EN+CbSSpIyPaJ5HVQD18Z1m+u1FXbAeT94mr1zw50q4q6jiiC447Nl/YTcIYSAftiGqetwXCA==}
 
   express@4.21.2:
     resolution: {integrity: sha512-28HqgMZAmih1Czt9ny7qr6ek2qddF4FclbMzwhCREB6OFfH+rXAnuNCwo1/wFvrtbgsQDb4kSbX9de9lFbrXnA==}
@@ -2069,8 +2072,8 @@ packages:
     resolution: {integrity: sha512-DSmt0OEcLoK4i3NuscSbGjOf3bqiDEutejqENSplMSFA/gmB8mkED9G4pKWnPl7MDU4rSHebKPHeitpDfyH0cQ==}
     engines: {node: '>=10'}
 
-  node-abi@3.78.0:
-    resolution: {integrity: sha512-E2wEyrgX/CqvicaQYU3Ze1PFGjc4QYPGsjUrlYkqAE0WjHEZwgOsGMPMzkMse4LjJbDmaEuDX3CM036j5K2DSQ==}
+  node-abi@3.80.0:
+    resolution: {integrity: sha512-LyPuZJcI9HVwzXK1GPxWNzrr+vr8Hp/3UqlmWxxh8p54U1ZbclOqbSog9lWHaCX+dBaiGi6n/hIX+mKu74GmPA==}
     engines: {node: '>=10'}
 
   node-addon-api@1.7.2:
@@ -2508,6 +2511,11 @@ packages:
 
   semver@7.7.2:
     resolution: {integrity: sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==}
+    engines: {node: '>=10'}
+    hasBin: true
+
+  semver@7.7.3:
+    resolution: {integrity: sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -3081,7 +3089,7 @@ snapshots:
   '@electron/node-gyp@https://codeload.github.com/electron/node-gyp/tar.gz/06b29aafb7708acef8b3669835c8a7857ebc92d2':
     dependencies:
       env-paths: 2.2.1
-      exponential-backoff: 3.1.2
+      exponential-backoff: 3.1.3
       glob: 8.1.0
       graceful-fs: 4.2.11
       make-fetch-happen: 10.2.1
@@ -4409,7 +4417,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@https://codeload.github.com/castlabs/electron-releases/tar.gz/ce166bf0600f28a620b5cd947bbf8b51def8848f:
+  electron@https://codeload.github.com/castlabs/electron-releases/tar.gz/0b6d45ceb7e709ada82cd841365302fb4c3004be:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 22.18.1
@@ -4514,6 +4522,8 @@ snapshots:
   expand-template@2.0.3: {}
 
   exponential-backoff@3.1.2: {}
+
+  exponential-backoff@3.1.3: {}
 
   express@4.21.2:
     dependencies:
@@ -5370,9 +5380,9 @@ snapshots:
     dependencies:
       semver: 7.7.2
 
-  node-abi@3.78.0:
+  node-abi@3.80.0:
     dependencies:
-      semver: 7.7.2
+      semver: 7.7.3
 
   node-addon-api@1.7.2:
     optional: true
@@ -5600,7 +5610,7 @@ snapshots:
       minimist: 1.2.8
       mkdirp-classic: 0.5.3
       napi-build-utils: 1.0.2
-      node-abi: 3.78.0
+      node-abi: 3.80.0
       pump: 3.0.3
       rc: 1.2.8
       simple-get: 4.0.1
@@ -5816,6 +5826,8 @@ snapshots:
   semver@6.3.1: {}
 
   semver@7.7.2: {}
+
+  semver@7.7.3: {}
 
   send@0.19.0:
     dependencies:
