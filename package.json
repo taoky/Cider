@@ -14,17 +14,16 @@
   "homepage": "https://cider.sh/",
   "buildResources": "resources",
   "scripts": {
-    "bootstrap": "npx -y check-engine && yarn",
     "build": "tsc && lessc ./src/renderer/style.less ./src/renderer/style.css",
-    "start": "npm run build && electron ./build/index.js",
-    "dist": "npm run build && electron-builder --publish=never",
-    "dist:win": "npm run build && electron-builder --win --publish=never",
-    "dist:linux": "npm run build && electron-builder --linux --publish=never",
-    "dist:universalNotWorking": "npm run build && electron-builder --mac --universal --publish:never",
-    "winget": "npm run build && electron-builder --win -c winget.json",
-    "msft": "npm run build && electron-builder -c msft-package.json",
-    "mstest": "npm run build && electron-builder -c msft-test.json",
-    "steamdeck": "npm run build && electron-builder --linux -c steam-deck.json",
+    "start": "pnpm run build && electron ./build/index.js",
+    "dist": "pnpm run build && electron-builder --publish=never",
+    "dist:win": "pnpm run build && electron-builder --win --publish=never",
+    "dist:linux": "pnpm run build && electron-builder --linux --publish=never",
+    "dist:universalNotWorking": "pnpm run build && electron-builder --mac --universal --publish:never",
+    "winget": "pnpm run build && electron-builder --win -c winget.json",
+    "msft": "pnpm run build && electron-builder -c msft-package.json",
+    "mstest": "pnpm run build && electron-builder -c msft-test.json",
+    "steamdeck": "pnpm run build && electron-builder --linux -c steam-deck.json",
     "format:check": "npx prettier --check \"src/**/*.{js,json,ts,less}\"",
     "format:write": "npx prettier --write \"src/**/*.{js,json,ts,less}\"",
     "flatpak-install": "flatpak-builder --user --install --force-clean .flatpak flatpak/sh.cider.Cider.yml",
@@ -43,9 +42,9 @@
     "electron-log": "^4.4.8",
     "electron-store": "^8.2.0",
     "electron-window-state": "^5.0.3",
-    "express": "^4.21.2",
+    "express": "^4.22.1",
     "get-port": "5.1.1",
-    "jimp": "^0.22.12",
+    "jimp": "^1.6.0",
     "lastfmapi": "^0.1.1",
     "mdns-js": "github:ciderapp/node-mdns-js",
     "mpris-service": "^2.1.2",
@@ -66,18 +65,18 @@
   "devDependencies": {
     "@types/adm-zip": "^0.5.7",
     "@types/discord-rpc": "4.0.4",
-    "@types/express": "^4.17.23",
+    "@types/express": "^4.17.25",
     "@types/musickit": "github:ciderapp/musickit-types",
-    "@types/node": "^20.19.13",
+    "@types/node": "^20.19.27",
     "@types/qrcode-terminal": "^0.12.2",
     "@types/ws": "^8.18.1",
     "electron": "github:castlabs/electron-releases",
     "electron-builder": "^26.0.12",
     "electron-builder-notarize-pkg": "^1.2.0",
-    "less": "^4.4.1",
+    "less": "^4.5.1",
     "node-gyp": "^10.3.1",
     "prettier": "2.8.8",
-    "typescript": "^5.9.2",
+    "typescript": "^5.9.3",
     "vue-devtools": "^5.1.4"
   },
   "fileAssociations": [
@@ -216,9 +215,7 @@
     }
   },
   "engines": {
-    "node": ">= 20",
-    "npm": ">= 6.13.4",
-    "yarn": ">= 1.21.1"
+    "node": ">= 20"
   },
   "pnpm": {
     "overrides": {

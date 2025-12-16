@@ -11,8 +11,8 @@ description: >-
 
 Recommended / Required Development Utilities
 
-* [NodeJS 14.0.0 or greater](https://nodejs.org/)
-* [pnpm](https://pnpm.io/) (_Optional, but highly recommended_)
+* [NodeJS 20.0.0 or greater](https://nodejs.org/)
+* [pnpm](https://pnpm.io/)
 * [Git](https://git-scm.com)
 * [Python 3.8 or greater](https://www.python.org/downloads/)
 * Basic Command Line Knowledge
@@ -46,27 +46,11 @@ If you'd like to update your repository in the future to keep up to date, use th
 
 ### Installing Dependencies
 
-Now for the fun part, by using `pnpm`, `npm` or `yarn` (we'll be using `pnpm` in this case) enter the following command to automatically obtain all required dependencies for installation.
+Now for the fun part, by using `pnpm`, enter the following command to automatically obtain all required dependencies for installation.
 
-{% tabs %}
-{% tab title="pnpm" %}
 ```
 pnpm install
 ```
-{% endtab %}
-
-{% tab title="npm" %}
-```
-npm install --force
-```
-{% endtab %}
-
-{% tab title="yarn" %}
-```
-yarn install
-```
-{% endtab %}
-{% endtabs %}
 
 {% hint style="info" %}
 This step could take a little while on some machines.
@@ -78,8 +62,6 @@ This step takes a little while on the first compilation so bear with it as it do
 
 Compiling Cider for specific CPU architectures is a smart thing to do and you can do it by adding **switches** to the `dist` argument as displayed.
 
-{% tabs %}
-{% tab title="pnpm" %}
 ```
 // For x86_64 machines. (Modern PC's)
 pnpm dist -l --x64
@@ -87,28 +69,6 @@ pnpm dist -l --x64
 // For x86 ONLY machines. (Legacy PC's)
 pnpm dist -l --ia32
 ```
-{% endtab %}
-
-{% tab title="npm" %}
-```
-// For x86_64 machines. (Modern PC's)
-npm run dist -l --x64
-
-// For x86 ONLY machines. (Legacy PC's)
-npm run dist -l --ia32
-```
-{% endtab %}
-
-{% tab title="yarn" %}
-```
-// For x86_64 machines. (Modern PC's)
-yarn dist -l --x64
-
-// For x86 ONLY machines. (Legacy PC's)
-yarn dist -l --ia32
-```
-{% endtab %}
-{% endtabs %}
 
 {% hint style="warning" %}
 On some low-end machines this process could take up to \~10 minutes.

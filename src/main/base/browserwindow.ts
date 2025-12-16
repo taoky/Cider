@@ -17,6 +17,7 @@ import * as os from "os";
 import wallpaper from "wallpaper";
 import * as AdmZip from "adm-zip";
 import { LocalFiles } from "../providers/local/";
+import { Jimp, JimpMime, HorizontalAlign, VerticalAlign } from "jimp";
 
 /**
  * @file Creates the BrowserWindow
@@ -797,7 +798,6 @@ export class BrowserWindow {
 
     ipcMain.on("get-wallpaper", async (event, args) => {
       const wpPath: string = await wallpaper.get();
-      const Jimp = require("jimp");
       const img = await Jimp.read(wpPath);
       const blurAmount = args.blurAmount ?? 256;
       if (blurAmount) {
@@ -807,8 +807,8 @@ export class BrowserWindow {
       const width = screens.reduce((a, b) => a + b.size.width, 0);
       const height = screens.reduce((a, b) => a + b.size.height, 0);
 
-      img.cover(width, height, Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_MIDDLE);
-      const result = await img.getBase64Async(Jimp.MIME_PNG);
+      img.cover({w: width, h: height, align: HorizontalAlign.LEFT | VerticalAlign.MIDDLE});
+      const result = await img.getBase64(JimpMime.png);
 
       event.returnValue = {
         path: wpPath,
