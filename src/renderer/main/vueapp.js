@@ -4418,7 +4418,7 @@ const app = new Vue({
                 document.querySelectorAll(".bg-artwork").forEach((artwork) => {
                   artwork.src = img;
                 });
-                self.$store.commit("setwork", img);
+                self.$store.commit("setLCDArtwork", img);
               });
               try {
                 clearInterval(bginterval);
