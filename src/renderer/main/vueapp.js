@@ -4418,7 +4418,7 @@ const app = new Vue({
                 document.querySelectorAll(".bg-artwork").forEach((artwork) => {
                   artwork.src = img;
                 });
-                self.$store.commit("setLCDArtwork", img);
+                self.$store.commit("setwork", img);
               });
               try {
                 clearInterval(bginterval);
@@ -4452,7 +4452,7 @@ const app = new Vue({
       // Correctly computes artworkSize.
       // cfg.forceDirectives.lcdArtworkSize is not defined and therefore app.getThemeDirective("lcdArtworkSize") will always return false
       // The old code only checks for not empty string which makes artworkSize=false and therefore creates falsexfalsebb.jpg thumbnails
-      let artworkSize = app.getThemeDirective("lcdArtworkSize") > 0 ? app.getThemeDirective("lcdArtworkSize") : 50;
+      let artworkSize = app.getThemeDirective("lcdArtworkSize") > 0 ? app.getThemeDirective("lcdArtworkSize") : 256;
       if (this.cfg.visual.directives.windowLayout === "twopanel") {
         artworkSize = 110;
       }
