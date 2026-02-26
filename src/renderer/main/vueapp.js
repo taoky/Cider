@@ -4442,17 +4442,10 @@ const app = new Vue({
       }, 200);
     },
     async getCurrentArtURL() {
-      //let artworkSize = 50;
-      //if (app.getThemeDirective("lcdArtworkSize") !== "") {
-      //  artworkSize = app.getThemeDirective("lcdArtworkSize");
-      //} else if (this.cfg.visual.directives.windowLayout === "twopanel") {
-      //  artworkSize = 110;
-      //}
       let artworkSize = app.getThemeDirective("lcdArtworkSize") > 0 ? app.getThemeDirective("lcdArtworkSize") : 256;
       if (this.cfg.visual.directives.windowLayout === "twopanel") {
         artworkSize = 110;
       }
-      //const mediaItem = (app?.mk?.nowPlayingItem?.attributes?.artwork?.url ? app?.mk?.nowPlayingItem : null) ?? (await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk?.nowPlayingItem?.id}`)?.data?.data?.data[0]) ?? {};
       const mediaItem = (app?.mk?.nowPlayingItem?.attributes?.artwork?.url ? app.mk.nowPlayingItem : null) 
                         ?? (this.mk?.nowPlayingItem?.id ? (await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`))?.data?.data?.data?.[0] : null) 
                         ?? {};
