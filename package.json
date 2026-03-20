@@ -71,7 +71,7 @@
     "@types/qrcode-terminal": "^0.12.2",
     "@types/ws": "^8.18.1",
     "electron": "github:castlabs/electron-releases",
-    "electron-builder": "^26.7.0",
+    "electron-builder": "26.2.0",
     "electron-builder-notarize-pkg": "^1.2.0",
     "less": "^4.5.1",
     "node-gyp": "^10.3.1",
