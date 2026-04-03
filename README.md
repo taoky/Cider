@@ -61,6 +61,14 @@ If you don't have a security key, you can change `--device=all` to `--device=dri
 
 For distros that using OpenSSL 3.x, you need to install OpenSSL 1.1 compatibility libraries. For example, on Arch Linux, you can install `libxcrypt-compat` package.
 
+### Misc
+
+#### VSCode/VSCodium spawns `rg` eating all my CPU cores after `pnpm run flatpak-install`
+
+VSCode's `npm` built-in extension scans files for "tasks". However, `flatpak-builder` creates a symlink in its build folder to `/run`, and usually `/run/host` is a symlink to `/`. As its search ignores `.gitignore` and follows symlinks, it would scan **every file on your computer with all threads available**.
+
+Setting `search.followSymlinks` to `false` in VSCode settings workarounds this.
+
 ---
 
 Original README:
