@@ -164,7 +164,7 @@ export default class RAOP {
    * Runs on app ready
    */
   onReady(win: any): void {
-    this.u = require("airtunes2");
+    this.u = require("node-airtunes2");
     this._win = win;
 
     electron.ipcMain.on("getKnownAirplayDevices", (event) => {

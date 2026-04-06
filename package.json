@@ -26,14 +26,13 @@
     "steamdeck": "pnpm run build && electron-builder --linux -c steam-deck.json",
     "format:check": "npx prettier --check \"src/**/*.{js,json,ts,less}\"",
     "format:write": "npx prettier --write \"src/**/*.{js,json,ts,less}\"",
-    "flatpak-install": "flatpak-builder --user --install --force-clean .flatpak flatpak/sh.cider.Cider.yml",
-    "postinstall": "echo 'postinstall hack for nan and airtunes2' && sed 's/^#include .nan_scriptorigin\\.h./\\/\\/ #include nan_scriptorigin.h/' ./node_modules/nan/nan.h > ./node_modules/nan/nan.h.new && mv ./node_modules/nan/nan.h.new ./node_modules/nan/nan.h && sed -i 's/17/20/' ./node_modules/airtunes2/binding.gyp"
+    "flatpak-install": "flatpak-builder --user --install --force-clean .flatpak flatpak/sh.cider.Cider.yml"
   },
   "dependencies": {
     "@achingbrain/ssdp": "^4.2.4",
     "@electron/notarize": "^1.2.4",
     "adm-zip": "^0.5.16",
-    "airtunes2": "github:ciderapp/node_airtunes2",
+    "node-airtunes2": "^2.5.0",
     "castv2-client": "^1.2.0",
     "chokidar": "^3.6.0",
     "discord-auto-rpc": "^1.0.17",
@@ -102,9 +101,9 @@
     }
   ],
   "build": {
-    "electronVersion": "38.0.0",
+    "electronVersion": "41.1.1",
     "electronDownload": {
-      "version": "38.0.0+wvcus",
+      "version": "41.1.1+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "sh.cider.Cider",
@@ -219,7 +218,8 @@
   },
   "pnpm": {
     "overrides": {
-      "lastfm": "0.9.4"
+      "lastfm": "0.9.4",
+      "dbus-next>abstract-socket": "invalid"
     }
   }
 }
