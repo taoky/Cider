@@ -1465,7 +1465,7 @@ const app = new Vue({
         classes.simplebg = true;
       }
 
-      if (this.platform !== "darwin") {
+      if (this.platform === "win32") {
         switch (parseInt(this.cfg.visual.windowControlPosition)) {
           default:
           case 0:

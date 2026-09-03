@@ -636,7 +636,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="md-option-line" v-show="app.platform !== 'darwin' && !app.cfg.visual.nativeTitleBar">
+                                <div class="md-option-line" v-show="app.platform === 'win32' && !app.cfg.visual.nativeTitleBar">
                                     <div class="md-option-segment">
                                         {{$root.getLz("settings.option.window.windowControlStyle")}}
                                     </div>

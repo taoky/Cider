@@ -439,6 +439,10 @@ export class BrowserWindow {
         if (utils.getStoreValue("visual.nativeTitleBar")) {
           this.options.titleBarStyle = "visible";
           this.options.frame = true;
+        } else {
+          this.options.titleBarOverlay = {
+            height: 55,
+          };
         }
         break;
       case "darwin":

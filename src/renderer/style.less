@@ -1010,6 +1010,12 @@ input[type="range"].web-slider::-webkit-slider-runnable-track {
   }
 }
 
+body[platform="linux"] .app-chrome:not(.chrome-bottom) {
+  box-sizing: border-box;
+  padding-left: env(titlebar-area-x, 0px);
+  padding-right: calc(100% - env(titlebar-area-x, 0px) - env(titlebar-area-width, 100%));
+}
+
 .mv-chrome {
   position: absolute;
   top: 0;
