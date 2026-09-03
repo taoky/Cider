@@ -1,7 +1,7 @@
 ignoredBuiltDependencies:
   - abstract-socket
-  - airtunes2
   - protobufjs
 
 onlyBuiltDependencies:
   - electron
+  - node-airtunes2

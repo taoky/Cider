@@ -11,7 +11,7 @@ description: >-
 
 Recommended / Required Development Utilities
 
-* [NodeJS 20.0.0 or greater](https://nodejs.org/)
+* [NodeJS 22.12.0 or greater](https://nodejs.org/)
 * [pnpm](https://pnpm.io/)
 * [Git](https://git-scm.com)
 * [Python 3.8 or greater](https://www.python.org/downloads/)

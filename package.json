@@ -12,6 +12,7 @@
     "url": "https://github.com/ciderapp/Cider/issues?q=is%3Aopen+is%3Aissue+label%3Abug"
   },
   "homepage": "https://cider.sh/",
+  "packageManager": "pnpm@10.34.4",
   "buildResources": "resources",
   "scripts": {
     "build": "tsc && lessc ./src/renderer/style.less ./src/renderer/style.css",
@@ -69,7 +70,7 @@
     "@types/node": "^20.19.33",
     "@types/qrcode-terminal": "^0.12.2",
     "@types/ws": "^8.18.1",
-    "electron": "github:castlabs/electron-releases",
+    "electron": "github:castlabs/electron-releases#v44.1.0+wvcus",
     "electron-builder": "26.2.0",
     "electron-builder-notarize-pkg": "^1.2.0",
     "less": "^4.5.1",
@@ -101,9 +102,9 @@
     }
   ],
   "build": {
-    "electronVersion": "41.1.1",
+    "electronVersion": "44.1.0",
     "electronDownload": {
-      "version": "41.1.1+wvcus",
+      "version": "44.1.0+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "sh.cider.Cider",
@@ -214,12 +215,13 @@
     }
   },
   "engines": {
-    "node": ">= 20"
+    "node": ">= 22.12.0"
   },
   "pnpm": {
     "overrides": {
       "lastfm": "0.9.4",
-      "dbus-next>abstract-socket": "invalid"
+      "dbus-next>abstract-socket": "invalid",
+      "node-abi": "4.35.0"
     }
   }
 }

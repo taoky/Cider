@@ -1,5 +1,7 @@
 A fork of the Cider v1 player, aimed to maintaining it to be happily running upon Linux desktop, with some fixes not in the original upstream.
 
+See [BUILD.md](./BUILD.md) about how to build on Linux.
+
 ## FAQ
 
 ### Breaking changes
