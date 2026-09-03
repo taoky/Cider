@@ -441,6 +441,7 @@ export class BrowserWindow {
           this.options.frame = true;
         } else {
           this.options.titleBarOverlay = {
+            color: "#00000000",
             height: 55,
           };
         }
