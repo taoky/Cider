@@ -1,5 +1,3 @@
-require("v8-compile-cache");
-
 import { app, components, ipcMain } from "electron";
 import { join } from "path";
 import { Store } from "./base/store";

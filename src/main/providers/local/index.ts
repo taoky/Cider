@@ -105,7 +105,7 @@ export class LocalFiles {
           let art = {
             id: "ciderlocal" + lochash,
             _id: "ciderlocalart" + lochash,
-            url: metadata.common.picture != undefined ? metadata.common.picture[0].data.toString("base64") : "",
+            url: metadata.common.picture != undefined ? Buffer.from(metadata.common.picture[0].data).toString("base64") : "",
           };
           metadatalistart.push(art);
           numid += 1;
