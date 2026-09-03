@@ -63,6 +63,10 @@ If you don't have a security key, you can change `--device=all` to `--device=dri
 
 For distros that using OpenSSL 3.x, you need to install OpenSSL 1.1 compatibility libraries. For example, on Arch Linux, you can install `libxcrypt-compat` package.
 
+#### pnpm 11 cannot build a working binary
+
+See <https://github.com/electron-userland/electron-builder/issues/10000>.
+
 ### Misc
 
 #### VSCode/VSCodium spawns `rg` eating all my CPU cores after `pnpm run flatpak-install`
