@@ -95,16 +95,16 @@
         <div
           class="song-artist"
           style="display: inline-block">
-          {{ mk.nowPlayingItem?.attributes?.artistName ?? "" }}
+          {{ playback.nowPlayingItem?.attributes?.artistName ?? "" }}
         </div>
       </div>
       <div
         class="song-name"
         v-if="mvViewMode == 'full'">
-        {{ mk.nowPlayingItem?.attributes?.name ?? "" }}
+        {{ playback.nowPlayingItem?.attributes?.name ?? "" }}
         <div
           class="explicit-icon"
-          v-if="mk.nowPlayingItem?.attributes?.contentRating == 'explicit'"
+          v-if="playback.nowPlayingItem?.attributes?.contentRating == 'explicit'"
           style="display: inline-block"></div>
       </div>
       <div
@@ -120,9 +120,9 @@
           @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
           @mouseup="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
           @touchend="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
-          :max="mk.currentPlaybackDuration"
+          :max="playback.currentPlaybackDuration"
           :value="getSongProgress()" />
-        <p style="width: auto">{{ convertTime(mk.currentPlaybackDuration) }}</p>
+        <p style="width: auto">{{ convertTime(playback.currentPlaybackDuration) }}</p>
       </div>
 
       <div class="app-chrome-item display--large">

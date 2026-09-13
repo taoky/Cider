@@ -10,7 +10,11 @@ const MusicKitInterop = {
     /* MusicKit.Events.playbackStateDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.playbackStateDidChange, () => {
       const attributes = MusicKitInterop.getAttributes();
-      if (!attributes) return;
+      if (!attributes) {
+        MusicKitInterop.updateMediaState({ status: null });
+        if ("mediaSession" in navigator) navigator.mediaSession.metadata = null;
+        return;
+      }
       MusicKitInterop.updateMediaState(attributes);
       if (MusicKitInterop.filterTrack(attributes, true, false)) {
         global.ipcRenderer.send("playbackStateDidChange", attributes);
@@ -43,7 +47,7 @@ const MusicKitInterop = {
     // Run it every 50ms (20 Hz)
     let previousPlaybackTime = 0;
     setInterval(() => {
-      const currentPlaybackTime = MusicKit.getInstance()?.currentPlaybackTime * 1000 * 1000 ?? 0;
+      const currentPlaybackTime = (MusicKitInterop.getPlaybackDisplay().currentPlaybackTime ?? 0) * 1000 * 1000;
       if (currentPlaybackTime === previousPlaybackTime) return;
       previousPlaybackTime = currentPlaybackTime;
       ipcRenderer.send("mpris:playbackTimeDidChange", currentPlaybackTime);
@@ -52,10 +56,9 @@ const MusicKitInterop = {
     /* MusicKit.Events.nowPlayingItemDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
       if (window?.localStorage) {
-        window.localStorage.setItem("currentTrack", JSON.stringify(MusicKit.getInstance().nowPlayingItem));
-        window.localStorage.setItem("currentTime", JSON.stringify(MusicKit.getInstance().currentPlaybackTime));
-        window.localStorage.setItem("currentQueue", JSON.stringify(MusicKit.getInstance().queue?._unplayedQueueItems));
+        MusicKitInterop.savePlaybackState();
       }
+      if (app.playbackIdle?.snapshot && !MusicKit.getInstance().nowPlayingItem) return;
 
       const attributes = MusicKitInterop.getAttributes();
       if (!attributes) return;
@@ -108,6 +111,29 @@ const MusicKitInterop = {
     });
   },
 
+  savePlaybackState() {
+    // Loading a startup queue emits stop/item events before the snapshot exists.
+    if (app.playbackIdle?.isRestoring) return;
+    const mk = MusicKit.getInstance();
+    const snapshot = app.playbackIdle?.snapshot;
+    window.localStorage.setItem("currentTrack", JSON.stringify(snapshot ? snapshot.item : mk.nowPlayingItem));
+    window.localStorage.setItem("currentTime", JSON.stringify(snapshot ? snapshot.time : mk.currentPlaybackTime));
+    window.localStorage.setItem("currentQueue", JSON.stringify(mk.queue?._unplayedQueueItems));
+  },
+
+  getPlaybackDisplay() {
+    return app.playbackIdle?.display ?? MusicKit.getInstance();
+  },
+
+  refreshPlaybackDisplay() {
+    const attributes = MusicKitInterop.getAttributes();
+    if (!attributes) return;
+    MusicKitInterop.updateMediaState(attributes);
+    MusicKitInterop.updatePositionState(attributes);
+    ipcRenderer.send("playbackTimeDidChange", attributes);
+    ipcRenderer.send("wsapi-updatePlaybackState", attributes);
+  },
+
   async fetchSongRelationships({ id = this.getAttributes().songId, relationship = "primaryName" } = {}) {
     if (!id) return null;
     const res = await MusicKit.getInstance().api.v3.music("/v1/catalog/" + MusicKit.getInstance().storefrontId + `/songs/${id}`, {
@@ -152,7 +178,7 @@ const MusicKitInterop = {
   },
 
   getAttributes: function () {
-    const mk = MusicKit.getInstance();
+    const mk = MusicKitInterop.getPlaybackDisplay();
     const nowPlayingItem = mk.nowPlayingItem;
     const isPlayingExport = mk.isPlaying;
     const remainingTimeExport = mk.currentPlaybackTimeRemaining;
@@ -218,7 +244,7 @@ const MusicKitInterop = {
   playPause: () => {
     if (MusicKit.getInstance().isPlaying) {
       MusicKit.getInstance().pause();
-    } else if (MusicKit.getInstance().nowPlayingItem != null) {
+    } else if (MusicKit.getInstance().nowPlayingItem != null || app.playbackIdle?.snapshot) {
       MusicKit.getInstance().play().catch(console.error);
     }
   },
@@ -257,14 +283,14 @@ const MusicKitInterop = {
       });
       navigator.mediaSession.setActionHandler("seekbackward", (details) => {
         if (details.seekOffset) {
-          MusicKit.getInstance().seekToTime(Math.max(MusicKit.getInstance().currentPlaybackTime - details.seekOffset, 0));
+          MusicKit.getInstance().seekToTime(Math.max(MusicKitInterop.getPlaybackDisplay().currentPlaybackTime - details.seekOffset, 0));
         } else {
           MusicKit.getInstance().seekBackward();
         }
       });
       navigator.mediaSession.setActionHandler("seekforward", (details) => {
         if (details.seekOffset) {
-          MusicKit.getInstance().seekToTime(Math.max(MusicKit.getInstance().currentPlaybackTime + details.seekOffset, 0));
+          MusicKit.getInstance().seekToTime(Math.max(MusicKitInterop.getPlaybackDisplay().currentPlaybackTime + details.seekOffset, 0));
         } else {
           MusicKit.getInstance().seekForward();
         }

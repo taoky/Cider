@@ -16,6 +16,10 @@ The "DesktopEntry" property of MPRIS requires a fixed desktop file name. As I ha
 
 ### Account
 
+#### Playback on other devices while Cider is paused
+
+The fork releases its playback resources after five minutes of continuous pause to prevent idle Apple Music license renewals from interfering with playback on another device. The player keeps displaying the paused track, artwork and position. Seeking while idle updates the saved position without restarting playback. Press Play (or use a media key) to resume the same queue and position. Selecting another track or explicitly stopping playback discards the saved position. Startup restoration also loads only the queue and metadata, without briefly playing audio or acquiring a playback license.
+
 #### Blank screen / no login window
 
 This Cider build (and other third party apps supporting Apple Music) requires a valid Apple Music **token** (not account!) to work. Unfortunately, this is costly: an [Apple Developer Program subscription](https://developer.apple.com/programs/) is required to generate a valid token ($99 USD per year). Please read <https://developer.apple.com/documentation/applemusicapi/generating_developer_tokens> for more information.

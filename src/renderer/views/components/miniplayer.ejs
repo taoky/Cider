@@ -43,18 +43,18 @@
                          @mouseleave="app.chrome.progresshover = false" @contextmenu="app.nowPlayingContextMenu">
                         <div class="playback-info">
                             <div class="song-name">
-                                {{ app.mk.nowPlayingItem["attributes"]["name"] }}
+                                {{ app.playback.nowPlayingItem["attributes"]["name"] }}
                             </div>
                             <div
                                     style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap; margin-top: 0.25vh; overflow: hidden; margin-bottom: 5px;">
                                 <div class="item-navigate song-artist" style="display: inline-block;"
                                      @click="app.getNowPlayingItemDetailed(`artist`)">
-                                    {{ app.mk.nowPlayingItem["attributes"]["artistName"] }}
+                                    {{ app.playback.nowPlayingItem["attributes"]["artistName"] }}
                                 </div>
                                 <div class="song-artist item-navigate" style="display: inline-block;"
                                      @click="app.getNowPlayingItemDetailed('album')">
-                                    {{ (app.mk.nowPlayingItem["attributes"]["albumName"]) ? (" — " +
-                                    app.mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
+                                    {{ (app.playback.nowPlayingItem["attributes"]["albumName"]) ? (" — " +
+                                    app.playback.nowPlayingItem["attributes"]["albumName"]) : "" }}
                                 </div>
                             </div>
 
@@ -63,13 +63,13 @@
                                      style="justify-content: space-between; height: 1px; margin-bottom: 1px;"
                                      :style="[app.chrome.progresshover ? {'display': 'flex'} : {'display' : 'none'} ]">
                                     <p style="width: auto">{{ app.convertTime(app.getSongProgress()) }}</p>
-                                    <p style="width: auto">{{ app.convertTime(app.mk.currentPlaybackDuration) }}</p>
+                                    <p style="width: auto">{{ app.convertTime(app.playback.currentPlaybackDuration) }}</p>
                                 </div>
 
                                 <input type="range" step="0.01" min="0" :style="app.progressBarStyle()"
                                        @input="app.playerLCD.desiredDuration = $event.target.value;app.playerLCD.userInteraction = true"
                                        @mouseup="app.mk.seekToTime($event.target.value);app.playerLCD.desiredDuration = 0;app.playerLCD.userInteraction = false"
-                                       :max="app.mk.currentPlaybackDuration" :value="app.getSongProgress()">
+                                       :max="app.playback.currentPlaybackDuration" :value="app.getSongProgress()">
                             </div>
                         </div>
                         <div class="control-buttons">
@@ -90,7 +90,7 @@
                             </div>
                             <div class="app-chrome-item display--large">
                                 <button class="playback-button stop" @click="$root.mk.stop()"
-                                        v-if="$root.mk.isPlaying && $root.mk.nowPlayingItem.attributes.playParams.kind == 'radioStation'"
+                                        v-if="$root.mk.isPlaying && $root.playback.nowPlayingItem.attributes.playParams.kind == 'radioStation'"
                                         :title="$root.getLz('term.stop')" v-b-tooltip.hover></button>
                                 <button class="playback-button pause" @click="$root.mk.pause()"
                                         v-else-if="$root.mk.isPlaying"

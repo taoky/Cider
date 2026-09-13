@@ -152,7 +152,7 @@
       </div>
       <lyrics-view
         v-if="drawer.panel == 'lyrics'"
-        :time="mk.currentPlaybackTime - lyricOffset"
+        :time="playback.currentPlaybackTime - lyricOffset"
         :lyrics="lyrics"
         :richlyrics="richlyrics"></lyrics-view>
       <div

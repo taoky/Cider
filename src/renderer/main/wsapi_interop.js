@@ -31,9 +31,10 @@ const wsapi = {
   },
   getAttributes: function () {
     const mk = MusicKit.getInstance();
-    const nowPlayingItem = mk.nowPlayingItem;
+    const playback = MusicKitInterop.getPlaybackDisplay();
+    const nowPlayingItem = playback.nowPlayingItem;
     const isPlayingExport = mk.isPlaying;
-    const remainingTimeExport = mk.currentPlaybackTimeRemaining;
+    const remainingTimeExport = playback.currentPlaybackTimeRemaining;
     const attributes = nowPlayingItem != null ? nowPlayingItem.attributes : {};
 
     attributes.status = isPlayingExport ? isPlayingExport : false;

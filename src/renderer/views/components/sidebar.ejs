@@ -229,7 +229,7 @@
                     </div>
                     <div class="app-chrome-item">
                         <button class="playback-button stop" @click="$root.mk.stop()"
-                                v-if="$root.mk.isPlaying && $root.mk.nowPlayingItem.attributes.playParams.kind == 'radioStation'"
+                                v-if="$root.mk.isPlaying && $root.playback.nowPlayingItem.attributes.playParams.kind == 'radioStation'"
                                 :title="$root.getLz('term.stop')" v-b-tooltip.hover></button>
                         <button class="playback-button pause" @click="$root.mk.pause()"
                                 v-else-if="$root.mk.isPlaying"

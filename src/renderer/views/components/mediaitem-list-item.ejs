@@ -33,7 +33,7 @@
                              :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/play.svg)'}"></div>
                     </button>
                 </div>
-                <div v-if="!(app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ))  == itemId) || (app.mk.nowPlayingItem.id  == item.id ))) && showIndex"
+                <div v-if="!(app.mk.isPlaying && (((app.playback.nowPlayingItem._songId ?? (app.playback.nowPlayingItem.songId ?? app.playback.nowPlayingItem.id ))  == itemId) || (app.playback.nowPlayingItem.id  == item.id ))) && showIndex"
                      :style="{display: ((showIndex && !showInLibrary) ? 'block' : 'none'), 'margin-left':'11px'}">
                     <div>
                         <div>{{ (item.attributes && !showIndexPlaylist) ? (item.attributes.trackNumber ?? '') : ((index
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ))  == itemId) || (app.mk.nowPlayingItem.id == item.id))"
+                <div v-if="app.mk.isPlaying && (((app.playback.nowPlayingItem._songId ?? (app.playback.nowPlayingItem.songId ?? app.playback.nowPlayingItem.id ))  == itemId) || (app.playback.nowPlayingItem.id == item.id))"
                      :style="{display: (showInLibrary ? 'none' : 'block')}">
                     <div class="loadbar-sound"></div>
                 </div>

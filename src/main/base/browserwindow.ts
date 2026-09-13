@@ -1607,9 +1607,7 @@ export class BrowserWindow {
         win.hide();
       } else {
         await win.webContents.executeJavaScript(`
-            window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
-            window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
-            window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue._unplayedQueueItems));
+            MusicKitInterop.savePlaybackState();
             ipcRenderer.send('stopGCast','');
             MusicKit.getInstance().stop();
         `);

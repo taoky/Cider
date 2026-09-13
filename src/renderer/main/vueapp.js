@@ -1,4 +1,5 @@
 import { store } from "./vuex-store.js";
+import { installPlaybackIdle } from "./playback-idle.mjs";
 
 Vue.use(VueHorizontal);
 Vue.use(VueObserveVisibility);
@@ -16,6 +17,7 @@ const app = new Vue({
     drawertest: false,
     platform: "",
     mk: {},
+    playbackRevision: 0,
     pluginInstalled: false,
     pluginMenuEntries: [],
     pluginMenuTopEntries: [],
@@ -252,6 +254,15 @@ const app = new Vue({
     currentAirPlayCodeID: "",
     airplayTrys: [],
   },
+  computed: {
+    playback() {
+      // Snapshot updates (including seeks without a loaded player) are reactive.
+      this.playbackRevision;
+      // Keep normal progress driven by the SDK's playbackTimeDidChange event.
+      this.playerLCD.playbackDuration;
+      return this.playbackIdle?.display ?? this.mk;
+    },
+  },
   watch: {
     cfg: {
       handler: function (val, oldVal) {
@@ -371,7 +382,7 @@ const app = new Vue({
       if (this.cfg.visual.customAccentColor) {
         finalStyle["--keyColor"] = this.cfg.visual.accentColor;
         finalStyle["--songProgressColor"] = this.cfg.visual.accentColor;
-      } else if (this.cfg.visual.purplePodcastPlaybackBar && MusicKit.getInstance().nowPlayingItem?.type == "podcast-episodes") {
+      } else if (this.cfg.visual.purplePodcastPlaybackBar && this.playback.nowPlayingItem?.type == "podcast-episodes") {
         finalStyle["--songProgressColor"] = "#6929D0";
       }
       return finalStyle;
@@ -899,6 +910,12 @@ const app = new Vue({
         };
       }
       MusicKitInterop.init();
+      this.playbackIdle = installPlaybackIdle(this.mk, MusicKit, {
+        onChange: () => {
+          this.playbackRevision++;
+          MusicKitInterop.refreshPlaybackDisplay();
+        },
+      });
       this.monitorMusickit();
       // Set the volume
 
@@ -932,79 +949,31 @@ const app = new Vue({
         app.cfg.audio.quality = "HIGH";
       }
 
-      switch (this.cfg.general.resumeOnStartupBehavior) {
-        default:
-        case "local":
-          // load last played track
-          try {
-            let lastItem = window.localStorage.getItem("currentTrack");
-            let time = window.localStorage.getItem("currentTime");
-            let queue = window.localStorage.getItem("currentQueue");
-            app.mk.queue.position = 0; // Reset queue position.
-            if (lastItem != null) {
-              lastItem = JSON.parse(lastItem);
-              let kind = lastItem.attributes.playParams.kind;
-              let truekind = !kind.endsWith("s") ? kind + "s" : kind;
-              app.mk.setQueue({
-                [truekind]: [lastItem.attributes.playParams.id],
-                parameters: { l: app.mklang },
-              });
-              app.mk.mute();
-              setTimeout(() => {
-                app.mk.play().then(() => {
-                  app.mk.pause().then(() => {
-                    if (time != null) {
-                      app.mk.seekToTime(time);
-                    }
-                    app.mk.unmute();
-                    if (queue != null) {
-                      queue = JSON.parse(queue);
-                      if (queue && queue.length > 0) {
-                        let ids = queue.map((e) => (e.playParams ? e.playParams.id : e.item.attributes.playParams ? e.item.attributes.playParams.id : ""));
-                        let i = 0;
-                        if (ids.length > 0) {
-                          for (let id of ids) {
-                            if (!(i == 0 && ids[0] == lastItem.attributes.playParams.id)) {
-                              try {
-                                app.mk.playLater({ songs: [id] });
-                              } catch (err) {}
-                            }
-                            i++;
-                          }
-                        }
-                      }
-                    }
-                  });
-                });
-              }, 1500);
-            }
-          } catch (e) {
-            console.log(e);
+      try {
+        const restored = await this.playbackIdle.restoreOnStartup({
+          behavior: this.cfg.general.resumeOnStartupBehavior,
+          storage: window.localStorage,
+          language: this.mklang,
+        });
+        const snapshot = this.playbackIdle.snapshot;
+        if (restored && snapshot) {
+          MusicKitInterop.savePlaybackState();
+          const attributes = MusicKitInterop.getAttributes();
+          if (attributes) {
+            MusicKitInterop.updateMediaSession(attributes);
+            ipcRenderer.send("nowPlayingItemDidChange", attributes);
+            MusicKitInterop.refreshPlaybackDisplay();
           }
-          break;
-        case "history":
-          let history = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`, { l: app.mklang });
-          if (history.data.data.length > 0) {
-            let lastItem = history.data.data[0];
-            let kind = lastItem.attributes.playParams.kind;
-            let truekind = !kind.endsWith("s") ? kind + "s" : kind;
-            app.mk.setQueue({
-              [truekind]: [lastItem.attributes.playParams.id],
-              parameters: { l: app.mklang },
-            });
-            app.mk.mute();
-            setTimeout(() => {
-              app.mk.play().then(() => {
-                app.mk.pause().then(() => {
-                  app.mk.unmute();
-                });
-              });
-            }, 1500);
+          const urls = await this.getCurrentArtURL();
+          if (this.playback.nowPlayingItem === snapshot.item) {
+            this.currentArtUrl = urls?.currentArtUrl ?? "";
+            this.currentArtUrlRaw = urls?.currentArtUrlRaw ?? "";
+            this.getNowPlayingArtworkBG(32);
+            this.loadLyrics();
           }
-
-          break;
-        case "disabled":
-          break;
+        }
+      } catch (error) {
+        console.warn("[Cider] Could not restore startup playback", error);
       }
 
       MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player");
@@ -1132,6 +1101,8 @@ const app = new Vue({
       });
 
       this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
+        // Idle cleanup keeps the same displayed track, artwork and lyrics.
+        if (this.playbackIdle?.snapshot && !this.mk.nowPlayingItem) return;
         if (self.$refs.fsView?.$refs?.queue) {
           self.$refs.fsView?.$refs?.queue.updateQueue();
         }
@@ -2019,12 +1990,12 @@ const app = new Vue({
       this.page = "artist-page";
     },
     progressBarStyle() {
-      let val = this.playerLCD.playbackDuration;
+      let val = this.playback.currentPlaybackTime;
       if (this.playerLCD.desiredDuration > 0) {
         val = this.playerLCD.desiredDuration;
       }
       let min = 0;
-      let max = this.mk.currentPlaybackDuration;
+      let max = this.playback.currentPlaybackDuration;
       let value = ((val - min) / (max - min)) * 100;
       return {
         background: "linear-gradient(to right, var(--songProgressColor) 0%, var(--songProgressColor) " + value + "%, var(--songProgressBackground) " + value + "%, var(--songProgressBackground) 100%)",
@@ -2092,7 +2063,7 @@ const app = new Vue({
       if (this.playerLCD.userInteraction) {
         return this.playerLCD.desiredDuration;
       } else {
-        return this.playerLCD.playbackDuration;
+        return this.playback.currentPlaybackTime;
       }
     },
     /**
@@ -2104,7 +2075,7 @@ const app = new Vue({
      * @memberOf app
      */
     convertTime(seconds, format = "short") {
-      if (app.mk?.nowPlayingItem?.type === "radioStation") return;
+      if (app.playback?.nowPlayingItem?.type === "radioStation") return;
       if (isNaN(seconds) || seconds === Infinity) {
         seconds = 0;
       }
@@ -2362,17 +2333,17 @@ const app = new Vue({
       }
     },
     prevButton() {
-      if (app.mk.nowPlayingItem && app.mk.currentPlaybackTime > 2) {
+      if (app.playback.nowPlayingItem && app.playback.currentPlaybackTime > 2) {
         app.mk.seekToTime(0);
       } else {
         app.skipToPreviousItem();
       }
     },
     isDisabled() {
-      return !app.mk.nowPlayingItem || app.mk.nowPlayingItem.attributes.playParams.kind === "radioStation";
+      return !app.playback.nowPlayingItem || app.playback.nowPlayingItem.attributes.playParams.kind === "radioStation";
     },
     isPrevDisabled() {
-      return this.isDisabled() || (app.mk.queue._position === 0 && app.mk.currentPlaybackTime <= 2);
+      return this.isDisabled() || (app.mk.queue._position === 0 && app.playback.currentPlaybackTime <= 2);
     },
     isNextDisabled() {
       return this.isDisabled() || app.mk.queue._position + 1 === app.mk.queue.length;
@@ -2393,12 +2364,12 @@ const app = new Vue({
     },
 
     async getNowPlayingItemDetailed(target) {
-      let nowPlayingItem = JSON.parse(JSON.stringify(this.mk.nowPlayingItem));
-      if (nowPlayingItem.type === "radioStation" && app.mk.nowPlayingItem.id !== -1) {
+      let nowPlayingItem = JSON.parse(JSON.stringify(this.playback.nowPlayingItem));
+      if (nowPlayingItem.type === "radioStation" && app.playback.nowPlayingItem.id !== -1) {
         nowPlayingItem.playParams = { kind: "songs" };
-        nowPlayingItem.attributes.playParams.catalogId = app.mk.nowPlayingItem.id;
-        nowPlayingItem.attributes.playParams.id = app.mk.nowPlayingItem.id;
-        nowPlayingItem.id = app.mk.nowPlayingItem.id;
+        nowPlayingItem.attributes.playParams.catalogId = app.playback.nowPlayingItem.id;
+        nowPlayingItem.attributes.playParams.id = app.playback.nowPlayingItem.id;
+        nowPlayingItem.id = app.playback.nowPlayingItem.id;
       }
       try {
         let u = await app.mkapi(nowPlayingItem.playParams.kind, nowPlayingItem.songId == -1, nowPlayingItem.songId != -1 ? nowPlayingItem.songId : nowPlayingItem["id"], { "include[songs]": "albums,artists", l: app.mklang });
@@ -3331,7 +3302,7 @@ const app = new Vue({
       this.page = "search";
     },
     loadLyrics() {
-      const musicType = MusicKit.getInstance().nowPlayingItem != null ? MusicKit.getInstance().nowPlayingItem["type"] ?? "" : "";
+      const musicType = this.playback.nowPlayingItem?.type ?? "";
       // console.log("mt", musicType)
       if (musicType === "musicVideo") {
         this.loadYTLyrics();
@@ -3345,7 +3316,7 @@ const app = new Vue({
       }
     },
     async loadAMLyrics() {
-      const songID = this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem["_songId"] ?? this.mk.nowPlayingItem["songId"] ?? -1 : -1;
+      const songID = this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem["_songId"] ?? this.playback.nowPlayingItem["songId"] ?? -1 : -1;
       // this.getMXM( trackName, artistName, 'en', duration);
       if (songID != -1) {
         try {
@@ -3393,9 +3364,9 @@ const app = new Vue({
       notyf.success(app.getLz("action.removeFromLibrary.success"));
     },
     async loadYTLyrics() {
-      const track = this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem.title ?? "" : "";
-      const artist = this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem.artistName ?? "" : "";
-      const time = this.mk.nowPlayingItem != null ? Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1;
+      const track = this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.title ?? "" : "";
+      const artist = this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.artistName ?? "" : "";
+      const time = this.playback.nowPlayingItem != null ? Math.round((this.playback.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1;
       ipcRenderer.invoke("getYTLyrics", track, artist).then((result) => {
         if (result.length > 0) {
           let ytid = result[0]["id"]["videoId"];
@@ -3452,10 +3423,10 @@ const app = new Vue({
     },
     loadMXM() {
       let attempt = 0;
-      const track = encodeURIComponent(this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem.title ?? "" : "");
-      const artist = encodeURIComponent(this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem.artistName ?? "" : "");
-      const time = encodeURIComponent(this.mk.nowPlayingItem != null ? Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1);
-      const id = encodeURIComponent(this.mk.nowPlayingItem != null ? app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem["songId"] ?? "" : "");
+      const track = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.title ?? "" : "");
+      const artist = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.artistName ?? "" : "");
+      const time = encodeURIComponent(this.playback.nowPlayingItem != null ? Math.round((this.playback.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1);
+      const id = encodeURIComponent(this.playback.nowPlayingItem != null ? app.playback.nowPlayingItem._songId ?? app.playback.nowPlayingItem["songId"] ?? "" : "");
       let lrcfile = "";
       let richsync = [];
       const lang = app.cfg.lyrics.mxm_language; //  translation language
@@ -3676,9 +3647,9 @@ const app = new Vue({
       }
     },
     loadNeteaseLyrics() {
-      const track = encodeURIComponent(this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem.title ?? "" : "");
-      const artist = encodeURIComponent(this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem.artistName ?? "" : "");
-      const time = encodeURIComponent(this.mk.nowPlayingItem != null ? Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1);
+      const track = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.title ?? "" : "");
+      const artist = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.artistName ?? "" : "");
+      const time = encodeURIComponent(this.playback.nowPlayingItem != null ? Math.round((this.playback.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1);
       var url = `http://music.163.com/api/search/get/?csrf_token=hlpretag=&hlposttag=&s=${track + " " + artist}&type=1&offset=0&total=true&limit=6`;
       var req = new XMLHttpRequest();
       req.overrideMimeType("application/json");
@@ -3733,9 +3704,9 @@ const app = new Vue({
     },
     loadQQLyrics() {
       if (!app.cfg.lyrics.enable_qq) return;
-      const track = encodeURIComponent(this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem.title ?? "" : "");
-      const artist = encodeURIComponent(this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem.artistName ?? "" : "");
-      const time = encodeURIComponent(this.mk.nowPlayingItem != null ? Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1);
+      const track = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.title ?? "" : "");
+      const artist = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.artistName ?? "" : "");
+      const time = encodeURIComponent(this.playback.nowPlayingItem != null ? Math.round((this.playback.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1);
       var url = `https://c.y.qq.com/soso/fcgi-bin/client_search_cp?w=${track + " " + artist}&t=0&n=1&page=1&cr=1&new_json=1&format=json&platform=yqq.json`;
 
       var req = new XMLHttpRequest();
@@ -3877,7 +3848,7 @@ const app = new Vue({
       return xml;
     },
     getCurrentTime() {
-      return parseFloat(this.hmsToSecondsOnly(this.parseTime(this.mk.nowPlayingItem.attributes.durationInMillis - app.mk.currentPlaybackTimeRemaining * 1000)));
+      return parseFloat(this.hmsToSecondsOnly(this.parseTime(this.playback.nowPlayingItem.attributes.durationInMillis - app.playback.currentPlaybackTimeRemaining * 1000)));
     },
     seekTo(time) {
       this.mk.seekToTime(time);
@@ -3906,7 +3877,7 @@ const app = new Vue({
     },
     getLyricBGStyle(start, end) {
       let currentTime = this.getCurrentTime();
-      // let duration = this.mk.nowPlayingItem.attributes.durationInMillis
+      // let duration = this.playback.nowPlayingItem.attributes.durationInMillis
       let start2 = this.hmsToSecondsOnly(start);
       let end2 = this.hmsToSecondsOnly(end);
       // let currentProgress = ((100 * (currentTime)) / (end2))
@@ -4364,7 +4335,7 @@ const app = new Vue({
       }
     },
     mkReady() {
-      if (this.mk["nowPlayingItem"]) {
+      if (this.playback.nowPlayingItem) {
         return true;
       } else {
         return false;
@@ -4400,21 +4371,21 @@ const app = new Vue({
     },
     getNowPlayingArtworkBG(size = 32, force = false) {
       let self = this;
-      if (typeof this.mk.nowPlayingItem === "undefined") return;
+      if (typeof this.playback.nowPlayingItem === "undefined") return;
       let bginterval = setInterval(() => {
         if (!this.mkReady()) {
           return "";
         }
 
         try {
-          if ((this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] != this.currentTrackID && document.querySelector(".bg-artwork")) || force) {
+          if ((this.playback.nowPlayingItem && this.playback.nowPlayingItem["id"] != this.currentTrackID && document.querySelector(".bg-artwork")) || force) {
             if (document.querySelector(".bg-artwork")) {
               clearInterval(bginterval);
             }
-            this.currentTrackID = this.mk.nowPlayingItem["id"];
+            this.currentTrackID = this.playback.nowPlayingItem["id"];
             document.querySelector(".bg-artwork").src = "";
-            if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
-              getBase64FromUrl(this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace("{w}", size).replace("{h}", size)).then((img) => {
+            if (this.playback.nowPlayingItem["attributes"]["artwork"]["url"]) {
+              getBase64FromUrl(this.playback.nowPlayingItem["attributes"]["artwork"]["url"].replace("{w}", size).replace("{h}", size)).then((img) => {
                 document.querySelectorAll(".bg-artwork").forEach((artwork) => {
                   artwork.src = img;
                 });
@@ -4426,13 +4397,13 @@ const app = new Vue({
             } else {
               this.setLibraryArtBG();
             }
-          } else if (this.mk.nowPlayingItem["id"] == this.currentTrackID) {
+          } else if (this.playback.nowPlayingItem["id"] == this.currentTrackID) {
             try {
               clearInterval(bginterval);
             } catch (err) {}
           }
         } catch (e) {
-          if (this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] && document.querySelector(".bg-artwork")) {
+          if (this.playback.nowPlayingItem && this.playback.nowPlayingItem["id"] && document.querySelector(".bg-artwork")) {
             this.setLibraryArtBG();
             try {
               clearInterval(bginterval);
@@ -4446,15 +4417,15 @@ const app = new Vue({
       if (this.cfg.visual.directives.windowLayout === "twopanel") {
         artworkSize = 110;
       }
-      const mediaItem = (app?.mk?.nowPlayingItem?.attributes?.artwork?.url ? app.mk.nowPlayingItem : null) 
-                        ?? (this.mk?.nowPlayingItem?.id ? (await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`))?.data?.data?.data?.[0] : null) 
+      const mediaItem = (app?.playback?.nowPlayingItem?.attributes?.artwork?.url ? app.playback.nowPlayingItem : null)
+                        ?? (this.playback?.nowPlayingItem?.id ? (await this.mk.api.v3.music(`/v1/me/library/songs/${this.playback.nowPlayingItem.id}`))?.data?.data?.data?.[0] : null)
                         ?? {};
       return { currentArtUrlRaw: mediaItem?.attributes?.artwork?.url ?? "", currentArtUrl: mediaItem?._assets?.[0]?.artworkURL ?? mediaItem?.attributes?.artwork?.url?.replace("{w}", artworkSize).replace("{h}", artworkSize) };
     },
     async setLibraryArt() {
-      if (typeof this.mk.nowPlayingItem === "undefined") return;
+      if (typeof this.playback.nowPlayingItem === "undefined") return;
       try {
-        let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
+        let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.playback.nowPlayingItem.id}`);
         data = data.data.data[0];
 
         if (data != null && data !== "") {
@@ -4465,9 +4436,9 @@ const app = new Vue({
       } catch (e) {}
     },
     async setLibraryArtBG() {
-      if (typeof this.mk.nowPlayingItem === "undefined") return;
+      if (typeof this.playback.nowPlayingItem === "undefined") return;
       try {
-        let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
+        let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.playback.nowPlayingItem.id}`);
         data = data.data.data[0];
 
         if (data != null && data !== "") {
@@ -4747,9 +4718,9 @@ const app = new Vue({
     },
     async nowPlayingContextMenu(event) {
       let self = this;
-      let data_type = this.mk.nowPlayingItem.playParams.kind;
-      let item_id = this.mk.nowPlayingItem.attributes.playParams.id ?? this.mk.nowPlayingItem.id;
-      let isLibrary = this.mk.nowPlayingItem.attributes.playParams.isLibrary ?? false;
+      let data_type = this.playback.nowPlayingItem.playParams.kind;
+      let item_id = this.playback.nowPlayingItem.attributes.playParams.id ?? this.playback.nowPlayingItem.id;
+      let isLibrary = this.playback.nowPlayingItem.attributes.playParams.isLibrary ?? false;
       let params = {
         "fields[songs]": "inLibrary",
         "fields[albums]": "inLibrary",
@@ -4772,7 +4743,7 @@ const app = new Vue({
               hidden: false,
               disabled: true,
               action: function () {
-                app.love(app.mk.nowPlayingItem);
+                app.love(app.playback.nowPlayingItem);
               },
             },
             {
@@ -4782,7 +4753,7 @@ const app = new Vue({
               name: app.getLz("action.unlove"),
               hidden: true,
               action: function () {
-                app.unlove(app.mk.nowPlayingItem);
+                app.unlove(app.playback.nowPlayingItem);
               },
             },
             {
@@ -4792,7 +4763,7 @@ const app = new Vue({
               hidden: false,
               disabled: true,
               action: function () {
-                app.dislike(app.mk.nowPlayingItem);
+                app.dislike(app.playback.nowPlayingItem);
               },
             },
             {
@@ -4802,7 +4773,7 @@ const app = new Vue({
               active: true,
               hidden: true,
               action: function () {
-                app.unlove(app.mk.nowPlayingItem);
+                app.unlove(app.playback.nowPlayingItem);
               },
             },
           ],
@@ -4813,7 +4784,7 @@ const app = new Vue({
               name: app.getLz("action.addToLibrary") + " ...",
               disabled: true,
               action: function () {
-                app.addToLibrary(app.mk.nowPlayingItem.id);
+                app.addToLibrary(app.playback.nowPlayingItem.id);
               },
             },
             {
@@ -4822,7 +4793,7 @@ const app = new Vue({
               name: app.getLz("action.removeFromLibrary"),
               hidden: true,
               action: function () {
-                self.removeFromLibrary(app.mk.nowPlayingItem.type, MusicKitInterop.getAttributes().songId);
+                self.removeFromLibrary(app.playback.nowPlayingItem.type, MusicKitInterop.getAttributes().songId);
               },
             },
             {
@@ -4836,7 +4807,7 @@ const app = new Vue({
               icon: "./assets/feather/radio.svg",
               name: app.getLz("action.startRadio"),
               action: function () {
-                app.mk.setStationQueue({ song: app.mk.nowPlayingItem.id }).then(() => {
+                app.mk.setStationQueue({ song: app.playback.nowPlayingItem.id }).then(() => {
                   app.mk.play();
                   app.selectedMediaItems = [];
                 });
@@ -4846,8 +4817,8 @@ const app = new Vue({
               icon: "./assets/feather/user.svg",
               name: app.getLz("action.goToArtist"),
               action: async function () {
-                if (app.mk.nowPlayingItem.relationships.artists.data[0].id) {
-                  app.appRoute(`artist/${app.mk.nowPlayingItem.relationships.artists.data[0].id}`);
+                if (app.playback.nowPlayingItem.relationships.artists.data[0].id) {
+                  app.appRoute(`artist/${app.playback.nowPlayingItem.relationships.artists.data[0].id}`);
                 } else {
                   const primaryArtist = await MusicKitInterop.fetchSongRelationships({ relationship: "primaryArtist" });
                   app.appRoute(`artist/${primaryArtist.id}`);
@@ -4858,7 +4829,7 @@ const app = new Vue({
               icon: "./assets/feather/disc.svg",
               name: app.getLz("action.goToAlbum"),
               action: function () {
-                app.appRoute(`album/${app.mk.nowPlayingItem.relationships.albums.data[0].id}`);
+                app.appRoute(`album/${app.playback.nowPlayingItem.relationships.albums.data[0].id}`);
               },
             },
             {
@@ -4867,14 +4838,14 @@ const app = new Vue({
               hidden: true,
               name: app.getLz("action.showInAppleMusic"),
               action: function () {
-                app.routeView(app.mk.nowPlayingItem._container);
+                app.routeView(app.playback.nowPlayingItem._container);
               },
             },
             {
               icon: "./assets/feather/share.svg",
               name: app.getLz("action.share"),
               action: function () {
-                app.mkapi(app.mk.nowPlayingItem.attributes?.playParams?.kind ?? app.mk.nowPlayingItem.type ?? "songs", false, app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ?? "").then((u) => {
+                app.mkapi(app.playback.nowPlayingItem.attributes?.playParams?.kind ?? app.playback.nowPlayingItem.type ?? "songs", false, app.playback.nowPlayingItem._songId ?? app.playback.nowPlayingItem.songId ?? app.playback.nowPlayingItem.id ?? "").then((u) => {
                   app.copyToClipboard(u.data.data.length && u.data.data.length > 0 ? u.data.data[0].attributes.url : u.data.data.attributes.url);
                 });
               },
@@ -4883,7 +4854,7 @@ const app = new Vue({
               icon: "./assets/feather/share.svg",
               name: `${app.getLz("action.share")} (song.link)`,
               action: function () {
-                app.mkapi(app.mk.nowPlayingItem.attributes?.playParams?.kind ?? app.mk.nowPlayingItem.type ?? "songs", false, app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ?? "").then((u) => {
+                app.mkapi(app.playback.nowPlayingItem.attributes?.playParams?.kind ?? app.playback.nowPlayingItem.type ?? "songs", false, app.playback.nowPlayingItem._songId ?? app.playback.nowPlayingItem.songId ?? app.playback.nowPlayingItem.id ?? "").then((u) => {
                   app.songLinkShare(u.data.data.length && u.data.data.length > 0 ? u.data.data[0].attributes.url : u.data.data.attributes.url);
                 });
               },
@@ -4922,7 +4893,7 @@ const app = new Vue({
         }
       }
 
-      const nowPlayingContainer = app.mk.nowPlayingItem._container;
+      const nowPlayingContainer = app.playback.nowPlayingItem._container;
       if (nowPlayingContainer && nowPlayingContainer["attributes"] && nowPlayingContainer.name != "station") {
         menus.normal.items.find((x) => x.id == "showInMusic").hidden = false;
       }
@@ -4931,12 +4902,12 @@ const app = new Vue({
 
       try {
         // if its a radio station, then change the attributes to match a song
-        const nowPlayingItem = JSON.parse(JSON.stringify(this.mk.nowPlayingItem));
-        if (nowPlayingItem.type == "radioStation" && app.mk.nowPlayingItem.id != -1) {
+        const nowPlayingItem = JSON.parse(JSON.stringify(this.playback.nowPlayingItem));
+        if (nowPlayingItem.type == "radioStation" && app.playback.nowPlayingItem.id != -1) {
           nowPlayingItem.type = "song";
-          nowPlayingItem.attributes.playParams.catalogId = app.mk.nowPlayingItem.id;
-          nowPlayingItem.attributes.playParams.id = app.mk.nowPlayingItem.id;
-          nowPlayingItem.id = app.mk.nowPlayingItem.id;
+          nowPlayingItem.attributes.playParams.catalogId = app.playback.nowPlayingItem.id;
+          nowPlayingItem.attributes.playParams.id = app.playback.nowPlayingItem.id;
+          nowPlayingItem.id = app.playback.nowPlayingItem.id;
         }
         let result = await this.inLibrary([nowPlayingItem]);
         if (result[0].attributes.inLibrary) {
@@ -4950,7 +4921,7 @@ const app = new Vue({
       }
 
       try {
-        let rating = await app.getRating(app.mk.nowPlayingItem);
+        let rating = await app.getRating(app.playback.nowPlayingItem);
         if (rating == 0) {
           menus.normal.headerItems.find((x) => x.id == "love").disabled = false;
           menus.normal.headerItems.find((x) => x.id == "dislike").disabled = false;
