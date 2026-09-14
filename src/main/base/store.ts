@@ -209,10 +209,11 @@ export class Store {
       artworkDisplayLayout: "default",
     },
     lyrics: {
-      enable_mxm: true,
+      enable_mxm: false,
       mxm_karaoke: false,
       mxm_language: "disabled",
       enable_qq: false,
+      enable_netease: false,
       enable_yt: false,
     },
     advanced: {

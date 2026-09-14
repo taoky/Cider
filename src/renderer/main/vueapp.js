@@ -3303,38 +3303,26 @@ const app = new Vue({
     },
     loadLyrics() {
       const musicType = this.playback.nowPlayingItem?.type ?? "";
-      // console.log("mt", musicType)
+      // Fixed priority: YouTube (music videos), Musixmatch, QQ, NetEase, Apple Music.
+      // Disabled third-party sources are skipped without making requests.
       if (musicType === "musicVideo") {
         this.loadYTLyrics();
       } else {
-        // only load MXM lyrics if AM lyrics failed to load
-        if (app.cfg.lyrics.enable_mxm) {
-          this.loadMXM();
-        } else {
-          this.loadAMLyrics();
-        }
+        this.loadMXM();
       }
     },
     async loadAMLyrics() {
+      this.lyrics = [];
+      this.richlyrics = [];
       const songID = this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem["_songId"] ?? this.playback.nowPlayingItem["songId"] ?? -1 : -1;
-      // this.getMXM( trackName, artistName, 'en', duration);
       if (songID != -1) {
         try {
-          let response = await this.mk.api.v3.music(`v1/catalog/${this.mk.storefrontId}/songs/${songID}/lyrics`);
+          const response = await this.mk.api.v3.music(`v1/catalog/${this.mk.storefrontId}/songs/${songID}/lyrics`);
           this.lyricsMediaItem = response.data?.data[0]?.attributes["ttml"];
           this.parseTTML();
         } catch (_) {
-          if (app.cfg.lyrics.enable_mxm) {
-            this.loadQQLyrics();
-          } else {
-            this.loadMXM();
-          }
-        }
-      } else {
-        if (app.cfg.lyrics.enable_mxm) {
-          this.loadQQLyrics(); // since mxm is already prioritized, we can just load qq lyrics if am fails
-        } else {
-          this.loadMXM();
+          // Apple Music is the final fallback; do not restart the provider chain.
+          this.lyrics = [];
         }
       }
     },
@@ -3364,6 +3352,7 @@ const app = new Vue({
       notyf.success(app.getLz("action.removeFromLibrary.success"));
     },
     async loadYTLyrics() {
+      if (!app.cfg.lyrics.enable_yt) return app.loadMXM();
       const track = this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.title ?? "" : "";
       const artist = this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.artistName ?? "" : "";
       const time = this.playback.nowPlayingItem != null ? Math.round((this.playback.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1;
@@ -3384,7 +3373,7 @@ const app = new Vue({
           let url = `https://www.youtube.com/watch?&v=${id}`;
           req.open("GET", url, true);
           req.onerror = function (e) {
-            this.loadMXM();
+            app.loadMXM();
           };
           req.onload = function () {
             // console.log(this.responseText);
@@ -3405,8 +3394,11 @@ const app = new Vue({
                 try {
                   const ttmlLyrics = this.responseText;
                   if (ttmlLyrics) {
-                    this.lyricsMediaItem = ttmlLyrics;
-                    this.parseTTML();
+                    app.lyricsMediaItem = ttmlLyrics;
+                    app.parseTTML();
+                    if (!app.lyrics.length) app.loadMXM();
+                  } else {
+                    app.loadMXM();
                   }
                 } catch (e) {
                   app.loadMXM();
@@ -3419,9 +3411,10 @@ const app = new Vue({
           };
           req.send();
         }
-      });
+      }).catch(() => app.loadMXM());
     },
     loadMXM() {
+      if (!app.cfg.lyrics.enable_mxm) return app.loadQQLyrics();
       let attempt = 0;
       const track = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.title ?? "" : "");
       const artist = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.artistName ?? "" : "");
@@ -3439,9 +3432,12 @@ const app = new Vue({
 
       /* get token */
       function getToken(mode, track, artist, songid, lang, time, id) {
+        if (!app.cfg.lyrics.enable_mxm) {
+          if (mode === 1) app.loadQQLyrics();
+          return;
+        }
         if (attempt > 2) {
-          app.loadNeteaseLyrics();
-          // app.loadAMLyrics();
+          app.loadQQLyrics();
         } else {
           attempt = attempt + 1;
           let url = "https://apic-desktop.musixmatch.com/ws/1.1/token.get?app_id=web-desktop-app-v1.0&t=" + revisedRandId();
@@ -3476,19 +3472,18 @@ const app = new Vue({
             } catch (e) {
               console.log("error");
               app.loadQQLyrics();
-              //app.loadAMLyrics();
             }
           };
           req.onerror = function () {
             console.log("error");
             app.loadQQLyrics();
-            // app.loadAMLyrics();
           };
           req.send();
         }
       }
 
       function getMXMSubs(track, artist, token, lang, time, id) {
+        if (!app.cfg.lyrics.enable_mxm) return app.loadQQLyrics();
         let usertoken = encodeURIComponent(token);
         let richsyncQuery = app.cfg.lyrics.mxm_karaoke ? "&optional_calls=track.richsync" : "";
         let timecustom = !time || (time && time < 0) ? "" : `&f_subtitle_length=${time}&q_duration=${time}&f_subtitle_length_max_deviation=40`;
@@ -3520,7 +3515,6 @@ const app = new Vue({
 
                 if (lrcfile == "") {
                   app.loadQQLyrics();
-                  // app.loadAMLyrics()
                 } else {
                   if (richsync == [] || richsync.length == 0) {
                     console.log("ok");
@@ -3568,14 +3562,12 @@ const app = new Vue({
                     // load translation
                     getMXMTrans(id, lang, token);
                   } else {
-                    // app.loadAMLyrics()
                     app.loadQQLyrics();
                   }
                 }
               } catch (e) {
                 console.log(e);
                 app.loadQQLyrics();
-                //  app.loadAMLyrics()
               }
             } else {
               //4xx rejected
@@ -3584,18 +3576,17 @@ const app = new Vue({
           } catch (e) {
             console.log(e);
             app.loadQQLyrics();
-            //app.loadAMLyrics()
           }
         };
         req.onerror = function () {
           app.loadQQLyrics();
           console.log("error");
-          // app.loadAMLyrics();
         };
         req.send();
       }
 
       function getMXMTrans(id, lang, token) {
+        if (!app.cfg.lyrics.enable_mxm) return;
         if (lang != "disabled" && id != "") {
           let usertoken = encodeURIComponent(token);
           let url2 = "https://apic-desktop.musixmatch.com/ws/1.1/crowd.track.translations.get?translation_fields_set=minimal&selected_language=" + lang + "&track_id=" + id + "&comment_format=text&part=user&format=json&usertoken=" + usertoken + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
@@ -3644,9 +3635,12 @@ const app = new Vue({
         } else {
           getToken(1, track, artist, "", lang, time);
         }
+      } else {
+        app.loadQQLyrics();
       }
     },
     loadNeteaseLyrics() {
+      if (!app.cfg.lyrics.enable_netease) return app.loadAMLyrics();
       const track = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.title ?? "" : "");
       const artist = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.artistName ?? "" : "");
       const time = encodeURIComponent(this.playback.nowPlayingItem != null ? Math.round((this.playback.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1);
@@ -3655,6 +3649,7 @@ const app = new Vue({
       req.overrideMimeType("application/json");
       req.open("GET", url, true);
       req.onload = function () {
+        if (!app.cfg.lyrics.enable_netease) return app.loadAMLyrics();
         try {
           var jsonResponse = JSON.parse(req.responseText);
           var id = jsonResponse["result"]["songs"][0]["id"];
@@ -3667,43 +3662,42 @@ const app = new Vue({
               var jsonResponse2 = JSON.parse(req2.responseText);
               var lrcfile = jsonResponse2["lrc"]["lyric"];
               app.lyricsMediaItem = lrcfile;
-              let u = app.lyricsMediaItem.split(/[\n]/);
-              let preLrc = [];
-              for (var i = u.length - 1; i >= 0; i--) {
-                let xline = /(\[[0-9.:\[\]]*\])+(.*)/.exec(u[i]);
-                if (xline != null) {
-                  let end = preLrc.length > 0 ? preLrc[preLrc.length - 1].startTime ?? 99999 : 99999;
-                  preLrc.push({
-                    startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
-                    endTime: end,
-                    line: xline[2],
-                    translation: "",
-                  });
-                }
-              }
-              if (preLrc.length > 0)
-                preLrc.push({
+              const translations = new Map(app.parseLRC(jsonResponse2.tlyric?.lyric).map((entry) => [entry.startTime, entry.line]));
+              const lines = app.parseLRC(lrcfile);
+              if (!lines.length) return app.loadAMLyrics();
+              const lyrics = lines.map((entry, index) => ({
+                ...entry,
+                endTime: lines[index + 1]?.startTime ?? 99999,
+                translation: translations.get(entry.startTime) ?? "",
+              }));
+              if (lyrics.length > 0) {
+                lyrics.unshift({
                   startTime: 0,
-                  endTime: preLrc[preLrc.length - 1].startTime,
+                  endTime: lyrics[0].startTime,
                   line: "lrcInstrumental",
                   translation: "",
                 });
-              app.lyrics = preLrc.reverse();
+              }
+              app.lyrics = lyrics;
             } catch (e) {
-              app.lyrics = "";
+              app.loadAMLyrics();
             }
           };
-          req2.onerror = function () {};
+          req2.onerror = function () {
+            app.loadAMLyrics();
+          };
           req2.send();
         } catch (e) {
-          app.lyrics = "";
+          app.loadAMLyrics();
         }
       };
       req.send();
-      req.onerror = function () {};
+      req.onerror = function () {
+        app.loadAMLyrics();
+      };
     },
     loadQQLyrics() {
-      if (!app.cfg.lyrics.enable_qq) return;
+      if (!app.cfg.lyrics.enable_qq) return app.loadNeteaseLyrics();
       const track = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.title ?? "" : "");
       const artist = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.artistName ?? "" : "");
       const time = encodeURIComponent(this.playback.nowPlayingItem != null ? Math.round((this.playback.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1);
@@ -3782,13 +3776,25 @@ const app = new Vue({
       };
       req.send();
     },
+    parseLRC(lrc) {
+      if (typeof lrc !== "string") return [];
+      const lyrics = [];
+      for (const line of lrc.split(/\r?\n/)) {
+        const match = /^((?:\[(?:\d+:){1,2}\d+(?:\.\d+)?\])+)(.*)$/.exec(line);
+        if (!match) continue;
+        for (const timestamp of match[1].matchAll(/\[([^\]]+)\]/g)) {
+          lyrics.push({ startTime: this.toMS(timestamp[1]), line: match[2].trim() });
+        }
+      }
+      return lyrics.sort((a, b) => a.startTime - b.startTime);
+    },
     toMS(str) {
       let rawTime = str.match(/(\d+:)?(\d+:)?(\d+)(\.\d+)?/);
       let hours = rawTime[2] != null ? rawTime[1].replace(":", "") : 0;
       let minutes = rawTime[2] != null ? hours * 60 + rawTime[2].replace(":", "") * 1 : rawTime[1] != null ? rawTime[1].replace(":", "") : 0;
       let seconds = rawTime[3] != null ? rawTime[3] : 0;
-      let milliseconds = rawTime[4] != null ? rawTime[4].replace(".", "") : 0;
-      return parseFloat(`${minutes * 60 + seconds * 1}.${milliseconds * 1}`);
+      const fractionalSeconds = Number(rawTime[4] ?? 0);
+      return minutes * 60 + seconds * 1 + fractionalSeconds;
     },
     parseTTML() {
       this.lyrics = [];
