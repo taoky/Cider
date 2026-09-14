@@ -1,6 +1,11 @@
 import { store } from "./vuex-store.js";
 import { installPlaybackIdle } from "./playback-idle.mjs";
 
+// Session-only, bounded cache. Keep request identity separate from the displayed track.
+const lyricsCache = new Map();
+let lyricsRequest = 0;
+let currentLyricsCacheKey = null;
+
 Vue.use(VueHorizontal);
 Vue.use(VueObserveVisibility);
 Vue.use(BootstrapVue);
@@ -1222,8 +1227,6 @@ const app = new Vue({
           // app.chrome.topChromeVisible = true
         }
         self.chrome.artworkReady = false;
-        self.lyrics = [];
-        self.richlyrics = [];
         app.getCurrentArtURL().then((urls) => {
           app.currentArtUrl = urls?.currentArtUrl ?? "";
           app.currentArtUrlRaw = urls?.currentArtUrlRaw ?? "";
@@ -3301,8 +3304,31 @@ const app = new Vue({
     showSearch() {
       this.page = "search";
     },
+    cacheLyrics(request) {
+      if (request !== lyricsRequest || !currentLyricsCacheKey || !Array.isArray(this.lyrics) || !this.lyrics.length) return;
+      const snapshot = JSON.parse(JSON.stringify({ lyrics: this.lyrics, richlyrics: this.richlyrics, lyricsMediaItem: this.lyricsMediaItem }));
+      lyricsCache.delete(currentLyricsCacheKey);
+      lyricsCache.set(currentLyricsCacheKey, snapshot);
+      if (lyricsCache.size > 20) lyricsCache.delete(lyricsCache.keys().next().value);
+    },
     loadLyrics() {
-      const musicType = this.playback.nowPlayingItem?.type ?? "";
+      const item = this.playback.nowPlayingItem;
+      const musicType = item?.type ?? "";
+      const id = item?._songId ?? item?.songId ?? item?.id;
+      currentLyricsCacheKey = item && id && id !== -1 && id !== "-1" ? JSON.stringify([musicType, id, item.title, item.artistName, item.attributes?.durationInMillis, this.mk.storefrontId, this.cfg.lyrics]) : null;
+      lyricsRequest++;
+      const cached = currentLyricsCacheKey && lyricsCache.get(currentLyricsCacheKey);
+      if (cached) {
+        // Refresh eviction order and keep UI mutation separate from cached data.
+        lyricsCache.delete(currentLyricsCacheKey);
+        lyricsCache.set(currentLyricsCacheKey, cached);
+        Object.assign(this, JSON.parse(JSON.stringify(cached)));
+        return;
+      }
+      this.lyrics = [];
+      this.richlyrics = [];
+      this.lyricsMediaItem = "";
+      if (!item) return;
       // Fixed priority: YouTube (music videos), Musixmatch, QQ, NetEase, Apple Music.
       // Disabled third-party sources are skipped without making requests.
       if (musicType === "musicVideo") {
@@ -3312,15 +3338,19 @@ const app = new Vue({
       }
     },
     async loadAMLyrics() {
+      const request = lyricsRequest;
       this.lyrics = [];
       this.richlyrics = [];
       const songID = this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem["_songId"] ?? this.playback.nowPlayingItem["songId"] ?? -1 : -1;
       if (songID != -1) {
         try {
           const response = await this.mk.api.v3.music(`v1/catalog/${this.mk.storefrontId}/songs/${songID}/lyrics`);
+          if (request !== lyricsRequest) return;
           this.lyricsMediaItem = response.data?.data[0]?.attributes["ttml"];
           this.parseTTML();
+          this.cacheLyrics(request);
         } catch (_) {
+          if (request !== lyricsRequest) return;
           // Apple Music is the final fallback; do not restart the provider chain.
           this.lyrics = [];
         }
@@ -3352,11 +3382,13 @@ const app = new Vue({
       notyf.success(app.getLz("action.removeFromLibrary.success"));
     },
     async loadYTLyrics() {
+      const request = lyricsRequest;
       if (!app.cfg.lyrics.enable_yt) return app.loadMXM();
       const track = this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.title ?? "" : "";
       const artist = this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.artistName ?? "" : "";
       const time = this.playback.nowPlayingItem != null ? Math.round((this.playback.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1;
       ipcRenderer.invoke("getYTLyrics", track, artist).then((result) => {
+        if (request !== lyricsRequest) return;
         if (result.length > 0) {
           let ytid = result[0]["id"]["videoId"];
           if (app.cfg.lyrics.enable_yt) {
@@ -3373,9 +3405,11 @@ const app = new Vue({
           let url = `https://www.youtube.com/watch?&v=${id}`;
           req.open("GET", url, true);
           req.onerror = function (e) {
+            if (request !== lyricsRequest) return;
             app.loadMXM();
           };
           req.onload = function () {
+            if (request !== lyricsRequest) return;
             // console.log(this.responseText);
             let res = this.responseText;
             let captionurl1 = res.substring(res.indexOf(`{"playerCaptionsRenderer":{"baseUrl":"`) + `{"playerCaptionsRenderer":{"baseUrl":"`.length);
@@ -3388,15 +3422,18 @@ const app = new Vue({
 
               req2.open("GET", newurl, true);
               req2.onerror = function (e) {
+                if (request !== lyricsRequest) return;
                 app.loadMXM();
               };
               req2.onload = function () {
+                if (request !== lyricsRequest) return;
                 try {
                   const ttmlLyrics = this.responseText;
                   if (ttmlLyrics) {
                     app.lyricsMediaItem = ttmlLyrics;
                     app.parseTTML();
                     if (!app.lyrics.length) app.loadMXM();
+                    else app.cacheLyrics(request);
                   } else {
                     app.loadMXM();
                   }
@@ -3411,9 +3448,12 @@ const app = new Vue({
           };
           req.send();
         }
-      }).catch(() => app.loadMXM());
+      }).catch(() => {
+        if (request === lyricsRequest) app.loadMXM();
+      });
     },
     loadMXM() {
+      const request = lyricsRequest;
       if (!app.cfg.lyrics.enable_mxm) return app.loadQQLyrics();
       let attempt = 0;
       const track = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.title ?? "" : "");
@@ -3434,10 +3474,12 @@ const app = new Vue({
       function getToken(mode, track, artist, songid, lang, time, id) {
         if (!app.cfg.lyrics.enable_mxm) {
           if (mode === 1) app.loadQQLyrics();
+          else app.cacheLyrics(request);
           return;
         }
         if (attempt > 2) {
-          app.loadQQLyrics();
+          if (mode === 2) app.cacheLyrics(request);
+          else app.loadQQLyrics();
         } else {
           attempt = attempt + 1;
           let url = "https://apic-desktop.musixmatch.com/ws/1.1/token.get?app_id=web-desktop-app-v1.0&t=" + revisedRandId();
@@ -3446,6 +3488,7 @@ const app = new Vue({
           req.open("GET", url, true);
           req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
           req.onload = function () {
+            if (request !== lyricsRequest) return;
             try {
               let jsonResponse = JSON.parse(this.responseText);
               let status2 = jsonResponse["message"]["header"]["status_code"];
@@ -3471,12 +3514,15 @@ const app = new Vue({
               }
             } catch (e) {
               console.log("error");
-              app.loadQQLyrics();
+              if (mode === 2) app.cacheLyrics(request);
+              else app.loadQQLyrics();
             }
           };
           req.onerror = function () {
+            if (request !== lyricsRequest) return;
             console.log("error");
-            app.loadQQLyrics();
+            if (mode === 2) app.cacheLyrics(request);
+            else app.loadQQLyrics();
           };
           req.send();
         }
@@ -3494,6 +3540,7 @@ const app = new Vue({
         req.open("GET", url, true);
         req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
         req.onload = function () {
+          if (request !== lyricsRequest) return;
           try {
             let jsonResponse = JSON.parse(this.responseText);
             console.debug(jsonResponse);
@@ -3579,6 +3626,7 @@ const app = new Vue({
           }
         };
         req.onerror = function () {
+          if (request !== lyricsRequest) return;
           app.loadQQLyrics();
           console.log("error");
         };
@@ -3586,7 +3634,7 @@ const app = new Vue({
       }
 
       function getMXMTrans(id, lang, token) {
-        if (!app.cfg.lyrics.enable_mxm) return;
+        if (!app.cfg.lyrics.enable_mxm) return app.cacheLyrics(request);
         if (lang != "disabled" && id != "") {
           let usertoken = encodeURIComponent(token);
           let url2 = "https://apic-desktop.musixmatch.com/ws/1.1/crowd.track.translations.get?translation_fields_set=minimal&selected_language=" + lang + "&track_id=" + id + "&comment_format=text&part=user&format=json&usertoken=" + usertoken + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
@@ -3595,6 +3643,7 @@ const app = new Vue({
           req2.open("GET", url2, true);
           req2.setRequestHeader("authority", "apic-desktop.musixmatch.com");
           req2.onload = function () {
+            if (request !== lyricsRequest) return;
             try {
               let jsonResponse2 = JSON.parse(this.responseText);
               console.log(jsonResponse2);
@@ -3621,11 +3670,17 @@ const app = new Vue({
                 }
               } else {
                 //4xx rejected
-                getToken(2, "", "", id, lang, "");
+                return getToken(2, "", "", id, lang, "");
               }
             } catch (e) {}
+            app.cacheLyrics(request);
+          };
+          req2.onerror = function () {
+            if (request === lyricsRequest) app.cacheLyrics(request);
           };
           req2.send();
+        } else {
+          app.cacheLyrics(request);
         }
       }
 
@@ -3640,6 +3695,7 @@ const app = new Vue({
       }
     },
     loadNeteaseLyrics() {
+      const request = lyricsRequest;
       if (!app.cfg.lyrics.enable_netease) return app.loadAMLyrics();
       const track = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.title ?? "" : "");
       const artist = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.artistName ?? "" : "");
@@ -3649,6 +3705,7 @@ const app = new Vue({
       req.overrideMimeType("application/json");
       req.open("GET", url, true);
       req.onload = function () {
+        if (request !== lyricsRequest) return;
         if (!app.cfg.lyrics.enable_netease) return app.loadAMLyrics();
         try {
           var jsonResponse = JSON.parse(req.responseText);
@@ -3658,6 +3715,7 @@ const app = new Vue({
           req2.overrideMimeType("application/json");
           req2.open("GET", url2, true);
           req2.onload = function () {
+            if (request !== lyricsRequest) return;
             try {
               var jsonResponse2 = JSON.parse(req2.responseText);
               var lrcfile = jsonResponse2["lrc"]["lyric"];
@@ -3679,11 +3737,13 @@ const app = new Vue({
                 });
               }
               app.lyrics = lyrics;
+              app.cacheLyrics(request);
             } catch (e) {
               app.loadAMLyrics();
             }
           };
           req2.onerror = function () {
+            if (request !== lyricsRequest) return;
             app.loadAMLyrics();
           };
           req2.send();
@@ -3693,10 +3753,12 @@ const app = new Vue({
       };
       req.send();
       req.onerror = function () {
+        if (request !== lyricsRequest) return;
         app.loadAMLyrics();
       };
     },
     loadQQLyrics() {
+      const request = lyricsRequest;
       if (!app.cfg.lyrics.enable_qq) return app.loadNeteaseLyrics();
       const track = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.title ?? "" : "");
       const artist = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.artistName ?? "" : "");
@@ -3707,6 +3769,7 @@ const app = new Vue({
       req.overrideMimeType("application/json");
       req.open("GET", url, true);
       req.onload = function () {
+        if (request !== lyricsRequest) return;
         try {
           var jsonResponse = JSON.parse(req.responseText);
           let id = jsonResponse?.data?.song?.list[0]?.mid;
@@ -3717,6 +3780,7 @@ const app = new Vue({
           req2.overrideMimeType("application/json");
           req2.open("GET", url2, true);
           req2.onload = function () {
+            if (request !== lyricsRequest) return;
             try {
               function b64_to_utf8(str) {
                 return decodeURIComponent(escape(window.atob(str)));
@@ -3754,6 +3818,8 @@ const app = new Vue({
               app.lyrics = preLrc.reverse();
               if (app.lyrics[5].line == "") {
                 app.loadNeteaseLyrics();
+              } else {
+                app.cacheLyrics(request);
               } // Detect incomplete QQ lyrics.
             } catch (e) {
               console.log(e);
@@ -3762,6 +3828,7 @@ const app = new Vue({
             }
           };
           req2.onerror = function () {
+            if (request !== lyricsRequest) return;
             app.loadNeteaseLyrics();
           };
           req2.send();
@@ -3772,6 +3839,7 @@ const app = new Vue({
         }
       };
       req.onerror = function () {
+        if (request !== lyricsRequest) return;
         app.loadNeteaseLyrics();
       };
       req.send();
