@@ -5,6 +5,7 @@ export function installPlaybackIdle(mk, MusicKit, { idleMs = 5 * 60 * 1000, setT
   let suspended = null;
   let releasing = null;
   let resuming = null;
+  let interruptingResume = null;
   let restoring = null;
   let activity = 0;
   const originalStop = mk.stop.bind(mk);
@@ -38,6 +39,58 @@ export function installPlaybackIdle(mk, MusicKit, { idleMs = 5 * 60 * 1000, setT
 
   function matchesQueue() {
     return suspended && mk.queue === suspended.queue && mk.queue.position === suspended.position && mk.queue.item(suspended.position) === suspended.queueItem;
+  }
+
+  function interruptResume() {
+    if (interruptingResume) return interruptingResume;
+    if (!resuming) return Promise.resolve();
+    const resume = resuming;
+    interruptingResume = Promise.resolve()
+      .then(async () => {
+        let poll;
+        try {
+          const target = await Promise.race([
+            resume.then(
+              () => null,
+              () => null
+            ),
+            new Promise((resolve) => {
+              // A stop can arrive while authorization/metadata is loading,
+              // before play() has created its media playback sequence.
+              function check() {
+                if (resuming !== resume) return resolve(null);
+                const player = mk._services?.mediaItemPlayback?.getCurrentPlayer?.();
+                const pending = player?._deferredPlay;
+                if (pending?.promise && typeof pending.resolve === "function" && typeof player.resetDeferredPlay === "function") return resolve({ player, pending });
+                poll = setTimer(check, 50);
+              }
+              check();
+            }),
+          ]);
+          if (target && resuming === resume && target.player._deferredPlay === target.pending) {
+            const { player, pending } = target;
+            // MusicKit v2/v3 stop() waits for this playback sequence before
+            // tearing down HLS. Detach it as the SDK's error handlers do, then
+            // stop the player before waking the old playback call. Merely
+            // resolving it first can let HLS keep loading/playing the old song.
+            player.resetDeferredPlay();
+            try {
+              await originalStop({ userInitiated: false });
+            } finally {
+              pending.resolve();
+            }
+          }
+        } finally {
+          if (poll !== undefined) clearTimer(poll);
+        }
+        // Drain SDK continuations and our resume finalizer before any new
+        // selection: they can still update playback state after being woken.
+        await resume.catch(() => {});
+      })
+      .finally(() => {
+        interruptingResume = null;
+      });
+    return interruptingResume;
   }
 
   function schedule() {
@@ -75,6 +128,7 @@ export function installPlaybackIdle(mk, MusicKit, { idleMs = 5 * 60 * 1000, setT
     cancelTimer();
     if (restoring) await restoring.catch(() => {});
     if (releasing) await releasing;
+    if (interruptingResume) await interruptingResume;
     if (resuming) return resuming;
     if (!matchesQueue()) {
       setSuspended(null);
@@ -90,7 +144,7 @@ export function installPlaybackIdle(mk, MusicKit, { idleMs = 5 * 60 * 1000, setT
     const options = { ...previousOptions, startTime: Number.isFinite(snapshot.time) ? Math.max(0, snapshot.time) : 0 };
     playOptions.set(snapshot.queueItem.id, options);
     resuming = Promise.resolve()
-      .then(() => originalPlay(...args))
+      .then(() => (interruptingResume ? undefined : originalPlay(...args)))
       .finally(async () => {
         // A failed load must not leave a startTime attached to a later selection.
         if (playOptions.get(snapshot.queueItem.id) === options) {
@@ -114,7 +168,8 @@ export function installPlaybackIdle(mk, MusicKit, { idleMs = 5 * 60 * 1000, setT
   };
 
   // All playback entry points (UI, media keys and remotes) use the same SDK
-  // instance. Wait for cleanup before allowing a new selection to start.
+  // instance. Interrupt an unfinished resume, then wait for cleanup before
+  // allowing a new selection to start.
   for (const method of ["stop", "setQueue", "setStationQueue", "changeToMediaAtIndex", "changeToMediaItem", "playMediaItem", "skipToNextItem", "skipToPreviousItem"]) {
     if (typeof mk[method] !== "function") continue;
     const original = mk[method].bind(mk);
@@ -123,7 +178,7 @@ export function installPlaybackIdle(mk, MusicKit, { idleMs = 5 * 60 * 1000, setT
       cancelTimer();
       if (restoring) await restoring.catch(() => {});
       if (releasing) await releasing;
-      if (resuming) await resuming.catch(() => {});
+      if (resuming || interruptingResume) await interruptResume();
       setSuspended(null);
       return original(...args);
     };
@@ -134,7 +189,7 @@ export function installPlaybackIdle(mk, MusicKit, { idleMs = 5 * 60 * 1000, setT
     activity++;
     if (restoring) await restoring.catch(() => {});
     if (releasing) await releasing;
-    if (resuming) await resuming.catch(() => {});
+    if (resuming || interruptingResume) await interruptResume();
     return originalPause(...args);
   };
 
