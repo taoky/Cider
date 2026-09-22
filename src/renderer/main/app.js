@@ -20,13 +20,10 @@ window.CiderFrontAPI = CiderFrontAPI;
 window.wsapi = wsapi;
 
 if (app.cfg.advanced.disableLogging === true) {
-  window.console = {
-    log: function () {},
-    error: function () {},
-    warn: function () {},
-    assert: function () {},
-    debug: function () {},
-  };
+  // Preserve the console object and methods used by third-party SDKs.
+  for (const method of ["log", "info", "error", "warn", "assert", "debug"]) {
+    window.console[method] = function () {};
+  }
 }
 
 // Mount Vue to #app

@@ -221,7 +221,7 @@ export class Store {
       experiments: [],
       playlistTrackMapping: true,
       ffmpegLocation: "",
-      disableLogging: true,
+      disableLogging: false,
     },
     connectUser: {
       auth: null,
