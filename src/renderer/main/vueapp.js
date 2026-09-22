@@ -396,28 +396,73 @@ const app = new Vue({
     setTimeout(func, time) {
       return setTimeout(func, time);
     },
-    songLinkShare(amUrl) {
-      notyf.open({
-        type: "info",
-        className: "notyf-info",
-        message: app.getLz("term.song.link.generate"),
-      });
-      let self = this;
-      let httpRequest = new XMLHttpRequest();
-      httpRequest.open("GET", `https://api.song.link/v1-alpha.1/links?url=${amUrl}&userCountry=US`, true);
-      httpRequest.send();
-      httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState === 4) {
-          if (httpRequest.status === 200) {
-            let response = JSON.parse(httpRequest.responseText);
-            console.debug(response);
-            self.copyToClipboard(response.pageUrl);
-          } else {
-            console.warn("There was a problem with the request.");
-            notyf.error(app.getLz("term.requestError"));
+    async shareNowPlayingItem(useSongLink = false) {
+      try {
+        const item = this.playback.nowPlayingItem;
+        const params = item?.attributes?.playParams ?? item?.playParams ?? {};
+        const shareUrl = (value) => {
+          if (typeof value !== "string") return null;
+          try {
+            const parsed = new URL(value);
+            return parsed.protocol === "https:" || parsed.protocol === "http:" ? parsed.href : null;
+          } catch (_) {
+            return null;
           }
+        };
+        let url = shareUrl(item?.attributes?.url);
+        if (!url) {
+          const validId = (id) => id != null && id !== "" && String(id) !== "-1";
+          const catalogId = [params.catalogId, item?._songId, item?.songId, params.id, item?.id].find((id) => validId(id) && !String(id).startsWith("i."));
+          const libraryId = [params.id, item?.id, item?.songId].find((id) => validId(id) && String(id).startsWith("i."));
+          let kind = (params.kind ?? item?.type ?? "songs").replace(/^library-/, "");
+          if (kind === "musicVideo") kind = "music-videos";
+          if (!kind.endsWith("s")) kind += "s";
+          let path;
+          if (catalogId) {
+            path = `/v1/catalog/${this.mk.storefrontId}/${kind}/${encodeURIComponent(catalogId)}`;
+          } else if (libraryId) {
+            path = `/v1/me/library/${kind}/${encodeURIComponent(libraryId)}/catalog`;
+          } else {
+            throw new Error("No shareable song ID");
+          }
+          const response = await this.mk.api.v3.music(path);
+          url = shareUrl(response?.data?.data?.[0]?.attributes?.url);
         }
-      };
+        if (!url) throw new Error("No share URL available");
+        if (useSongLink) {
+          this.songLinkShare(url);
+        } else {
+          this.copyToClipboard(url);
+        }
+      } catch (error) {
+        console.warn("Unable to share now playing item", error);
+        notyf.error(this.getLz("term.requestError"));
+      }
+    },
+    songLinkShare(amUrl) {
+      try {
+        if (typeof amUrl !== "string") throw new Error("Invalid Apple Music URL");
+        const url = new URL(amUrl);
+        const parts = url.pathname.split("/").filter(Boolean);
+        const [country, kind] = parts;
+        const trackId = url.searchParams.get("i");
+        const id = trackId ?? parts[parts.length - 1];
+        if (
+          !["https:", "http:"].includes(url.protocol) ||
+          !["music.apple.com", "geo.music.apple.com"].includes(url.hostname) ||
+          !/^[a-z]{2}$/i.test(country ?? "") ||
+          !["album", "song"].includes(kind) ||
+          !/^\d+$/.test(id ?? "")
+        ) {
+          throw new Error("Unsupported Apple Music share URL");
+        }
+        // Public landing pages still work after the Songlink API retirement.
+        const domain = kind === "album" && !trackId ? "album.link" : "song.link";
+        this.copyToClipboard(`https://${domain}/${country.toLowerCase()}/i/${id}`);
+      } catch (error) {
+        console.warn("Unable to create Songlink URL", error);
+        notyf.error(this.getLz("term.requestError"));
+      }
     },
     formatVolumeTooltip() {
       let advancedTooltip = this.cfg.audio.dBSPL ? (Number(this.cfg.audio.dBSPLcalibration) + Math.log10(this.mk.volume) * 20).toFixed(2) + " dB SPL" : (Math.log10(this.mk.volume) * 20).toFixed(2) + " dBFS";
@@ -4879,18 +4924,14 @@ const app = new Vue({
               icon: "./assets/feather/share.svg",
               name: app.getLz("action.share"),
               action: function () {
-                app.mkapi(app.playback.nowPlayingItem.attributes?.playParams?.kind ?? app.playback.nowPlayingItem.type ?? "songs", false, app.playback.nowPlayingItem._songId ?? app.playback.nowPlayingItem.songId ?? app.playback.nowPlayingItem.id ?? "").then((u) => {
-                  app.copyToClipboard(u.data.data.length && u.data.data.length > 0 ? u.data.data[0].attributes.url : u.data.data.attributes.url);
-                });
+                return app.shareNowPlayingItem();
               },
             },
             {
               icon: "./assets/feather/share.svg",
               name: `${app.getLz("action.share")} (song.link)`,
               action: function () {
-                app.mkapi(app.playback.nowPlayingItem.attributes?.playParams?.kind ?? app.playback.nowPlayingItem.type ?? "songs", false, app.playback.nowPlayingItem._songId ?? app.playback.nowPlayingItem.songId ?? app.playback.nowPlayingItem.id ?? "").then((u) => {
-                  app.songLinkShare(u.data.data.length && u.data.data.length > 0 ? u.data.data[0].attributes.url : u.data.data.attributes.url);
-                });
+                return app.shareNowPlayingItem(true);
               },
             },
             {
