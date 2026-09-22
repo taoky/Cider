@@ -4855,20 +4855,15 @@ const app = new Vue({
             {
               icon: "./assets/feather/user.svg",
               name: app.getLz("action.goToArtist"),
-              action: async function () {
-                if (app.playback.nowPlayingItem.relationships.artists.data[0].id) {
-                  app.appRoute(`artist/${app.playback.nowPlayingItem.relationships.artists.data[0].id}`);
-                } else {
-                  const primaryArtist = await MusicKitInterop.fetchSongRelationships({ relationship: "primaryArtist" });
-                  app.appRoute(`artist/${primaryArtist.id}`);
-                }
+              action: function () {
+                return app.getNowPlayingItemDetailed("artist");
               },
             },
             {
               icon: "./assets/feather/disc.svg",
               name: app.getLz("action.goToAlbum"),
               action: function () {
-                app.appRoute(`album/${app.playback.nowPlayingItem.relationships.albums.data[0].id}`);
+                return app.getNowPlayingItemDetailed("album");
               },
             },
             {
