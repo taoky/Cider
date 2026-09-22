@@ -1,5 +1,6 @@
 import { store } from "./vuex-store.js";
 import { installPlaybackIdle } from "./playback-idle.mjs";
+import { fetchNeteaseLyrics } from "./netease-lyrics.mjs";
 
 // Session-only, bounded cache. Keep request identity separate from the displayed track.
 const lyricsCache = new Map();
@@ -3694,68 +3695,30 @@ const app = new Vue({
         app.loadQQLyrics();
       }
     },
-    loadNeteaseLyrics() {
+    async loadNeteaseLyrics() {
       const request = lyricsRequest;
-      if (!app.cfg.lyrics.enable_netease) return app.loadAMLyrics();
-      const track = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.title ?? "" : "");
-      const artist = encodeURIComponent(this.playback.nowPlayingItem != null ? this.playback.nowPlayingItem.artistName ?? "" : "");
-      const time = encodeURIComponent(this.playback.nowPlayingItem != null ? Math.round((this.playback.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1);
-      var url = `http://music.163.com/api/search/get/?csrf_token=hlpretag=&hlposttag=&s=${track + " " + artist}&type=1&offset=0&total=true&limit=6`;
-      var req = new XMLHttpRequest();
-      req.overrideMimeType("application/json");
-      req.open("GET", url, true);
-      req.onload = function () {
+      if (!this.cfg.lyrics.enable_netease) return this.loadAMLyrics();
+      const isCurrent = () => request === lyricsRequest && this.cfg.lyrics.enable_netease;
+      try {
+        const response = await fetchNeteaseLyrics(this.playback.nowPlayingItem ?? {}, isCurrent);
         if (request !== lyricsRequest) return;
-        if (!app.cfg.lyrics.enable_netease) return app.loadAMLyrics();
-        try {
-          var jsonResponse = JSON.parse(req.responseText);
-          var id = jsonResponse["result"]["songs"][0]["id"];
-          var url2 = "https://music.163.com/api/song/lyric?os=pc&id=" + id + "&lv=-1&kv=-1&tv=-1";
-          var req2 = new XMLHttpRequest();
-          req2.overrideMimeType("application/json");
-          req2.open("GET", url2, true);
-          req2.onload = function () {
-            if (request !== lyricsRequest) return;
-            try {
-              var jsonResponse2 = JSON.parse(req2.responseText);
-              var lrcfile = jsonResponse2["lrc"]["lyric"];
-              app.lyricsMediaItem = lrcfile;
-              const translations = new Map(app.parseLRC(jsonResponse2.tlyric?.lyric).map((entry) => [entry.startTime, entry.line]));
-              const lines = app.parseLRC(lrcfile);
-              if (!lines.length) return app.loadAMLyrics();
-              const lyrics = lines.map((entry, index) => ({
-                ...entry,
-                endTime: lines[index + 1]?.startTime ?? 99999,
-                translation: translations.get(entry.startTime) ?? "",
-              }));
-              if (lyrics.length > 0) {
-                lyrics.unshift({
-                  startTime: 0,
-                  endTime: lyrics[0].startTime,
-                  line: "lrcInstrumental",
-                  translation: "",
-                });
-              }
-              app.lyrics = lyrics;
-              app.cacheLyrics(request);
-            } catch (e) {
-              app.loadAMLyrics();
-            }
-          };
-          req2.onerror = function () {
-            if (request !== lyricsRequest) return;
-            app.loadAMLyrics();
-          };
-          req2.send();
-        } catch (e) {
-          app.loadAMLyrics();
-        }
-      };
-      req.send();
-      req.onerror = function () {
-        if (request !== lyricsRequest) return;
-        app.loadAMLyrics();
-      };
+        if (!isCurrent() || !response) return this.loadAMLyrics();
+        const lrcfile = response.lrc?.lyric;
+        const lines = this.parseLRC(lrcfile);
+        if (!lines.length) return this.loadAMLyrics();
+        const translations = new Map(this.parseLRC(response.tlyric?.lyric).map((entry) => [entry.startTime, entry.line]));
+        const lyrics = lines.map((entry, index) => ({
+          ...entry,
+          endTime: lines[index + 1]?.startTime ?? 99999,
+          translation: translations.get(entry.startTime) ?? "",
+        }));
+        lyrics.unshift({ startTime: 0, endTime: lyrics[0].startTime, line: "lrcInstrumental", translation: "" });
+        this.lyricsMediaItem = lrcfile;
+        this.lyrics = lyrics;
+        this.cacheLyrics(request);
+      } catch (error) {
+        if (request === lyricsRequest) return this.loadAMLyrics();
+      }
     },
     loadQQLyrics() {
       const request = lyricsRequest;
@@ -3851,7 +3814,9 @@ const app = new Vue({
         const match = /^((?:\[(?:\d+:){1,2}\d+(?:\.\d+)?\])+)(.*)$/.exec(line);
         if (!match) continue;
         for (const timestamp of match[1].matchAll(/\[([^\]]+)\]/g)) {
-          lyrics.push({ startTime: this.toMS(timestamp[1]), line: match[2].trim() });
+          // NetEase also uses mm:ss:ff for LRC fractional seconds.
+          const time = timestamp[1].replace(/^(\d+:\d+):(\d+)$/, "$1.$2");
+          lyrics.push({ startTime: this.toMS(time), line: match[2].trim() });
         }
       }
       return lyrics.sort((a, b) => a.startTime - b.startTime);
