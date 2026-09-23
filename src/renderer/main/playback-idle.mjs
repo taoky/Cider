@@ -5,6 +5,7 @@ export function installPlaybackIdle(mk, MusicKit, { idleMs = 5 * 60 * 1000, setT
   let suspended = null;
   let releasing = null;
   let resuming = null;
+  let resumeFailed = false;
   let interruptingResume = null;
   let restoring = null;
   let activity = 0;
@@ -143,18 +144,25 @@ export function installPlaybackIdle(mk, MusicKit, { idleMs = 5 * 60 * 1000, setT
     const previousOptions = playOptions.get(snapshot.queueItem.id);
     const options = { ...previousOptions, startTime: Number.isFinite(snapshot.time) ? Math.max(0, snapshot.time) : 0 };
     playOptions.set(snapshot.queueItem.id, options);
+    resumeFailed = false;
     resuming = Promise.resolve()
       .then(() => (interruptingResume ? undefined : originalPlay(...args)))
+      .catch((error) => {
+        resumeFailed = true;
+        throw error;
+      })
       .finally(async () => {
         // A failed load must not leave a startTime attached to a later selection.
         if (playOptions.get(snapshot.queueItem.id) === options) {
           if (previousOptions === undefined) playOptions.delete(snapshot.queueItem.id);
           else playOptions.set(snapshot.queueItem.id, previousOptions);
         }
-        if (mk.isPlaying) setSuspended(null);
-        else if (mk.nowPlayingItem) {
-          // Loading may fail after assigning nowPlayingItem. Clean up that
-          // partial session so a retry reloads the track with the saved offset.
+        // play() can settle while the loaded track is buffering or seeking.
+        // isPlaying is false in those normal states, not evidence of failure.
+        if (!resumeFailed && !interruptingResume && mk.nowPlayingItem) setSuspended(null);
+        else if ((resumeFailed || interruptingResume) && mk.nowPlayingItem) {
+          // Only a reported failure or explicit interruption warrants teardown.
+          // Retain the snapshot so a retry reloads with the saved offset.
           try {
             await originalStop({ userInitiated: false });
           } catch (error) {
@@ -210,6 +218,10 @@ export function installPlaybackIdle(mk, MusicKit, { idleMs = 5 * 60 * 1000, setT
   };
 
   mk.addEventListener(MusicKit.Events.playbackStateDidChange, schedule);
+  mk.addEventListener(MusicKit.Events.mediaPlaybackError, () => {
+    // MusicKit can report a load error through an event and resolve play().
+    if (resuming) resumeFailed = true;
+  });
   mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, () => {
     if (restoring || releasing || resuming) return;
     // Some SDK notifications can arrive after stop() resolves.
