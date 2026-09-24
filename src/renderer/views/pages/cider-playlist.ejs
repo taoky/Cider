@@ -717,14 +717,6 @@
       },
       async menu(event) {
         let self = this
-        let artistId = null
-
-        if (typeof this.data.relationships.artists != "undefined") {
-          artistId = this.data.relationships.artists.data[0].id
-          if (this.data.relationships.artists.data[0].type == "library-artists") {
-            artistId = this.data.relationships.artists.data[0].relationships.catalog.data[0].id
-          }
-        }
 
         let menuItems = {
           headerItems: [
