@@ -139,8 +139,8 @@ importers:
         specifier: ^8.18.1
         version: 8.18.1
       electron:
-        specifier: github:castlabs/electron-releases#v44.1.0+wvcus
-        version: https://codeload.github.com/castlabs/electron-releases/tar.gz/bbb3862120430db6fa3ffa1ce22c3b66fe99e0b8
+        specifier: github:castlabs/electron-releases#v44.5.1+wvcus
+        version: https://codeload.github.com/castlabs/electron-releases/tar.gz/9b90904e4fe174122b99eca5b7b967aa79681cc6
       electron-builder:
         specifier: 26.2.0
         version: 26.2.0(electron-builder-squirrel-windows@26.2.0)
@@ -513,7 +513,7 @@ packages:
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
   '@types/musickit@https://codeload.github.com/ciderapp/musickit-types/tar.gz/ee13e00ce4241e61de0712b1b5a103467ddef69d':
-    resolution: {gitHosted: true, integrity: sha512-KT8ptpYpQM2oSsYcB1J3bHtTciTeUWP5xsJZ91uyoxZB3XWQ+iKOvlSp7ooii6dECtLx44imSaHACT+JXHf6jA==, tarball: https://codeload.github.com/ciderapp/musickit-types/tar.gz/ee13e00ce4241e61de0712b1b5a103467ddef69d}
+    resolution: {gitHosted: true, tarball: https://codeload.github.com/ciderapp/musickit-types/tar.gz/ee13e00ce4241e61de0712b1b5a103467ddef69d}
     version: 1.0.0
 
   '@types/node@16.9.1':
@@ -699,7 +699,7 @@ packages:
     engines: {node: '>=6.0.0'}
 
   axlsign@https://codeload.github.com/ciderapp/curve25519-js/tar.gz/cae68782564b83ffa1c7c757e40a3944cb140290:
-    resolution: {gitHosted: true, integrity: sha512-ZiZ+2L37jfcMHM6P8vn5qJHInH2r099/MF36NUuO1psU9cSuO8gcCFGYKJ6H74iuv9DApKcT0K0YnE90vBVfNA==, tarball: https://codeload.github.com/ciderapp/curve25519-js/tar.gz/cae68782564b83ffa1c7c757e40a3944cb140290}
+    resolution: {tarball: https://codeload.github.com/ciderapp/curve25519-js/tar.gz/cae68782564b83ffa1c7c757e40a3944cb140290}
     version: 1.0.0
 
   balanced-match@1.0.2:
@@ -823,7 +823,7 @@ packages:
     resolution: {integrity: sha512-3QWevHrjT22KdF08Y2a217IYCDQDP7vEJaY4n0lPBeC5UBYbMFMadDfVTsaQwq7wqsEgYUHElPGm3EO1ey+TNw==}
 
   chacha-js@https://codeload.github.com/ciderapp/chacha20poly1305/tar.gz/f85941b8f5c62843a1459758cc3dbabad9f849cb:
-    resolution: {gitHosted: true, integrity: sha512-spB6NAe7pugYQDgSR/JrC+uB8Q4ZhBdheK+G81frwKYkpY7/8vZjF8SZo53jcZBFzIq71PDoQZiDAp7FjEsz3w==, tarball: https://codeload.github.com/ciderapp/chacha20poly1305/tar.gz/f85941b8f5c62843a1459758cc3dbabad9f849cb}
+    resolution: {tarball: https://codeload.github.com/ciderapp/chacha20poly1305/tar.gz/f85941b8f5c62843a1459758cc3dbabad9f849cb}
     version: 2.1.1
 
   chalk@4.1.2:
@@ -1067,7 +1067,7 @@ packages:
     hasBin: true
 
   dns-js@https://codeload.github.com/ciderapp/node-dns-js/tar.gz/212b6c903db40bcd501af741e51cd20d676acbc9:
-    resolution: {gitHosted: true, integrity: sha512-J+fkdnis/+q6ykmvY1/XndkaxNVbOevx/qmbphpwGOG4CrrplQRBdKe6Rs1z3TcNnqc6E33Ia1fe0hHS6vypbw==, tarball: https://codeload.github.com/ciderapp/node-dns-js/tar.gz/212b6c903db40bcd501af741e51cd20d676acbc9}
+    resolution: {tarball: https://codeload.github.com/ciderapp/node-dns-js/tar.gz/212b6c903db40bcd501af741e51cd20d676acbc9}
     version: 0.2.1
     engines: {node: '>= 4.1.0'}
 
@@ -1133,9 +1133,9 @@ packages:
     resolution: {integrity: sha512-bO3y10YikuUwUuDUQRM4KfwNkKhnpVO7IPdbsrejwN9/AABJzzTQ4GeHwyzNSrVO+tEH3/Np255a3sVZpZDjvg==}
     engines: {node: '>=8.0.0'}
 
-  electron@https://codeload.github.com/castlabs/electron-releases/tar.gz/bbb3862120430db6fa3ffa1ce22c3b66fe99e0b8:
-    resolution: {gitHosted: true, integrity: sha512-sqs+pKrX4M1X656PD8aQkNuzyx+AFDbfpbP2j/h2ozjoCwVXiajFd92/8nf5cak40MOlwjKRj3AxVcUjZVk+PQ==, tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/bbb3862120430db6fa3ffa1ce22c3b66fe99e0b8}
-    version: 44.1.0
+  electron@https://codeload.github.com/castlabs/electron-releases/tar.gz/9b90904e4fe174122b99eca5b7b967aa79681cc6:
+    resolution: {gitHosted: true, integrity: sha512-gGZNyu+9ZnauxXA3gMNUjytnME94KSqIVS0+TENE6NBJlFdYufJqSRQzGaWgL/XHUAwBtQ3bHrjfXZ28Jz+Ixw==, tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/9b90904e4fe174122b99eca5b7b967aa79681cc6}
+    version: 44.5.1
     engines: {node: '>= 22.12.0'}
     hasBin: true
 
@@ -1750,7 +1750,7 @@ packages:
     engines: {node: '>= 0.4'}
 
   mdns-js@https://codeload.github.com/ciderapp/node-mdns-js/tar.gz/a34c514981c4dded54ae47e49660a4497dfedf0c:
-    resolution: {gitHosted: true, integrity: sha512-OA1UHxEs71d+6HGyPNpPrN30M0z+oVZUiWAz6UBa/OlecPVydKDEBtKcmTnveH6rnChJ/mrOsiA1Z9fTi/uaaQ==, tarball: https://codeload.github.com/ciderapp/node-mdns-js/tar.gz/a34c514981c4dded54ae47e49660a4497dfedf0c}
+    resolution: {gitHosted: true, tarball: https://codeload.github.com/ciderapp/node-mdns-js/tar.gz/a34c514981c4dded54ae47e49660a4497dfedf0c}
     version: 1.0.7
     engines: {node: '>= 6.0.0'}
 
@@ -2196,7 +2196,7 @@ packages:
     hasBin: true
 
   prebuild-install@https://codeload.github.com/ciderapp/prebuild-install/tar.gz/a305d02ccffa94de8863c0b3328b98dc6d3a4ef2:
-    resolution: {gitHosted: true, integrity: sha512-Vi3csh4xqGfXOVybKcdlDY+FeSB6wuowGs0+bcK+/qUYjAGN9nbie7UnZGQK+/Ly6sCjlQIdE7fmuPsZcOrGbw==, tarball: https://codeload.github.com/ciderapp/prebuild-install/tar.gz/a305d02ccffa94de8863c0b3328b98dc6d3a4ef2}
+    resolution: {tarball: https://codeload.github.com/ciderapp/prebuild-install/tar.gz/a305d02ccffa94de8863c0b3328b98dc6d3a4ef2}
     version: 7.1.1
     engines: {node: '>=10'}
     hasBin: true
@@ -4175,7 +4175,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@https://codeload.github.com/castlabs/electron-releases/tar.gz/bbb3862120430db6fa3ffa1ce22c3b66fe99e0b8:
+  electron@https://codeload.github.com/castlabs/electron-releases/tar.gz/9b90904e4fe174122b99eca5b7b967aa79681cc6:
     dependencies:
       '@electron-internal/extract-zip': 1.0.5
       '@electron/get': 5.1.0
