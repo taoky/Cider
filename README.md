@@ -79,6 +79,27 @@ VSCode's `npm` built-in extension scans files for "tasks". However, `flatpak-bui
 
 Setting `search.followSymlinks` to `false` in VSCode settings workarounds this.
 
+### Remote Control
+
+#### MCP Server
+
+This feature is disabled by default. It provides a safer approach for LLM agent without full access through old web remote. Currently it supports LLM to search in Apple Music, and help you create a large playlist for all day long.
+
+In Settings → Remote Control, enable MCP, add a client, and copy its connection configuration into your client (agent). Keep Cider running and signed into Apple Music. Each connection requires approval once, then the agent can search music, create playlists, and append songs.
+
+Only playlists ending exactly in `[MCP]` or `[AI]` are accessible by default. New playlists receive `[MCP]` automatically; renaming changes access permissions. You can optionally allow read-only access to other playlists. Disconnect or remove clients in the same settings page.
+
+For Flatpak, it's required to forward `XDG_RUNTIME_DIR` from the agent's current environment (many won't do this):
+
+- Codex: add `env_vars = ["XDG_RUNTIME_DIR"]` under `[mcp_servers.cider]`.
+- OpenCode: add `"environment": {"XDG_RUNTIME_DIR": "{env:XDG_RUNTIME_DIR}"}` to the MCP server entry.
+
+#### Web Remote (original)
+
+Web Remote is a separate, default-off option (in previous versions it's on without a trigger to turn it off). Enable it, generate a pairing code, open <http://127.0.0.1:6942>, and approve the connection in Cider.
+
+Codes expire after two minutes and can be used once. Paired remotes can browse and control your library independently of MCP's playlist restrictions.
+
 ---
 
 Original README:

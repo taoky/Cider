@@ -899,6 +899,10 @@
         flex-flow: column;
         justify-content: flex-end;
 
+        > div:first-child {
+          flex: 1;
+        }
+
         .playlist-name {
           font-weight: 700;
           font-size: 1.6rem;
@@ -929,17 +933,19 @@
           border: 0px;
           color: inherit;
           font-family: inherit;
-          width: 60vw;
+          width: 100%;
+          height: 64px;
+          resize: none;
+          display: block;
+          padding: 4px;
+          border: 1px solid currentColor;
+          border-radius: 4px;
         }
 
-        .descriptionEdit {
-          font-size: 14px;
-          flex-shrink: unset;
-          background: transparent;
-          border: 0px;
-          color: inherit;
-          font-family: inherit;
-          width: 60vw;
+        .description-actions {
+          display: flex;
+          gap: 8px;
+          margin-top: 6px;
         }
 
         .playlist-artist {
@@ -957,13 +963,20 @@
           font-size: 14px;
           flex-shrink: unset;
           margin-right: 5px;
+          margin-bottom: 12px;
           max-height: 100px;
           position: relative;
-          height: 4vh;
+          height: auto;
+          overflow-y: auto;
+          overflow-wrap: anywhere;
+
+          &.description-editing {
+            max-height: none;
+            overflow: visible;
+          }
 
           .content {
-            height: 4vh;
-            -webkit-mask-image: -webkit-gradient(linear, left 50%, left 90%, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
+            height: auto;
           }
 
           .more-btn {
@@ -1178,6 +1191,7 @@
           height 0.2s ease-in-out,
           opacity 0.2s ease-in-out;
         height: 0px !important;
+        margin-bottom: 0;
         opacity: 0;
       }
     }
@@ -2291,6 +2305,74 @@
 
     .settings-tab-content {
       height: 100%;
+    }
+
+    .remote-control-settings {
+      .md-option-line {
+        gap: 16px;
+      }
+
+      .md-option-segment {
+        min-width: 0;
+        small {
+          display: block;
+          margin-top: 4px;
+          opacity: 0.7;
+          line-height: 1.5;
+        }
+      }
+
+      .md-option-segment_auto {
+        flex-shrink: 0;
+      }
+
+      .remote-client-registration {
+        align-items: flex-end;
+        flex-wrap: wrap;
+        > .md-option-segment:first-child {
+          flex: 1 1 160px;
+        }
+        label {
+          margin-bottom: 8px;
+        }
+        input {
+          width: 100%;
+          min-width: 0;
+        }
+      }
+
+      .remote-client-name,
+      .remote-pairing {
+        overflow-wrap: anywhere;
+      }
+
+      .remote-client-config {
+        margin-top: 8px;
+        summary {
+          cursor: pointer;
+          color: var(--keyColor);
+        }
+        pre {
+          margin: 12px 0 0;
+          padding: 12px;
+          border-radius: 6px;
+          background: var(--baseColor);
+          color: inherit;
+          font-size: 12px;
+          white-space: pre-wrap;
+          overflow-wrap: anywhere;
+          user-select: text;
+        }
+      }
+
+      .remote-pairing {
+        user-select: text;
+        strong {
+          margin-top: 8px;
+          font-family: monospace;
+          font-size: 1.15em;
+        }
+      }
     }
 
     &.no-sidebar {

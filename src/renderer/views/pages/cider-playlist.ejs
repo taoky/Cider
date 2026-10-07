@@ -62,6 +62,7 @@
                                                      :item="artist"></artist-chip>
                                     </template>
                                     <div class="playlist-desc"
+                                         :class="{'description-editing': descriptionEditing}"
                                          :style="{ 'color': '#' +hasHeroObject()?.textColor3 ?? '' }"
                                          v-if="(data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)) || (data.attributes.editorialNotes && (data.attributes.editorialNotes.standard || data.attributes.editorialNotes.short))">
                                         <div v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short) != null"
@@ -73,13 +74,21 @@
                                              v-html="(data.attributes.description?.standard ?? (data.attributes.editorialNotes?.standard ?? '')).substring(0, 255) +'...'"
                                         ></div>
                                         <div v-else-if="((data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null) && (descriptionEditing)"
-                                             @mouseover="minClass(false)"><input type="text"
-                                                                                 spellcheck="false"
-                                                                                 class="descriptionEdit"
-                                                                                 v-model="data.attributes.description.standard"
-                                                                                 @blur="editPlaylist"
-                                                                                 @change="editPlaylist"
-                                                                                 @keydown.enter="editPlaylist" /></div>
+                                             @mouseover="minClass(false)">
+                                            <textarea ref="descriptionEdit" class="descriptionEdit" rows="3"
+                                                      spellcheck="false" v-model="descriptionDraft"
+                                                      :aria-label="app.getLz('action.editDescription')"
+                                                      :disabled="descriptionSaving"
+                                                      @keydown.ctrl.enter.prevent="savePlaylistDescription"
+                                                      @keydown.meta.enter.prevent="savePlaylistDescription"
+                                                      @keydown.esc.prevent="cancelPlaylistDescription"></textarea>
+                                            <div class="description-actions">
+                                                <button class="md-btn md-btn-small md-btn-primary" :disabled="descriptionSaving"
+                                                        @click="savePlaylistDescription">{{app.getLz('action.save')}}</button>
+                                                <button class="md-btn md-btn-small" :disabled="descriptionSaving"
+                                                        @click="cancelPlaylistDescription">{{app.getLz('dialog.cancel')}}</button>
+                                            </div>
+                                        </div>
                                         <!-- <button v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short ) != null" class="more-btn"
                                                 @click="editorialNotesExpanded = !editorialNotesExpanded">
                                             {{app.getLz('term.showMore')}}
@@ -335,6 +344,8 @@
         drag: false,
         nameEditing: false,
         descriptionEditing: false,
+        descriptionDraft: '',
+        descriptionSaving: false,
         inLibrary: null,
         confirm: false,
         app: this.$root,
@@ -581,24 +592,42 @@
       },
       editPlaylist() {
         this.app.editPlaylist(this.data.id, this.data.attributes.name);
-        this.app.editPlaylistDescription(this.data.id, this.data.attributes.description.standard);
         this.app.playlists.listing.forEach(playlist => {
           if (playlist.id === this.data.id) {
             playlist.attributes.name = this.data.attributes.name
-            playlist.attributes.description = this.data.attributes.description.standard
           }
         })
         this.nameEditing = false
-        this.descriptionEditing = false
       },
-      editPlaylistDescription() {
-        this.app.editPlaylistDescription(this.data.id, this.data.attributes.description.standard);
-        this.app.playlists.listing.forEach(playlist => {
-          if (playlist.id === this.data.id) {
-            playlist.attributes.description = this.data.attributes.description.standard
-          }
-        })
-        this.descriptionEditing = false
+      async savePlaylistDescription() {
+        if (!this.descriptionEditing || this.descriptionSaving) return;
+        const target = this.data;
+        const description = this.descriptionDraft;
+        if (description === target.attributes.description.standard) {
+          this.descriptionEditing = false;
+          return;
+        }
+        this.descriptionSaving = true;
+        try {
+          await this.app.editPlaylistDescription(target.id, description);
+          target.attributes.description = { ...target.attributes.description, standard: description };
+          this.app.playlists.listing.forEach(playlist => {
+            if (playlist.id === target.id) {
+              playlist.attributes.description = { ...target.attributes.description };
+            }
+          });
+          if (this.data === target) this.descriptionEditing = false;
+        } catch {
+          this.app.notyf.error(this.app.getLz('notification.playlistDescriptionSaveFailed'));
+        } finally {
+          this.descriptionSaving = false;
+        }
+      },
+      cancelPlaylistDescription() {
+        if (!this.descriptionSaving) {
+          this.descriptionEditing = false;
+          this.descriptionDraft = '';
+        }
       },
       addToLibrary(id) {
         app.mk.addToLibrary(id)
@@ -633,10 +662,9 @@
       },
       editPlaylistDescription() {
         if (this.data.attributes.canEdit && this.data.type === "library-playlists") {
-          this.descriptionEditing = true
-          setTimeout(() => {
-            document.querySelector(".descriptionEdit").focus()
-          }, 100)
+          this.descriptionDraft = this.data.attributes.description.standard;
+          this.descriptionEditing = true;
+          this.$nextTick(() => this.$refs.descriptionEdit?.focus());
         }
       },
       buildContextMenu(index) {

@@ -159,7 +159,8 @@
             </div>
         </div>
         <div class="oobe-titlebar">
-            <div class="button-group" v-if="$root.platform !== 'darwin'">
+            <!-- Linux uses WCO; macOS and native title bars already provide window controls. -->
+            <div class="button-group" v-if="$root.cfg.main.PLATFORM === 'win32' && !$root.cfg.visual.nativeTitleBar">
                 <button class="min" @click="$root.ipcRenderer.send('minimize')"></button>
                 <button class="close" @click="$root.ipcRenderer.send('close')"></button>
             </div>

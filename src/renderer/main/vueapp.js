@@ -1794,7 +1794,7 @@ const app = new Vue({
     },
     async editPlaylistDescription(id, name = app.getLz("term.newPlaylist")) {
       let self = this;
-      this.mk.api.v3
+      return this.mk.api.v3
         .music(
           `/v1/me/library/playlists/${id}`,
           {},
@@ -5036,13 +5036,13 @@ const app = new Vue({
           this.$store.state.pageState.settings.currentTabIndex = 7;
           break;
         case "advanced":
-          this.$store.state.pageState.settings.currentTabIndex = 8;
-          break;
-        case "keybindings":
           this.$store.state.pageState.settings.currentTabIndex = 9;
           break;
-        case "github-themes":
+        case "keybindings":
           this.$store.state.pageState.settings.currentTabIndex = 10;
+          break;
+        case "github-themes":
+          this.$store.state.pageState.settings.currentTabIndex = 11;
           break;
       }
       app.modals.settings = true;

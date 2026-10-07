@@ -10,6 +10,8 @@ import { networkInterfaces } from "os";
 import * as mm from "music-metadata";
 import fetch from "electron-fetch";
 import { wsapi } from "./wsapi";
+import { Store } from "./store";
+const { AutomationService } = require("../automation/service");
 import { utils } from "./utils";
 import { Plugins } from "./plugins";
 import { watch } from "chokidar";
@@ -466,8 +468,19 @@ export class BrowserWindow {
     //     electronVibrancy.SetVibrancy(BrowserWindow.win, 0);
 
     // }
-    const ws = new wsapi(BrowserWindow.win);
-    ws.InitWebSockets();
+    try {
+      const automation = new AutomationService(BrowserWindow.win, Store.cfg, (key: string) => utils.getLocale(String(utils.getStoreValue("general.language")).replace(/_/g, "-"), key));
+      const ws = new wsapi(BrowserWindow.win, automation);
+      ws.InitWebSockets();
+    } catch {
+      // An unreadable automation journal must fail closed without breaking playback.
+      console.error("[Cider] Automation unavailable: check userData/automation permissions and data.");
+      ipcMain.removeHandler("automation-settings");
+      ipcMain.handle("automation-settings", async (event) => {
+        if (event.sender !== BrowserWindow.win.webContents || event.senderFrame !== BrowserWindow.win.webContents.mainFrame) throw new Error("UNAUTHORIZED_WINDOW");
+        return { clients: [], sessions: [], error: "Automation unavailable: check userData/automation permissions and data, then restart Cider. / 接口数据无法读取，请检查后重启。" };
+      });
+    }
     // and load the renderer.
     this.startSession();
     this.startHandlers();
@@ -506,7 +519,6 @@ export class BrowserWindow {
     app.use(express.static(join(utils.getPath("srcPath"), "./renderer/")));
     app.set("views", join(utils.getPath("srcPath"), "./renderer/views"));
     app.set("view engine", "ejs");
-    let firstRequest = true;
     app.use((req, res, next) => {
       if (!req || !req.headers || !req.headers.host || !req.headers["user-agent"]) {
         console.error("Req not defined");
@@ -545,38 +557,8 @@ export class BrowserWindow {
       }
     });
 
-    app.get("/api/playback/:action", (req, res) => {
-      const action = req.params.action;
-      switch (action) {
-        case "playpause":
-          BrowserWindow.win.webContents.executeJavaScript("wsapi.togglePlayPause()");
-          res.send("Play/Pause toggle");
-          break;
-        case "play":
-          BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().play()");
-          res.send("Playing");
-          break;
-        case "pause":
-          BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().pause()");
-          res.send("Paused");
-          break;
-        case "stop":
-          BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().stop()");
-          res.send("Stopped");
-          break;
-        case "next":
-          BrowserWindow.win.webContents.executeJavaScript("if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);}");
-          res.send("Next");
-          break;
-        case "previous":
-          BrowserWindow.win.webContents.executeJavaScript("if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex);}");
-          res.send("Previous");
-          break;
-        default: {
-          res.send("Invalid action");
-        }
-      }
-    });
+    // Unauthenticated HTTP playback control has been retired.
+    app.all("/api/playback/:action", (_req, res) => res.status(410).send("Use the paired Web Remote"));
 
     app.get("/themes/:theme", (req, res) => {
       const theme = req.params.theme;
@@ -676,21 +658,26 @@ export class BrowserWindow {
     remote.use(express.static(join(utils.getPath("srcPath"), "./web-remote/")));
     remote.set("views", join(utils.getPath("srcPath"), "./web-remote/views"));
     remote.set("view engine", "ejs");
-    getPort({ port: 6942 }).then((port: number) => {
-      this.remotePort = port;
-      const webHost = process.env["CIDER_REMOTE_WEB_HOST"] || "localhost";
-      if (webHost !== "localhost") {
-        // Start Remote Discovery
-        this.broadcastRemote();
+    let remoteServer: any = null;
+    const syncRemote = () => {
+      if (Store.cfg.get("connectivity.remote.enabled") !== true) {
+        remoteServer?.closeAllConnections?.();
+        remoteServer?.close();
+        remoteServer = null;
+        return;
       }
-      remote.listen(this.remotePort, webHost, () => {
-        console.log(`Cider remote port: ${this.remotePort}`);
-        firstRequest = false;
+      if (remoteServer) return;
+      this.remotePort = 6942;
+      remoteServer = remote.listen(this.remotePort, "127.0.0.1");
+      const current = remoteServer;
+      current.on("error", () => {
+        if (remoteServer === current) remoteServer = null;
       });
-      remote.get("/", (_req, res) => {
-        res.render("index", this.EnvironmentVariables);
-      });
-    });
+    };
+    remote.get("/", (_req, res) => res.render("index", this.EnvironmentVariables));
+    Store.cfg.onDidAnyChange(syncRemote);
+
+    syncRemote();
   }
 
   /**

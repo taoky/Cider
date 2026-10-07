@@ -33,7 +33,6 @@ export default class WebNowPlaying {
 
   private _win: any;
   private ws?: WebSocket;
-  private wsapiConn?: WebSocket;
   private playerName: string = "Cider";
 
   constructor() {
@@ -187,24 +186,6 @@ export default class WebNowPlaying {
 
     init();
 
-    // Connect to wsapi. Only used to update progress.
-    try {
-      this.wsapiConn = new WebSocket("ws://127.0.0.1:26369/");
-
-      this.wsapiConn.onopen = () => {
-        console.info("[WebNowPlaying] Connected to wsapi");
-      };
-
-      this.wsapiConn.onmessage = (evt: WebSocket.MessageEvent) => {
-        const response = JSON.parse(<string>evt.data);
-        if (response.type === "playbackStateUpdate") {
-          this.sendSongInfo(response.data);
-        }
-      };
-    } catch (error) {
-      console.error(error);
-    }
-
     console.debug(`[Plugin][${this.name}] Ready.`);
   }
 
@@ -218,9 +199,6 @@ export default class WebNowPlaying {
       this.ws.onclose = () => void 0; // disable onclose handler first to stop it from retrying
       this.ws.close();
     }
-    if (this.wsapiConn) {
-      this.wsapiConn.close();
-    }
     console.debug(`[Plugin][${this.name}] Stopped.`);
   }
 
@@ -230,6 +208,11 @@ export default class WebNowPlaying {
    */
   @WebNowPlaying.windowsOnly
   public onPlaybackStateDidChange(attributes: any) {
+    this.sendSongInfo(attributes);
+  }
+
+  @WebNowPlaying.windowsOnly
+  public playbackTimeDidChange(attributes: any) {
     this.sendSongInfo(attributes);
   }
 

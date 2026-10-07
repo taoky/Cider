@@ -66,6 +66,8 @@ export class Store {
       showLovedTracksInline: true,
     },
     connectivity: {
+      mcp: { enabled: false, readOtherPlaylists: false },
+      remote: { enabled: false },
       discord_rpc: {
         enabled: true,
         client: "Cider",

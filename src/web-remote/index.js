@@ -78,15 +78,10 @@ var app = new Vue({
       this.search.lastY = e.target.scrollTop;
     },
     musicKitAPI(method, id, params, library = false) {
-      socket.send(
-        JSON.stringify({
-          action: "musickit-api",
-          method: method,
-          id: id,
-          params: params,
-          library: library,
-        }),
-      );
+      const actions = { search: "browse-artist-search", album: "browse-album", playlist: "browse-playlist", artist: "browse-artist" };
+      const action = actions[method];
+      if (!action) return;
+      socket.send(JSON.stringify({ action, id, ...(method === "search" ? {} : { library }) }));
     },
     resetPlayerUI() {
       this.player.lowerPanelState = "controls";
@@ -590,16 +585,13 @@ var app = new Vue({
         this.url = prompt("Host IP", "localhost");
       }
       socket = new WebSocket(`ws://${this.url}:26369`);
-      socket.onopen = (e) => {
-        console.log(e);
-        console.log("connected");
-        app.connectedState = 1;
-        if (getParameterByName("mode")) {
-          self.setMode(getParameterByName("mode"));
-        } else {
-          self.setMode("default");
+      socket.onopen = () => {
+        const code = prompt("Enter the pairing code from Cider Settings → MCP / Web Remote");
+        if (!code) {
+          socket.close();
+          return;
         }
-        self.clearSelectedTrack();
+        socket.send(JSON.stringify({ action: "pair", code }));
       };
 
       socket.onclose = (e) => {
@@ -617,6 +609,16 @@ var app = new Vue({
       socket.onmessage = (e) => {
         const response = JSON.parse(e.data);
         switch (response.type) {
+          case "paired":
+            app.connectedState = 1;
+            self.setMode(getParameterByName("mode") || "default");
+            self.clearSelectedTrack();
+            self.getCurrentMediaItem();
+            break;
+          case "error":
+            console.warn(response.message);
+            break;
+
           default:
             break;
           case "musickitapi.search":

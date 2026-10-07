@@ -1,4 +1,5 @@
 import { app } from "./vueapp.js";
+import { installAutomation } from "./automation.js";
 import { CiderCache } from "./cidercache.js";
 import { CiderFrontAPI } from "./ciderfrontapi.js";
 import { simulateGamepad } from "./gamepad.js";
@@ -18,6 +19,7 @@ window.CiderAudio = CiderAudio;
 window.CiderCache = CiderCache;
 window.CiderFrontAPI = CiderFrontAPI;
 window.wsapi = wsapi;
+installAutomation(app, wsapi);
 
 if (app.cfg.advanced.disableLogging === true) {
   // Preserve the console object and methods used by third-party SDKs.

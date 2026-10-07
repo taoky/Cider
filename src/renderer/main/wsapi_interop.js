@@ -1,14 +1,6 @@
 const wsapi = {
   cache: { playParams: { id: 0 }, status: null, remainingTime: 0 },
   playbackCache: { status: null, time: Date.now() },
-  async v3(encoded = "") {
-    let decoded = atob(encoded);
-    let json = JSON.parse(decoded);
-    console.log(json);
-    let response = await await MusicKit.getInstance().api.v3.music(json.route, json.body, json.options);
-    let ret = response.data;
-    return JSON.stringify(ret);
-  },
   search(term, limit) {
     MusicKit.getInstance()
       .api.search(term, {
@@ -65,21 +57,6 @@ const wsapi = {
   },
   returnDynamic(data, type) {
     ipcRenderer.send("wsapi-returnDynamic", JSON.stringify(data), type);
-  },
-  musickitApi(method, id, params, library = false) {
-    if (library) {
-      MusicKit.getInstance()
-        .api.library[method](id, params)
-        .then((results) => {
-          ipcRenderer.send("wsapi-returnMusicKitApi", JSON.stringify(results), method);
-        });
-    } else {
-      MusicKit.getInstance()
-        .api[method](id, params)
-        .then((results) => {
-          ipcRenderer.send("wsapi-returnMusicKitApi", JSON.stringify(results), method);
-        });
-    }
   },
   getPlaybackState() {
     ipcRenderer.send("wsapi-updatePlaybackState", MusicKitInterop.getAttributes());

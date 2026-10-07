@@ -1336,6 +1336,97 @@
                 </b-tab>
                 <b-tab>
                     <template #title>
+                        <div><svg-icon url="./assets/feather/cast.svg" classes="svg-md" name="settings-remote-control" /></div>
+                        <div>{{$root.getLz('settings.header.remoteControl')}}</div>
+                    </template>
+                    <div class="settings-tab-content remote-control-settings">
+                        <div class="md-option-container">
+                            <div class="md-option-header"><span>MCP</span></div>
+                            <div class="settings-option-body">
+                                <div class="md-option-line">
+                                    <div class="md-option-segment">
+                                        {{$root.getLz('settings.remoteControl.enableMcp')}}
+                                        <small>{{$root.getLz('settings.remoteControl.enableMcp.description')}}</small>
+                                    </div>
+                                    <div class="md-option-segment md-option-segment_auto"><label><input type="checkbox" v-model="$root.cfg.connectivity.mcp.enabled" :aria-label="$root.getLz('settings.remoteControl.enableMcp')" switch /></label></div>
+                                </div>
+                                <div class="md-option-line">
+                                    <div class="md-option-segment">
+                                        {{$root.getLz('settings.remoteControl.readOther')}}
+                                        <small>{{$root.getLz('settings.remoteControl.readOther.description')}}</small>
+                                    </div>
+                                    <div class="md-option-segment md-option-segment_auto"><label><input type="checkbox" v-model="$root.cfg.connectivity.mcp.readOtherPlaylists" :aria-label="$root.getLz('settings.remoteControl.readOther')" switch /></label></div>
+                                </div>
+                                <div class="md-option-line"><div class="md-option-segment"><small>{{$root.getLz('settings.remoteControl.playlistAccess')}}</small></div></div>
+                            </div>
+                            <div class="md-option-header"><span>{{$root.getLz('settings.remoteControl.clients')}}</span></div>
+                            <div class="settings-option-body">
+                                <div class="md-option-line remote-client-registration">
+                                    <div class="md-option-segment">
+                                        <label for="remote-client-name">{{$root.getLz('settings.remoteControl.clientName')}}</label>
+                                        <input id="remote-client-name" type="text" v-model="automationName" maxlength="80" :placeholder="$root.getLz('settings.remoteControl.clientName')" @keyup.enter="automationName.trim() && automationRegister()">
+                                    </div>
+                                    <div class="md-option-segment md-option-segment_auto">
+                                        <button class="md-btn" :disabled="!automationName.trim()" @click="automationRegister">{{$root.getLz('settings.remoteControl.addClient')}}</button>
+                                    </div>
+                                </div>
+                                <div class="md-option-line" v-if="!automationState.clients.length"><div class="md-option-segment"><small>{{$root.getLz('settings.remoteControl.noClients')}}</small></div></div>
+                                <div class="md-option-line" v-for="client in automationState.clients" :key="client.id">
+                                    <div class="md-option-segment">
+                                        <span class="remote-client-name">{{client.name}}</span>
+                                        <details class="remote-client-config">
+                                            <summary>{{$root.getLz('settings.remoteControl.configuration')}}</summary>
+                                            <small>{{$root.getLz('settings.remoteControl.configuration.description')}}</small>
+                                            <pre>{{JSON.stringify(client.configuration, null, 2)}}</pre>
+                                        </details>
+                                    </div>
+                                    <div class="md-option-segment md-option-segment_auto"><button class="md-btn" @click="automationAction('remove', client.id)">{{$root.getLz('settings.remoteControl.remove')}}</button></div>
+                                </div>
+                            </div>
+                            <div class="md-option-header"><span>{{$root.getLz('settings.remoteControl.sessions')}}</span></div>
+                            <div class="settings-option-body">
+                                <div class="md-option-line" v-if="!automationState.sessions.length"><div class="md-option-segment"><small>{{$root.getLz('settings.remoteControl.noSessions')}}</small></div></div>
+                                <div class="md-option-line" v-for="session in automationState.sessions" :key="session.id">
+                                    <div class="md-option-segment remote-client-name">{{session.name}}</div>
+                                    <div class="md-option-segment md-option-segment_auto"><button class="md-btn" @click="automationAction('disconnect', session.id)">{{$root.getLz('settings.remoteControl.disconnect')}}</button></div>
+                                </div>
+                            </div>
+                            <div class="md-option-header"><span>{{$root.getLz('settings.remoteControl.webRemote')}}</span></div>
+                            <div class="settings-option-body">
+                                <div class="md-option-line">
+                                    <div class="md-option-segment">
+                                        {{$root.getLz('settings.remoteControl.enableRemote')}}
+                                        <small>{{$root.getLz('settings.remoteControl.enableRemote.description')}}</small>
+                                    </div>
+                                    <div class="md-option-segment md-option-segment_auto"><label><input type="checkbox" v-model="$root.cfg.connectivity.remote.enabled" :aria-label="$root.getLz('settings.remoteControl.enableRemote')" switch /></label></div>
+                                </div>
+                                <div class="md-option-line">
+                                    <div class="md-option-segment">
+                                        {{$root.getLz('settings.remoteControl.pair')}}
+                                        <small>{{$root.getLz('settings.remoteControl.pair.description')}}</small>
+                                    </div>
+                                    <div class="md-option-segment md-option-segment_auto"><button class="md-btn" :disabled="!$root.cfg.connectivity.remote.enabled" @click="automationPair">{{$root.getLz('settings.remoteControl.newCode')}}</button></div>
+                                </div>
+                                <div class="md-option-line" v-if="automationPairing.code && $root.cfg.connectivity.remote.enabled">
+                                    <div class="md-option-segment remote-pairing">
+                                        <span>{{automationPairing.url}}</span>
+                                        <strong>{{automationPairing.code}}</strong>
+                                        <small>{{$root.getLz('settings.remoteControl.pairingExpiry')}}</small>
+                                    </div>
+                                </div>
+                                <div class="md-option-line">
+                                    <div class="md-option-segment">{{$root.getLz('settings.remoteControl.remoteConnections')}}: {{automationState.remoteConnections || 0}}</div>
+                                    <div class="md-option-segment md-option-segment_auto"><button class="md-btn" :disabled="!automationState.remoteConnections" @click="automationAction('remote-disconnect')">{{$root.getLz('settings.remoteControl.disconnectAll')}}</button></div>
+                                </div>
+                            </div>
+                            <div class="settings-option-body" v-if="automationError || automationState.error" role="status">
+                                <div class="md-option-line"><div class="md-option-segment">{{$root.getLz(automationError || 'settings.remoteControl.error.listener')}}</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </b-tab>
+                <b-tab>
+                    <template #title>
                         <div>
                             <svg-icon url="./assets/feather/hard-drive.svg" classes="svg-md" name="settings-advanced" />
                         </div>
@@ -1651,9 +1742,18 @@
         themes: ipcRenderer.sendSync("get-themes"),
         tabIndex: 0,
         canChangeHash: false,
+        automationName: "",
+        automationError: "",
+        automationState: { clients: [], sessions: [] },
+        automationPairing: {},
         lastfmConnecting: false
       }
     },
+    mounted() {
+      this.automationRefresh();
+      this.automationTimer = setInterval(() => this.automationRefresh(), 3000);
+    },
+    beforeDestroy() { clearInterval(this.automationTimer); },
     watch: {
       tabIndex: function(val) {
         if (this.canChangeHash) {
@@ -1662,9 +1762,27 @@
       }
     },
     methods: {
+      async automationRefresh() {
+        try {
+          this.automationState = await ipcRenderer.invoke('automation-settings', 'list');
+          if (this.automationError === 'settings.remoteControl.error.unavailable') this.automationError = '';
+        } catch { this.automationError = 'settings.remoteControl.error.unavailable'; }
+      },
+      async automationAction(action, value) {
+        try { await ipcRenderer.invoke('automation-settings', action, value); this.automationError = ''; await this.automationRefresh(); return true; }
+        catch { this.automationError = 'settings.remoteControl.error.request'; }
+      },
+      async automationRegister() {
+        if (this.automationName.trim() && await this.automationAction('register', this.automationName.trim())) this.automationName = '';
+      },
+      async automationPair() {
+        try { this.automationPairing = await ipcRenderer.invoke('automation-settings', 'remote-pair'); this.automationError = ''; }
+        catch { this.automationError = 'settings.remoteControl.error.pair'; }
+      },
+
       sidebarVis() {
         const tabIndex = app.$store.state.pageState['settings'].currentTabIndex
-        if (tabIndex == 3 || tabIndex == 5 || tabIndex == 10) {
+        if (tabIndex == 3 || tabIndex == 5 || tabIndex == 11) {
           return true;
         }
         return false
